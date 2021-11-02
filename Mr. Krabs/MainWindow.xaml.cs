@@ -18,6 +18,7 @@ namespace Mr.Krabs {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
         public MainWindow() {
             InitializeComponent();
             this.WindowStyle = WindowStyle.SingleBorderWindow;
@@ -27,6 +28,29 @@ namespace Mr.Krabs {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
             e.Handled = true;
+        }
+
+        #region Window State and Windows Functions
+        private void CloseButtonMouseDown(object sender, MouseButtonEventArgs e) {
+            Windows.Exit();
+        }
+
+        private void MinimizeButtonMouseDown(object sender, MouseButtonEventArgs e) {
+            this.WindowState = WindowState.Minimized;
+        }
+        #endregion
+        private void Rendered(object sender, RoutedEventArgs e) {
+            AnimateAquarium();
+        }
+
+        // animate blurred blobs
+        private void AnimateAquarium() {
+            var blobs = Aquarium.Children.OfType<Ellipse>();
+
+            UI.Move_Randomly moveAnimation = 
+                new UI.Move_Randomly(new UI.Resolution {MaxHeight = this.Height, MaxWidth = this.Width}, blobs.ToArray());
+
+            moveAnimation.Start();
         }
     }
 }

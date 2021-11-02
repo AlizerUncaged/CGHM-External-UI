@@ -4,24 +4,92 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mr.Krabs"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         
         TextOptions.TextFormattingMode="Display" 
         TextOptions.TextRenderingMode="Grayscale"
         RenderOptions.BitmapScalingMode="HighQuality"
         RenderOptions.ClearTypeHint="Enabled"
-        
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         MouseDown="Clicked"
-        Title="Crab HackerMode" Height="500" Width="350">
+        Loaded="Rendered"
+        Title="Crab HackerMode" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
+    <Window.Resources>
+        <Storyboard x:Key="CloseButtonEnter">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="CloseButton">
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFFF7F63"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseButtonEnterReverse">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="CloseButton">
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="White"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Welcome"/>
+        <Storyboard x:Key="Minimize">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="MinimizeButton">
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF6855EF"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MinimizeReverse">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="MinimizeButton">
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="White"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="CloseButton">
+            <BeginStoryboard Storyboard="{StaticResource CloseButtonEnter}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="CloseButton">
+            <BeginStoryboard x:Name="CloseButtonEnterReverse_BeginStoryboard" Storyboard="{StaticResource CloseButtonEnterReverse}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="MinimizeButton">
+            <BeginStoryboard x:Name="Minimize_BeginStoryboard" Storyboard="{StaticResource Minimize}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="MinimizeButton">
+            <BeginStoryboard x:Name="MinimizeReverse_BeginStoryboard" Storyboard="{StaticResource MinimizeReverse}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="7" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
     </WindowChrome.WindowChrome>
-    <DockPanel Background="{DynamicResource BackgroundNormal}">
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,0,0">
-            <Image Source="/UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="10,5,0,5"></Image>
-            <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"></Image>
+    <Grid Background="{DynamicResource BackgroundNormal}">
+        <Grid x:Name="Aquarium">
+            <Grid.Effect>
+                <BlurEffect Radius="100"/>
+            </Grid.Effect>
+            <Ellipse Width="100" Height="100" Fill="#FFC559FF" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Ellipse Width="100" Height="100" Fill="#FFFF8A6F" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Ellipse Width="100" Height="100" Fill="#6855EF" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Grid>
+        <DockPanel Background="#7F0F0F17">
+            <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,5,0">
+                <Image Source="/UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="10,5,0,5"/>
+                <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"/>
+
+                <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseButtonMouseDown" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Foreground="White" Background="#00000000" />
+                <materialDesign:PackIcon x:Name="MinimizeButton" DockPanel.Dock="Right" MouseDown="MinimizeButtonMouseDown" Kind="WindowMinimize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="20" Margin="0,8.5,5,6.5" Cursor="Hand" Foreground="White" Background="#00000000" />
+            </DockPanel>
+            <!-- 1. Wait for Crap Game to run. -->
+            <DockPanel x:Name="Welcome" Margin="0,10,0,0">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40,0">
+                    <TextBlock 
+                        Text="Waiting for Crab Game..." 
+                        Foreground="#3FFFFFFF" 
+                        FontFamily="{materialDesign:MaterialDesignFont}" FontSize="14" HorizontalAlignment="Center" FontWeight="Bold">
+
+                    </TextBlock>
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        Text="Please run Crab Game to continue, if Crab Game is ran as Administrator, this program should too." 
+                        Foreground="#3FFFFFFF" 
+                        FontFamily="{materialDesign:MaterialDesignFont}" Margin="0,10,0,0" VerticalAlignment="Top" TextAlignment="Center"/>
+                </StackPanel>
+            </DockPanel>
         </DockPanel>
-    </DockPanel>
+    </Grid>
 </Window>

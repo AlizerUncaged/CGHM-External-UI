@@ -5,3 +5,10 @@
   <h1><b>🦀 Mr. Krabs</b></h1>
   <p>Crab Game HackerMode!</p>
 </div>
+
+## 📋 Contains the...
+- External UI for CGHM.
+- Communication between the external UI and CGHM dll.
+- Updater.
+
+and everything else the external UI does.

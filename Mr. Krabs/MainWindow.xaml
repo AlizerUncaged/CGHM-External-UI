@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mr.Krabs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
         
-    </Grid>
+        TextOptions.TextFormattingMode="Display" 
+        TextOptions.TextRenderingMode="Grayscale"
+        RenderOptions.BitmapScalingMode="HighQuality"
+        RenderOptions.ClearTypeHint="Enabled"
+        
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseDown="Clicked"
+        Title="Crab HackerMode" Height="500" Width="350">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="7" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
+    </WindowChrome.WindowChrome>
+    <DockPanel Background="{DynamicResource BackgroundNormal}">
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,0,0">
+            <Image Source="/UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="10,5,0,5"></Image>
+            <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"></Image>
+        </DockPanel>
+    </DockPanel>
 </Window>

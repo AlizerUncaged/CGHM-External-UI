@@ -20,6 +20,13 @@ namespace Mr.Krabs {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+        }
+
+        private void Clicked(object sender, MouseButtonEventArgs e) {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+            e.Handled = true;
         }
     }
 }

@@ -13,6 +13,7 @@
         RenderOptions.ClearTypeHint="Enabled"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
+        
         WindowStyle="None"
         MouseDown="Clicked"
         Loaded="Rendered"
@@ -62,9 +63,9 @@
             <Grid.Effect>
                 <BlurEffect Radius="100"/>
             </Grid.Effect>
-            <Ellipse Width="100" Height="100" Fill="#FFC559FF" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Ellipse Width="100" Height="100" Fill="#FFFF8A6F" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Ellipse Width="100" Height="100" Fill="#6855EF" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Ellipse Width="100" Height="100" Fill="#FFC559FF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-100,0,0,0"/>
+            <Ellipse Width="100" Height="100" Fill="#FFFF8A6F" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-100,0,0,0"/>
+            <Ellipse Width="100" Height="100" Fill="#6855EF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-100,0,0,0"/>
         </Grid>
         <DockPanel Background="#7F0F0F17">
             <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,5,0">
@@ -79,7 +80,7 @@
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40,0">
                     <TextBlock 
                         Text="Waiting for Crab Game..." 
-                        Foreground="#3FFFFFFF" 
+                        Foreground="#7FFFFFFF" 
                         FontFamily="{materialDesign:MaterialDesignFont}" FontSize="14" HorizontalAlignment="Center" FontWeight="Bold">
 
                     </TextBlock>

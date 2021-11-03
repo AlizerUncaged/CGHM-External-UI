@@ -39,6 +39,7 @@ namespace Mr.Krabs {
             this.WindowState = WindowState.Minimized;
         }
         #endregion
+
         private void Rendered(object sender, RoutedEventArgs e) {
             AnimateAquarium();
         }

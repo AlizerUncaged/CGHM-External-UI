@@ -74,7 +74,8 @@ namespace Mr.Krabs {
             Static_Utilities.RunAnimation(this, "RemoveSky");
             // dll is there, so that means json file is written right?
             await SStage.FieldsAndHacks.Read();
-            var hacks = new UI.Scenes.Hacks(SStage.Pipe);
+            var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
+            SStage.FieldsAndHacks.StartWatchers();
 
             // add those controls
             var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
@@ -94,7 +95,7 @@ namespace Mr.Krabs {
 
             /* Not running! */
             if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Offline) {
-
+                SStage.Pipe.Stop();
                 Static_Utilities.RunAnimation(this, "RemoveSkyReverse");
             }
             /* Game Ran */

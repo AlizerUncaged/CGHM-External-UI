@@ -21,10 +21,14 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
     public class Read_Chewy_JSON {
 
-        private string _filepath;
+        private string _filepath = "";
         private Hacks _hacks;
+        private FileStream _read_fileStream;
+        private StreamReader _read_stream;
         public Read_Chewy_JSON(string filepath) {
             _filepath = filepath;
+            _read_fileStream = File.Open(_filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            _read_stream = new StreamReader(_read_fileStream);
         }
 
         public async Task<ChewyStatus> Read() {
@@ -66,6 +70,50 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                 .ToArray();
             return properties;
         }
+
+        private Hacks _old_hacks = new Hacks();
+        private bool _keep_reading = true;
+        public void StartWatchers() {
+            _keep_reading = true;
+            Task.Factory.StartNew(async () => {
+                while (_keep_reading) {
+                    string read = _read_stream.ReadToEnd();
+
+                    _read_fileStream.Position = 0;
+                    _read_stream.DiscardBufferedData();
+
+                    var _read_hacks =
+                    JsonConvert.DeserializeObject<Hacks>(read);
+
+
+                    List<PropertyInfo> newProperties = new List<PropertyInfo>();
+
+                    foreach (var property in _read_hacks.GetType().GetProperties()) {
+                        var oldValue = property.GetValue(_old_hacks, null);
+                        var newValue = property.GetValue(_read_hacks, null);
+
+                        if (!object.Equals(oldValue, newValue)) {
+                            newProperties.Add(property);
+                        }
+
+                    }
+
+                    if (newProperties.Count > 0) {
+                        ChangedCheckBoxes?.Invoke(this, (_read_hacks, newProperties.ToArray()));
+                    }
+
+                    _old_hacks = _read_hacks;
+
+                    await Task.Delay(1000);
+                }
+            });
+        }
+        public void StopWatchers() {
+            _keep_reading = false;
+        }
+
+        // contains new values
+        public event EventHandler<(Hacks k, PropertyInfo[])> ChangedCheckBoxes;
 
     }
 }

@@ -11,35 +11,44 @@ using System.Windows.Shapes;
 namespace Mr.Krabs.UI {
 
     public struct Resolution {
+        public double MinHeight, MinWidth;
         public double MaxHeight, MaxWidth;
+    }
+
+    /// <summary>
+    /// Interval in milliseconds.
+    /// </summary>
+    public struct Interval {
+        public int Min, Max;
     }
     public class Move_Randomly {
 
+        private Interval _interval;
         private Resolution _max;
-        private Ellipse[] _elements;
+        private FrameworkElement[] _elements;
+        private IEasingFunction _ease;
         private bool _keepGoing = true;
-        public Move_Randomly(Resolution resolution, Ellipse[] elements) {
-            _elements = elements; _max = resolution;
+        public Move_Randomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
+            _elements = elements; _max = resolution; _interval = interval; _ease = ease;
         }
         private Resolution _random_resolution_not_greater_than_max() {
             return new Resolution {
-                MaxHeight = Static_Utilities.RandomDouble(_max.MaxHeight),
-                MaxWidth = Static_Utilities.RandomDouble(_max.MaxWidth)
+                MinHeight = 0,
+                MinWidth = 0,
+                MaxHeight = Static_Utilities.Random.Next((int)_max.MinHeight, (int)_max.MaxHeight),
+                MaxWidth = Static_Utilities.RandomDouble((int)_max.MinWidth, (int)_max.MaxWidth)
             };
         }
 
-        // declared once, used multiple times
-        private readonly QuinticEase ease = 
-            new QuinticEase { EasingMode = EasingMode.EaseInOut };
 
-        private ThicknessAnimation _random_thickness() {
+        private ThicknessAnimation _random_thickness(FrameworkElement element) {
             var random_res = _random_resolution_not_greater_than_max();
             var ta = new ThicknessAnimation {
                 BeginTime = TimeSpan.Zero,
-                To = new Thickness(random_res.MaxWidth, random_res.MaxHeight, 0, 0),
+                To = new Thickness(random_res.MaxWidth, random_res.MaxHeight, element.Margin.Right, element.Margin.Bottom),
                 Duration = new Duration(TimeSpan.FromMilliseconds(
-                    /* 1 second to 2 second*/ Static_Utilities.Random.Next(2000, 6000))),
-                EasingFunction = ease
+                    /* 1 second to 2 second*/ Static_Utilities.Random.Next(_interval.Min, _interval.Max))),
+                EasingFunction = _ease
             };
 
             return ta;
@@ -55,7 +64,7 @@ namespace Mr.Krabs.UI {
         }
 
         private void _add_animation_to_element(FrameworkElement element) {
-            var ta = _random_thickness();
+            var ta = _random_thickness(element);
             ta.Completed += (s, e) => {
                 if (_keepGoing) {
                     // replay

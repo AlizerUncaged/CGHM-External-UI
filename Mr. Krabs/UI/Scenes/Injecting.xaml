@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Mr.Krabs.UI.Scenes.Injecting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Mr.Krabs.UI.Scenes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="350">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40,0">
+        <TextBlock 
+                        Text="Updating and Injecting Dll..." 
+                        Foreground="#7FFFFFFF" 
+                        FontFamily="{materialDesign:MaterialDesignFont}" FontSize="14" HorizontalAlignment="Center" FontWeight="Bold">
+        </TextBlock>
+        <TextBlock 
+                        TextWrapping="Wrap"
+                        Text="The newest engine for the hack is being downloaded and injected, the game will restart once it's done." 
+                        Foreground="#3FFFFFFF" 
+                        FontFamily="{materialDesign:MaterialDesignFont}" Margin="0,10,0,0" VerticalAlignment="Top" TextAlignment="Center"/>
+    </StackPanel>
+</UserControl>

@@ -23,9 +23,24 @@ namespace Mr.Krabs.UI.Scenes {
     /// </summary>
     public partial class Hacks : UserControl {
         private Pipe_Wrapper _pipe;
-        public Hacks(Pipe_Wrapper pipe) {
+        public Hacks(Pipe_Wrapper pipe, Read_Chewy_JSON jsonwatcher) {
             InitializeComponent();
             _pipe = pipe;
+            jsonwatcher.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
+        }
+
+        private void Jsonwatcher_ChangedCheckBoxes(object sender, (Stage.Communication_and_Pipes.Hacks k, PropertyInfo[]) e) {
+
+            foreach (var h in e.Item2) {
+                if (h.PropertyType == typeof(bool)) {
+                    var name = h.Name;
+
+                    var value = h.GetValue(e.ToTuple().Item1);
+                    var sval = value.ToString().ToLower();
+                    // MessageBox.Show(sval);
+                    Toggle(name, bool.Parse(sval));
+                }
+            }
         }
 
         public void AddHack(PropertyInfo field) {
@@ -33,20 +48,35 @@ namespace Mr.Krabs.UI.Scenes {
                 var k = (Stage.Communication_and_Pipes.HackInfo[])field.GetCustomAttributes(typeof(Stage.Communication_and_Pipes.HackInfo), false);
                 var json = (JsonPropertyAttribute[])field.GetCustomAttributes(typeof(JsonPropertyAttribute), false);
 
-                AddHack(k.FirstOrDefault(), json.FirstOrDefault());
+                AddHack(field, k.FirstOrDefault(), json.FirstOrDefault());
             }
         }
-        public void AddHack(Stage.Communication_and_Pipes.HackInfo info, JsonPropertyAttribute jsonInfo) {
+        public void Toggle(string name, bool toggle) {
+          
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                foreach (var child in Hecks.Children) {
+                    if (child is CheckBox cb) {
+
+                        if (cb.Name == name)
+                            cb.IsChecked = toggle;
+                    }
+                }
+            }));
+         
+        }
+
+        public void AddHack(PropertyInfo field, Stage.Communication_and_Pipes.HackInfo info, JsonPropertyAttribute jsonInfo) {
             switch (info.ControlType) {
                 case Stage.Communication_and_Pipes.HackInfo.HackType.Toggle:
+                    string hack_name = jsonInfo.PropertyName;
                     // create checkbox
                     var cb = new CheckBox {
+                        Name = field.Name,
                         Content = info.Name,
                         Margin = new Thickness(0, 0, 0, 20),
                         Background = new SolidColorBrush(Colors.Transparent)
                     };
 
-                    string hack_name = jsonInfo.PropertyName;
                     cb.Click += (s, e) => {
 
                         Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { hack_name, (bool)cb.IsChecked } };

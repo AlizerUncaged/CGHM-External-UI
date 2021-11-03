@@ -34,6 +34,9 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             _writer.Flush();
             //   _client_pipe.WaitForPipeDrain();
         }
+        public void Stop() {
+            _client_pipe.Close();
+        }
         public void Start() {
 
             _client_pipe.Connect();
@@ -43,13 +46,15 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
             //Task.Factory.StartNew(() => {
             //    while (_keep_alive) {
+            //        // watch the file every 1 second
 
-            //        byte[] bytes = new byte[2048];
-            //        var received = _client_pipe.Read(bytes, 0, bytes.Length);
-            //        string stringed = Encoding.UTF8.GetString(bytes).Trim();
 
-            //        MessageBox.Show("received: " + stringed);
-            //        Received?.Invoke(this, stringed);
+            //        //        byte[] bytes = new byte[2048];
+            //        //        var received = _client_pipe.Read(bytes, 0, bytes.Length);
+            //        //        string stringed = Encoding.UTF8.GetString(bytes).Trim();
+
+            //        //        MessageBox.Show("received: " + stringed);
+            //        //        Received?.Invoke(this, stringed);
             //    }
             //});
         }

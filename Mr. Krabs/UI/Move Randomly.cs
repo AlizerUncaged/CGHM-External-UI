@@ -27,15 +27,19 @@ namespace Mr.Krabs.UI {
                 MaxWidth = Static_Utilities.RandomDouble(_max.MaxWidth)
             };
         }
-        private ThicknessAnimation _random_thickness() {
 
+        // declared once, used multiple times
+        private readonly QuinticEase ease = 
+            new QuinticEase { EasingMode = EasingMode.EaseInOut };
+
+        private ThicknessAnimation _random_thickness() {
             var random_res = _random_resolution_not_greater_than_max();
             var ta = new ThicknessAnimation {
                 BeginTime = TimeSpan.Zero,
                 To = new Thickness(random_res.MaxWidth, random_res.MaxHeight, 0, 0),
-                Duration = new Duration(TimeSpan.FromMilliseconds( 
-                    /* 1 second to 2 second*/ Static_Utilities.Random.Next(4000, 6000))),
-                EasingFunction = new QuadraticEase()
+                Duration = new Duration(TimeSpan.FromMilliseconds(
+                    /* 1 second to 2 second*/ Static_Utilities.Random.Next(2000, 6000))),
+                EasingFunction = ease
             };
 
             return ta;

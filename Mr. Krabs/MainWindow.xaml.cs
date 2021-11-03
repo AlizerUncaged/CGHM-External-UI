@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Mr.Krabs {
 
         //////////////// stage
         /* stage */
-        public Stage.Stage Stage;
+        public Stage.Stage SStage;
         //////////////// stage
 
         public MainWindow() {
@@ -31,6 +32,7 @@ namespace Mr.Krabs {
 
             this.WindowStyle =
                 WindowStyle.SingleBorderWindow;
+
         }
 
         private void Clicked(object sender, MouseButtonEventArgs e) {
@@ -55,11 +57,32 @@ namespace Mr.Krabs {
             AnimateAquarium();
 
             // start watching
-            Stage = new Stage.Stage();
-            Stage.CrabGame.StatusChanged += CrabGame_StatusChanged;
-            _ = Stage.CrabGame.StartWatching();
+            SStage = new Stage.Stage();
+
+            SStage.CrabGame.StatusChanged += CrabGame_StatusChanged;
+            _ = SStage.CrabGame.StartWatching();
+
         }
 
+        /////////////// DLL INJECTED!
+        private async void Pipe_Connected(object sender, EventArgs e) {
+            // the dll is injected!
+            foreach (var j in SkyAnimation) {
+                j.Stop();
+            }
+            // remove skies
+            Static_Utilities.RunAnimation(this, "RemoveSky");
+            // dll is there, so that means json file is written right?
+            await SStage.FieldsAndHacks.Read();
+            var hacks = new UI.Scenes.Hacks(SStage.Pipe);
+
+            // add those controls
+            var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
+            foreach (var toggle in toggles) {
+                hacks.AddHack(toggle);
+            }
+            SetActiveControl(hacks);
+        }
 
         public void SetActiveControl(UserControl control) {
             Welcome.Children.RemoveAt(0);
@@ -94,15 +117,16 @@ namespace Mr.Krabs {
 
                 Static_Utilities.RunAnimation(this, "UnhideCarpet");
 
-            } 
-            /* Injected! */
-            else if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Injected) {
-                foreach (var j in SkyAnimation) {
-                    j.Stop();
-                }
-                // remove skies
-                Static_Utilities.RunAnimation(this, "RemoveSky");
+                // start the pipes
+                SStage.Pipe.Connected += Pipe_Connected;
+              SStage.Pipe.Start();
 
+            } else if (e == Stage.Process_Watcher.CrabGameStatus.Injecting) {
+                // the dll is not there yet
+                // maybe DO NOTHING
+                // Watcher is already injecting it
+            } else if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Injected) {
+                // Injected!
             }
         }
 
@@ -135,5 +159,6 @@ namespace Mr.Krabs {
 
         }
         #endregion
+
     }
 }

@@ -8,7 +8,10 @@ using System.Windows;
 using System.Windows.Media.Animation;
 
 namespace Mr.Krabs {
+
     public static class Static_Utilities {
+
+        public static int Version = 0;
 
         public static Random Random = new Random(DateTime.UtcNow.Second + DateTime.UtcNow.Millisecond);
 

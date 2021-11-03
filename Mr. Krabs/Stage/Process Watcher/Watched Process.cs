@@ -17,7 +17,6 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         public Process BaseProcess = null;
 
 
-
         /// <returns>ProcessWatcher property.</returns>
         public async Task<Process_Finder> StartWatching() {
             await Task.Delay(1000);

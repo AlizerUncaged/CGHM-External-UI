@@ -55,6 +55,8 @@ namespace Mr.Krabs {
         private async void Rendered(object sender, RoutedEventArgs e) {
 
             AnimateAquarium();
+            Version.Text = 
+                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion}";
 
             // start watching
             SStage = new Stage.Stage();

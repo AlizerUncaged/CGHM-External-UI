@@ -52,7 +52,7 @@ namespace Mr.Krabs {
         #endregion
 
         #region Animations 'n Shit
-        private void Rendered(object sender, RoutedEventArgs e) {
+        private async void Rendered(object sender, RoutedEventArgs e) {
 
             AnimateAquarium();
 
@@ -62,8 +62,18 @@ namespace Mr.Krabs {
             SStage.CrabGame.StatusChanged += CrabGame_StatusChanged;
             _ = SStage.CrabGame.StartWatching();
 
+            var update_status = await SStage.UpdateChecker.GetLink();
+            if (update_status.NewVersion) {
+                ShowUpdatePage(update_status.Data.Description, update_status.Data.Link);
+            }
+            e.Handled = true;
         }
+        public void ShowUpdatePage(string desc, string link) {
+            Welcome.Visibility = Visibility.Collapsed;
+            var update_page = new UI.Scenes.New_Update(desc, link);
+            DokcuPanelu.Children.Add(update_page);
 
+        }
         /////////////// DLL INJECTED!
         private async void Pipe_Connected(object sender, EventArgs e) {
             // the dll is injected!
@@ -78,22 +88,22 @@ namespace Mr.Krabs {
 
             // dll is there, so that means json file is written right?
             await SStage.FieldsAndHacks.Read();
-            var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
-            SStage.FieldsAndHacks.StartWatchers();
 
+            var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
             // add those controls
             var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
             foreach (var toggle in toggles) {
                 hacks.AddHack(toggle);
             }
+
+            SStage.FieldsAndHacks.StartWatchers();
+
             SetActiveControl(hacks);
         }
 
         public void SetActiveControl(UserControl control) {
-
             Welcome.Children.RemoveAt(0);
             Welcome.Children.Add(control);
-
         }
 
         private void CrabGame_StatusChanged(object sender, Stage.Process_Watcher.CrabGameStatus e) {
@@ -103,8 +113,8 @@ namespace Mr.Krabs {
                 if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Offline) {
                     var waiting_page = new UI.Scenes.Wait_for_Crab_Game_Page();
                     SetActiveControl(waiting_page);
-
                     SStage.Pipe.Stop();
+
                     Static_Utilities.RunAnimation(this, "RemoveSkyReverse");
                     foreach (var j in SkyAnimation) {
                         j.Start();
@@ -133,14 +143,13 @@ namespace Mr.Krabs {
                     Static_Utilities.RunAnimation(this, "AquariumHidingReverse");
                     Static_Utilities.RunAnimation(this, "UnhideCarpet");
 
-                    // start the pipes
-                    SStage.Pipe.Connected += Pipe_Connected;
-                    SStage.Pipe.Start();
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllNotFound) {
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllFound) {
-
+                    // start the pipes
+                    SStage.Pipe.Connected += Pipe_Connected;
+                    SStage.Pipe.Start();
                 }
             }));
         }

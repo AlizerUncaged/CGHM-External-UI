@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Mr.Krabs.UI.Scenes.New_Update"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Mr.Krabs.UI.Scenes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+           Unloaded="RUnloaded" Loaded="Rendered"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="350">
+    <UserControl.Resources>
+        <Storyboard x:Key="Widen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="WidenDisable">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="grid">
+            <BeginStoryboard Storyboard="{StaticResource Widen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="grid">
+            <BeginStoryboard x:Name="WidenDisable_BeginStoryboard" Storyboard="{StaticResource WidenDisable}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image HorizontalAlignment="Center" Margin="0,0,0,20" Source="/Mr.Krabs;component/UI/Images/Large/New Update.png" Height="21"></Image>
+            <TextBlock TextWrapping="Wrap" x:Name="Description" Margin="5,0,5,20" Text="Bugfixes." Foreground="#7FFFFFFF"></TextBlock>
+            <Grid PreviewMouseDown="Update" x:Name="grid" Width="75" Height="30" Cursor="Hand">
+                <Grid.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=Forgor}" />
+                </Grid.OpacityMask>
+                <Border x:Name="Forgor" CornerRadius="5" Background="{DynamicResource BackgroundNormal}"/>
+                <Grid>
+                    <Grid x:Name="SkullEmoji" ClipToBounds="True">
+                        <Grid.Effect>
+                            <BlurEffect Radius="35"/>
+
+                        </Grid.Effect>
+                        <Path Data="M134,161.33333 C55.333333,84.666611 114,187.33366 114,190.00033 114,192.66699 128,223.33368 132.66667,231.33368 137.33333,239.33368 212.66667,238.00006 134,161.33333 z" Fill="#FF3428FF" HorizontalAlignment="Left" Height="57.992" Margin="4.081,-32.917,0,0" Stretch="Fill" VerticalAlignment="Top" Width="54.597" RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleY="1.042" ScaleX="0.959"/>
+                                    <SkewTransform AngleX="-10.375"/>
+                                    <RotateTransform Angle="23.649"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                        <Path Data="M180.66667,155.33333 C145.33448,195.33356 177.99967,216.00033 196.66634,224.66699 215.33301,233.33366 255.99711,256.6665 285.32934,198.00012 314.66157,139.33374 215.99885,115.33311 180.66667,155.33333 z" Fill="#FFF40968" HorizontalAlignment="Left" Height="44.503" Margin="40.307,-18.227,-34.093,0" Stretch="Fill" VerticalAlignment="Top" Width="68.786"/>
+                        <Path Data="M51.333333,251.33333 C51.333333,251.33333 107.33367,231.33366 120.00033,256.66699 132.667,282.00033 83.333667,329.99612 63.333666,289.3316 43.333665,248.66708 51.333333,251.33333 51.333333,251.33333 z" Fill="#FFFB2ED5" HorizontalAlignment="Left" Height="42.84" Margin="-48.665,14.371,0,-27.211" Stretch="Fill" VerticalAlignment="Top" Width="71.997"/>
+                        <Path Data="M299.33333,240.66667 C299.33333,240.66667 299.31861,240.66867 299.28951,240.67258 296.94488,240.98742 201.27647,253.66463 196.66701,226.66634 192.00034,199.33301 137.99982,257.33393 153.3332,280.66822 168.66658,304.00251 304.66702,261.33385 304.66702,261.33385" Fill="#FF0612FA" HorizontalAlignment="Left" Height="30.019" Margin="24.264,17.015,-33.532,-17.034" Stretch="Fill" VerticalAlignment="Top" Width="84.268"/>
+                    </Grid>
+                </Grid>
+                <materialDesign:PackIcon x:Name="MinimizeButton" Kind="Download" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF1C1A32"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

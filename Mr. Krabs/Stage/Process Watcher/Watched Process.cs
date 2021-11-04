@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace Mr.Krabs.Stage.Process_Watcher {
 
-    /// with watched process
-    /// this should only be one instance throughout the entire app
-    /// UI reacts to StatusChanged, and all memory shit goes here
+    // with watched process
+    // this should only be one instance throughout the entire app
+    // UI reacts to StatusChanged, and all memory shit goes here
 
     public class Watched_Process {
 
         public Process_Finder ProcessWatcher;
         public Process BaseProcess = null;
-
-
         /// <returns>ProcessWatcher property.</returns>
         public async Task<Process_Finder> StartWatching() {
             await Task.Delay(1000);
@@ -36,7 +34,8 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             if (!injected) {
                 // not injected yet
                 // now inject
-
+                _ = await Process_Utilities.AddDllToFolder(exe_path);
+                BaseProcess = await Process_Utilities.RestartProcess(BaseProcess);
                 StatusChanged?.Invoke(this, CrabGameStatus.DllFound);
                 // restart crab game
             }

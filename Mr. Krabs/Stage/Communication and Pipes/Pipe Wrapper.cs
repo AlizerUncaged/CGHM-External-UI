@@ -38,14 +38,17 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             //   _client_pipe.WaitForPipeDrain();
         }
         public void Stop() {
-            _client_pipe.Close();
-            _client_pipe = null;
+            if (_client_pipe != null) {
+                _client_pipe.Close();
+                _client_pipe = null;
+            }
         }
         public void Start() {
             if (_client_pipe == null) {
                 init(_pipe_name);
             }
-            _client_pipe.Connect();
+            if (!_client_pipe.IsConnected)
+                _client_pipe.Connect();
             Connected?.Invoke(this, null);
 
             //return;

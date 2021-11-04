@@ -23,12 +23,28 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         /// </summary>
         public static bool VerifyDllInjected(string exe_path) {
             string directory = Path.GetDirectoryName(exe_path);
-            if (File.Exists($@"{directory}\version.dll")) {
+            if (File.Exists($@"{directory}\Version.dll")) {
                 // exists
                 return true;
             }
             // check if has is the same
             return false;
+        }
+        public static Task<bool> AddDllToFolder(string exe_path) {
+            return Task.Run(() => {
+                const string dll_name = "Version.dll";
+                string directory = $@"{Path.GetDirectoryName(exe_path)}\{dll_name}";
+                string dll = $@"{Static_Utilities.CurrentFolder}\{dll_name}";
+                File.Copy(dll, directory);
+                return VerifyDllInjected(exe_path);
+            });
+        }
+        public static async Task<Process> RestartProcess(Process proc) {
+            return await Task.Run(() => {
+                string filename = proc.MainModule.FileName;
+                proc.Kill();
+                return Process.Start(filename);
+            });
         }
     }
 }

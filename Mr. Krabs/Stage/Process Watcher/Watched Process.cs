@@ -31,12 +31,14 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             // now check if dll is injected
             var exe_path = BaseProcess.MainModule.FileName;
             var injected = Process_Utilities.VerifyDllInjected(exe_path);
-            StatusChanged?.Invoke(this, injected ? CrabGameStatus.Injected : CrabGameStatus.Injecting);
+            StatusChanged?.Invoke(this, injected ? CrabGameStatus.DllFound : CrabGameStatus.DllNotFound);
 
             if (!injected) {
                 // not injected yet
                 // now inject
-              
+
+                StatusChanged?.Invoke(this, CrabGameStatus.DllFound);
+                // restart crab game
             }
 
             return ProcessWatcher;

@@ -135,6 +135,16 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="AquariumHiding">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Aquarium">
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="AquariumHidingReverse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Aquarium">
+                <SplineDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="CloseButton">
@@ -149,7 +159,9 @@
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="MinimizeButton">
             <BeginStoryboard x:Name="MinimizeReverse_BeginStoryboard" Storyboard="{StaticResource MinimizeReverse}"/>
         </EventTrigger>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource AquariumHiding}"/>
+        </EventTrigger>
     </Window.Triggers>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="7" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>

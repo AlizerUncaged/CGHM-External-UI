@@ -100,5 +100,10 @@ namespace Mr.Krabs.UI.Scenes {
                     break;
             }
         }
+
+        private void Rendered(object sender, RoutedEventArgs e) {
+            // remove placeholder lol
+            Hecks.Children.Remove(PlaceHolder);
+        }
     }
 }

@@ -14,17 +14,20 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         private NamedPipeClientStream _client_pipe;
         private BinaryWriter _writer;
 
-        private bool _keep_alive = true;
         private string _pipe_name;
 
         public Pipe_Wrapper(string pipe_name) {
+            init(pipe_name);
+        }
+
+        private void init(string pipe_name) {
+
             _pipe_name = pipe_name;
             _client_pipe = new NamedPipeClientStream(_pipe_name);
             _writer = new BinaryWriter(_client_pipe);
         }
 
         public event EventHandler Connected;
-        public event EventHandler<string> Received;
         public async Task Send(string message) {
             await Send(Encoding.UTF8.GetBytes(message));
         }
@@ -36,9 +39,12 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
         public void Stop() {
             _client_pipe.Close();
+            _client_pipe = null;
         }
         public void Start() {
-
+            if (_client_pipe == null) {
+                init(_pipe_name);
+            }
             _client_pipe.Connect();
             Connected?.Invoke(this, null);
 

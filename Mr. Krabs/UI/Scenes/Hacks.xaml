@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Mr.Krabs.UI.Scenes"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             Loaded="Rendered"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="350">
     <UserControl.Resources>
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#7F000000" />
@@ -189,9 +191,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
                         <StackPanel Orientation="Horizontal">
-                            <Grid >
-                                <Border Cursor="Hand" Width="25" Height="13" Background="#FF1C1E20" CornerRadius="5" Margin="4,0"></Border>
-                                <Border Cursor="Hand" x:Name="button"  Height="18" Width="18" CornerRadius="12.5" HorizontalAlignment="Left"  >
+                            <Grid Cursor="Hand">
+                                <Border Width="25" Height="13" Background="#30313E" CornerRadius="5" Margin="4,0"></Border>
+                                <Border x:Name="button"  Height="18" Width="18" CornerRadius="12.5" HorizontalAlignment="Left"  >
                                     <Border.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                             <GradientStop Color="#FFFF3E89"/>
@@ -199,11 +201,11 @@
                                         </LinearGradientBrush>
                                     </Border.Background>
                                     <Border.Effect>
-                                        <DropShadowEffect x:Name="dropshado" Color="#FF45F5B7" Direction="0" RenderingBias="Quality" ShadowDepth="0" BlurRadius="15" Opacity="0"/>
+                                        <DropShadowEffect x:Name="dropshado" Color="#BFFFB198" Direction="0" RenderingBias="Quality" ShadowDepth="0" BlurRadius="15" Opacity="0"/>
                                     </Border.Effect>
                                 </Border>
                             </Grid>
-                            <ContentPresenter x:Name="content" Margin="3,0,0,0" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
+                            <ContentPresenter Cursor="Hand" x:Name="content" Margin="5,0,0,0" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
                         </StackPanel>
                         <ControlTemplate.Resources>
                             <Storyboard x:Key="right">
@@ -242,8 +244,8 @@
                                 <Setter TargetName="button" Property="Background">
                                     <Setter.Value>
                                         <LinearGradientBrush>
-                                            <GradientStop Color="#FFFF3E89" Offset="0"/>
-                                            <GradientStop Color="#FFFFB198" Offset="1"/>
+                                            <GradientStop Color="#FFF14DFF" Offset="0"/>
+                                            <GradientStop Color="#6E58EB" Offset="1"/>
                                     </LinearGradientBrush>
                                         </Setter.Value>
                                 </Setter>
@@ -253,7 +255,14 @@
                                     <RemoveStoryboard BeginStoryboardName="rightt"></RemoveStoryboard>
                                     <BeginStoryboard Storyboard="{StaticResource left}" x:Name="leftt" ></BeginStoryboard>
                                 </Trigger.ExitActions>
-                                <Setter TargetName="button" Property="Background" Value="#FF52EBD6"/>
+                                <Setter TargetName="button" Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#FFFFB198" Offset="0"/>
+                                            <GradientStop Color="#FFFF3E89" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -266,9 +275,10 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
-        <ScrollViewer Margin="20,20,20,0">
+        <ScrollViewer Margin="20,0,20,0">
             <StackPanel x:Name="Hecks" Margin="20,0,20,0">
-                
+                <Grid Margin="0,20,0,0"></Grid>
+                <CheckBox x:Name="PlaceHolder"/>
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

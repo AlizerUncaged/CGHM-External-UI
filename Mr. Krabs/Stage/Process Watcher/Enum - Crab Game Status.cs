@@ -16,7 +16,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         /// </summary>
         FoundRunning,
 
-        Injecting,
-        Injected
+        DllNotFound,
+        DllFound
     }
 }

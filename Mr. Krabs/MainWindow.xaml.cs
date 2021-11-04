@@ -72,6 +72,10 @@ namespace Mr.Krabs {
             }
             // remove skies
             Static_Utilities.RunAnimation(this, "RemoveSky");
+
+            BlobsAnimation.Stop();
+            Static_Utilities.RunAnimation(this, "AquariumHiding");
+
             // dll is there, so that means json file is written right?
             await SStage.FieldsAndHacks.Read();
             var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
@@ -86,49 +90,59 @@ namespace Mr.Krabs {
         }
 
         public void SetActiveControl(UserControl control) {
+
             Welcome.Children.RemoveAt(0);
             Welcome.Children.Add(control);
+
         }
 
         private void CrabGame_StatusChanged(object sender, Stage.Process_Watcher.CrabGameStatus e) {
             Debug.WriteLine($"Process Status: {e}");
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                /* Not running! */
+                if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Offline) {
+                    var waiting_page = new UI.Scenes.Wait_for_Crab_Game_Page();
+                    SetActiveControl(waiting_page);
 
-            /* Not running! */
-            if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Offline) {
-                SStage.Pipe.Stop();
-                Static_Utilities.RunAnimation(this, "RemoveSkyReverse");
-            }
-            /* Game Ran */
-            else if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.FoundRunning) {
-                // generate injecting control
-                var injecting_page = new UI.Scenes.Injecting();
-                SetActiveControl(injecting_page);
+                    SStage.Pipe.Stop();
+                    Static_Utilities.RunAnimation(this, "RemoveSkyReverse");
+                    foreach (var j in SkyAnimation) {
+                        j.Start();
+                    }
+                }
+                /* Game Ran */
+                // this is also while injecting
+                else if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.FoundRunning) {
+                    // generate injecting control
+                    var injecting_page = new UI.Scenes.Injecting();
+                    SetActiveControl(injecting_page);
 
-                // blurred blobs
-                var blobs = Aquarium.Children.OfType<Ellipse>();
+                    // blurred blobs
+                    var blobs = Aquarium.Children.OfType<Ellipse>().ToArray();
 
-                BlobsAnimation =
-                    new UI.Move_Randomly(
-                        new UI.Resolution { MaxHeight = this.Height, MaxWidth = this.Width, MinWidth = 0, MinHeight = 0 },
-                        blobs.ToArray(),
-                        new UI.Interval { Min = 2000, Max = 4000 },
-                        new QuinticEase { EasingMode = EasingMode.EaseInOut });
+                    if (BlobsAnimation == null)
+                        BlobsAnimation =
+                            new UI.Move_Randomly(
+                                new UI.Resolution { MaxHeight = this.Height, MaxWidth = this.Width, MinWidth = 0, MinHeight = 0 },
+                                blobs.ToArray(),
+                                new UI.Interval { Min = 2000, Max = 4000 },
+                                new QuinticEase { EasingMode = EasingMode.EaseInOut });
 
-                BlobsAnimation.Start();
+                    BlobsAnimation.Start();
 
-                Static_Utilities.RunAnimation(this, "UnhideCarpet");
+                    Static_Utilities.RunAnimation(this, "AquariumHidingReverse");
+                    Static_Utilities.RunAnimation(this, "UnhideCarpet");
 
-                // start the pipes
-                SStage.Pipe.Connected += Pipe_Connected;
-              SStage.Pipe.Start();
+                    // start the pipes
+                    SStage.Pipe.Connected += Pipe_Connected;
+                    SStage.Pipe.Start();
 
-            } else if (e == Stage.Process_Watcher.CrabGameStatus.Injecting) {
-                // the dll is not there yet
-                // maybe DO NOTHING
-                // Watcher is already injecting it
-            } else if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Injected) {
-                // Injected!
-            }
+                } else if (e == Stage.Process_Watcher.CrabGameStatus.DllNotFound) {
+
+                } else if (e == Stage.Process_Watcher.CrabGameStatus.DllFound) {
+
+                }
+            }));
         }
 
         private UI.Move_Randomly BlobsAnimation;
@@ -139,7 +153,8 @@ namespace Mr.Krabs {
 
             const int MaxMovement = 10;
             // sky
-            var comets = Space.Children.OfType<FrameworkElement>();
+            var comets = Space.Children.OfType<FrameworkElement>().ToArray();
+
             foreach (var comet in comets) {
 
                 var maxTop = comet.Margin.Top - MaxMovement;
@@ -154,6 +169,7 @@ namespace Mr.Krabs {
                         new UI.Interval { Min = 1000, Max = 1500 },
                         new SineEase { EasingMode = EasingMode.EaseInOut }
                         );
+
                 SkyAnimation.Add(skyMoveEllipses);
                 skyMoveEllipses.Start();
             }

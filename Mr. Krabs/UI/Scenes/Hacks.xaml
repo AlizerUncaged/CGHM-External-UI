@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Mr.Krabs.UI.Scenes"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
-             Loaded="Rendered"
+             Loaded="Rendered" Unloaded="RUnloaded"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="350">
     <UserControl.Resources>
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#7F000000" />

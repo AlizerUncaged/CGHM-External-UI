@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -70,13 +71,17 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                 .ToArray();
             return properties;
         }
-
-        private Hacks _old_hacks = new Hacks();
-        private bool _keep_reading = true;
+        private Hacks _old_hacks;
+        private bool _keep_reading = false;
         public void StartWatchers() {
+            _old_hacks = new Hacks();
+            if (_keep_reading) return;
+
             _keep_reading = true;
             Task.Factory.StartNew(async () => {
                 while (_keep_reading) {
+                    await Task.Delay(1000);
+
                     string read = _read_stream.ReadToEnd();
 
                     _read_fileStream.Position = 0;
@@ -84,8 +89,22 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     var _read_hacks =
                     JsonConvert.DeserializeObject<Hacks>(read);
+                    
+                    if (_read_hacks == null) {
+                        /*
+                        try {
+                            _read_fileStream.Close();
+                        } catch { Debug.WriteLine("_read_fileStream dispose fail."); }
+                        _read_fileStream = File.Open(_filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-
+                        try {
+                            _read_stream.Close();
+                        } catch { Debug.WriteLine("_read_stream dispose fail."); }
+                        _read_stream = new StreamReader(_read_fileStream);
+                        */
+                        continue;
+                    }
+                    
                     List<PropertyInfo> newProperties = new List<PropertyInfo>();
 
                     foreach (var property in _read_hacks.GetType().GetProperties()) {
@@ -104,7 +123,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     _old_hacks = _read_hacks;
 
-                    await Task.Delay(1000);
                 }
             });
         }

@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         
+        Topmost="true"
         TextOptions.TextFormattingMode="Display" 
         TextOptions.TextRenderingMode="Grayscale"
         RenderOptions.BitmapScalingMode="HighQuality"
@@ -18,7 +19,7 @@
         WindowStyle="None"
         MouseDown="Clicked"
         Loaded="Rendered"
-        Title="Crab HackerMode" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
+        Title="Mr. Krabs" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
     <Window.Resources>
         <Storyboard x:Key="CloseButtonEnter">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="CloseButton">
@@ -260,7 +261,7 @@
             </Ellipse>
 
         </Grid>
-        <DockPanel >
+        <DockPanel x:Name="DokcuPanelu">
             <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,5,0">
                 <Image x:Name="image" Source="UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="5,7,0,7" Width="0"/>
                 <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"/>

@@ -23,24 +23,28 @@ namespace Mr.Krabs.UI.Scenes {
     /// </summary>
     public partial class Hacks : UserControl {
         private Pipe_Wrapper _pipe;
+        private Read_Chewy_JSON _json;
         public Hacks(Pipe_Wrapper pipe, Read_Chewy_JSON jsonwatcher) {
             InitializeComponent();
             _pipe = pipe;
-            jsonwatcher.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
+            _json = jsonwatcher;
+            _json.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
         }
 
-        private void Jsonwatcher_ChangedCheckBoxes(object sender, (Stage.Communication_and_Pipes.Hacks k, PropertyInfo[]) e) {
-
-            foreach (var h in e.Item2) {
+        private void _add_datas(Stage.Communication_and_Pipes.Hacks k, PropertyInfo[] e) {
+            foreach (var h in e) {
                 if (h.PropertyType == typeof(bool)) {
                     var name = h.Name;
 
-                    var value = h.GetValue(e.ToTuple().Item1);
+                    var value = h.GetValue(k);
                     var sval = value.ToString().ToLower();
                     // MessageBox.Show(sval);
                     Toggle(name, bool.Parse(sval));
                 }
             }
+        }
+        private void Jsonwatcher_ChangedCheckBoxes(object sender, (Stage.Communication_and_Pipes.Hacks k, PropertyInfo[]) e) {
+            _add_datas(e.k, e.Item2);
         }
 
         public void AddHack(PropertyInfo field) {
@@ -104,6 +108,10 @@ namespace Mr.Krabs.UI.Scenes {
         private void Rendered(object sender, RoutedEventArgs e) {
             // remove placeholder lol
             Hecks.Children.Remove(PlaceHolder);
+        }
+
+        private void RUnloaded(object sender, RoutedEventArgs e) {
+            _json.ChangedCheckBoxes -= Jsonwatcher_ChangedCheckBoxes;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Mr.Krabs.Stage {
         public Process_Watcher.Watched_Process CrabGame;
         public Communication_and_Pipes.Pipe_Wrapper Pipe;
         public Communication_and_Pipes.Read_Chewy_JSON FieldsAndHacks;
+        public Update_System.Update_Checker UpdateChecker;
 
         private readonly string _chewy_JSON_path = 
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\ChewyGumball\settings.json";
@@ -28,6 +29,9 @@ namespace Mr.Krabs.Stage {
 
             FieldsAndHacks = 
                 new Communication_and_Pipes.Read_Chewy_JSON(_chewy_JSON_path);
+
+            UpdateChecker = 
+                new Update_System.Update_Checker();
         }
     }
 }

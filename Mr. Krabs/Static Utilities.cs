@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 namespace Mr.Krabs {
 
     public static class Static_Utilities {
+        public const string ReadMe = "hello decompiler lets sex";
 
         public const int MajorVersion = 1;
         public const int MinorVersion = 1;

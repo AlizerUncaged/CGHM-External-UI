@@ -8,7 +8,5 @@
 
 ## 📋 Contains the...
 - External UI for CGHM.
-- Communication between the external UI and CGHM dll.
-- Updater.
-
-and everything else the external UI does.
+- Communication between the external UI and CGHM Dll.
+- Updater for the external UI.

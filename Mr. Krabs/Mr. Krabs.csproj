@@ -159,7 +159,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UI\Images\Large\Logo.png" />
+    <Resource Include="UI\Images\Large\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UI\Images\Large\SubTitle-Welcome.png">
@@ -167,11 +169,8 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UI\Images\Large\Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UI\Images\Large\Injecting Dll.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Resource Include="UI\Images\Large\Logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>

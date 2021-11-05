@@ -36,7 +36,7 @@ namespace Mr.Krabs {
         }
 
         private void Clicked(object sender, MouseButtonEventArgs e) {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.LeftButton == MouseButtonState.Pressed)
                 this.DragMove();
             e.Handled = true;
         }
@@ -44,10 +44,12 @@ namespace Mr.Krabs {
         #region Window State and Windows Functions
         private void CloseButtonMouseDown(object sender, MouseButtonEventArgs e) {
             Windows.Exit();
+            e.Handled = true;
         }
 
         private void MinimizeButtonMouseDown(object sender, MouseButtonEventArgs e) {
             this.WindowState = WindowState.Minimized;
+            e.Handled = true;
         }
         #endregion
 
@@ -188,5 +190,8 @@ namespace Mr.Krabs {
         }
         #endregion
 
+        private void HandleMouseDown(object sender, MouseButtonEventArgs e) {
+            e.Handled = true;
+        }
     }
 }

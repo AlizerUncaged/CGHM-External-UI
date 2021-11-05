@@ -65,6 +65,9 @@ namespace Mr.Krabs {
 #endif
             // start watching
             SStage = new Stage.Stage();
+            // start the pipes
+            SStage.Pipe.Connected +=
+            Pipe_Connected;
 
             SStage.CrabGame.StatusChanged += CrabGame_StatusChanged;
             _ = SStage.CrabGame.StartWatching();
@@ -170,8 +173,7 @@ namespace Mr.Krabs {
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllNotFound) {
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllFound) {
-                    // start the pipes
-                    SStage.Pipe.Connected += Pipe_Connected;
+                
                     SStage.Pipe.Start();
                 }
             }));

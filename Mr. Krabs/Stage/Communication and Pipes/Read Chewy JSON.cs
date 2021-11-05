@@ -36,7 +36,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
             while (!File.Exists(_filepath)) {
                 _ = _comms.Send("esp_box.active.false");
-
                 await Task.Delay(200);
             }
 
@@ -46,11 +45,19 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
 
         public async Task<ChewyStatus> ReadAndSetHacks() {
-            return await Task.Run(() => {
+            return await Task.Run(async () => {
                 try {
+                    string filestring = null;
+                    while (filestring == null) {
+                        filestring = _read_stream.ReadToEnd();
+                        _read_fileStream.Position = 0;
+                        _read_stream.DiscardBufferedData();
+                        if (filestring == null)
+                            await Task.Delay(200);
+                    }
 
-                    var filestring = File.ReadAllText(_filepath);
                     var hacks = JsonConvert.DeserializeObject<Hacks>(filestring);
+
                     _hacks = hacks;
 
                     return new ChewyStatus {

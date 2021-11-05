@@ -275,8 +275,8 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
-        <ScrollViewer Margin="20,0,20,0">
-            <StackPanel x:Name="Hecks" Margin="20,0,20,0">
+        <ScrollViewer x:Name="Scrolly" Margin="20,0,20,0" VerticalAlignment="Top">
+            <StackPanel x:Name="Hecks" Margin="20,0,20,0" VerticalAlignment="Top">
                 <Grid Margin="0,20,0,0"></Grid>
                 <CheckBox x:Name="PlaceHolder"/>
             </StackPanel>

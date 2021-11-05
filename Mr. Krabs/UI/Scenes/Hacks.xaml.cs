@@ -108,6 +108,7 @@ namespace Mr.Krabs.UI.Scenes {
         private void Rendered(object sender, RoutedEventArgs e) {
             // remove placeholder lol
             Hecks.Children.Remove(PlaceHolder);
+            Scrolly.MaxHeight = this.ActualHeight;
         }
 
         private void RUnloaded(object sender, RoutedEventArgs e) {

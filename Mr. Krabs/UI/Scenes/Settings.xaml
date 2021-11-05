@@ -106,7 +106,7 @@
         <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
     </UserControl.Triggers>
     <Grid>
-        <Grid x:Name="grid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="250" Margin="0,470,0,-270">
+        <Grid x:Name="grid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Margin="0,470,0,-270" Height="250">
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=Forgor}" />
             </Grid.OpacityMask>
@@ -129,8 +129,12 @@
                     <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
 
                 </DockPanel>
-               <StackPanel x:Name="Parent" Margin="15,15,0,0">
-                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}"  Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,20"></CheckBox>
+               <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,0" VerticalAlignment="Top">
+                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}" Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,20"></CheckBox>
+                </StackPanel>
+                <StackPanel MouseDown="DiscordJoin" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,15" Cursor="Hand" Background="#00000000">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"></Label>
+                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
                 </StackPanel>
             </DockPanel>
         </Grid>

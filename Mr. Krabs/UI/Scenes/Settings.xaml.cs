@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,11 @@ namespace Mr.Krabs.UI.Scenes {
         public event EventHandler Closing;
         private void CloseSettings(object sender, MouseButtonEventArgs e) {
             Closing?.Invoke(this, e);
+            e.Handled = true;
+        }
+
+        private void DiscordJoin(object sender, MouseButtonEventArgs e) {
+            Process.Start("https://discord.gg/n6AW3q4ewQ");
             e.Handled = true;
         }
     }

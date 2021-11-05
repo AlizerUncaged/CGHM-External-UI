@@ -48,6 +48,25 @@ namespace Mr.Krabs {
             });
         }
 
+        public struct Required_Dll {
+            public bool AllFound; public string Path;  public string Name; public string Link; public string Desc;
+        }
+        private static readonly List<Required_Dll> _required_files = new List<Required_Dll>{
+            new Required_Dll {
+                AllFound = false,
+                Path = @"C:\Windows\SysWOW64\D3DCompiler_43.dll",
+                Link = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109",
+                Desc = "Required for rendering the internal UI."
+            }
+        };
+        public async static Task<Required_Dll> CheckRequiredDlls() {
+            return await Task.Run(() => {
+                foreach (var j in _required_files) {
+                    if (!File.Exists(j.Path)) return j;
+                }
+                return new Required_Dll { AllFound = true };
+            });
+        }
         public static void RestartAsAdmin() {
 
 

@@ -76,8 +76,30 @@ namespace Mr.Krabs {
             if (update_status.NewVersion) {
                 ShowUpdatePage(update_status.Data.Description, update_status.Data.Link);
             }
+
+            var required_dll = await Static_Utilities.CheckRequiredDlls();
+            if (!required_dll.AllFound) {
+                var message = 
+                    new UI.Scenes.MessageA(
+                        $"{System.IO.Path.GetFileName(required_dll.Name)} not found!", 
+                        required_dll.Desc, 
+                        required_dll.Link, 
+                        true);
+                message.Closing += DialogsClosing;
+
+                if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
+
+                    Dialogs.Children.Add(message);
+                }
+            }
+
             e.Handled = true;
         }
+
+        private void DialogsClosing(object sender, EventArgs e) {
+            Dialogs.Children.Remove(sender as UIElement);
+        }
+
         public void ShowUpdatePage(string desc, string link) {
             Welcome.Visibility = Visibility.Collapsed;
             var update_page = new UI.Scenes.New_Update(desc, link);
@@ -173,7 +195,6 @@ namespace Mr.Krabs {
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllNotFound) {
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllFound) {
-                
                     SStage.Pipe.Start();
                 }
             }));
@@ -218,9 +239,7 @@ namespace Mr.Krabs {
         private void ShowSettings(object sender, MouseButtonEventArgs e) {
             if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
                 var settings = new UI.Scenes.Settings(this);
-                settings.Closing += (p, a) => {
-                    Dialogs.Children.Remove(p as UIElement);
-                };
+                settings.Closing += DialogsClosing;
 
                 Dialogs.Children.Add(settings);
             }

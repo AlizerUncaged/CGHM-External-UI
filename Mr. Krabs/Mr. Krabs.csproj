@@ -90,6 +90,9 @@
     <Compile Include="UI\Scenes\Injecting.xaml.cs">
       <DependentUpon>Injecting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Scenes\MessageA.xaml.cs">
+      <DependentUpon>MessageA.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Scenes\New Update.xaml.cs">
       <DependentUpon>New Update.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Scenes\Injecting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Scenes\MessageA.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UI\Images\Large\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Images\Large\Discord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Version.dll">

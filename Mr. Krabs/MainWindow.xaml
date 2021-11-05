@@ -6,7 +6,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         
-        Topmost="true"
         TextOptions.TextFormattingMode="Display" 
         TextOptions.TextRenderingMode="Grayscale"
         RenderOptions.BitmapScalingMode="HighQuality"
@@ -146,6 +145,52 @@
                 <SplineDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="SettingsHover">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="packIcon">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="150">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="packIcon">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="#FFFFB198">
+                    <EasingColorKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingColorKeyFrame.EasingFunction>
+                </EasingColorKeyFrame>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="packIcon">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="#FFFF3E89">
+                    <EasingColorKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingColorKeyFrame.EasingFunction>
+                </EasingColorKeyFrame>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SettingsHoverReverse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="packIcon">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="packIcon">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="White">
+                    <EasingColorKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingColorKeyFrame.EasingFunction>
+                </EasingColorKeyFrame>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="packIcon">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="White">
+                    <EasingColorKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingColorKeyFrame.EasingFunction>
+                </EasingColorKeyFrame>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="CloseButton">
@@ -160,8 +205,12 @@
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="MinimizeButton">
             <BeginStoryboard x:Name="MinimizeReverse_BeginStoryboard" Storyboard="{StaticResource MinimizeReverse}"/>
         </EventTrigger>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource AquariumHiding}"/>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="packIcon">
+            <BeginStoryboard x:Name="SettingsHover_BeginStoryboard" Storyboard="{StaticResource SettingsHover}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="packIcon">
+            <BeginStoryboard x:Name="SettingsHoverReverse_BeginStoryboard" Storyboard="{StaticResource SettingsHoverReverse}"/>
         </EventTrigger>
     </Window.Triggers>
     <WindowChrome.WindowChrome>
@@ -269,6 +318,22 @@
 
                 <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseButtonMouseDown" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Foreground="White" Background="#00000000" />
                 <materialDesign:PackIcon x:Name="MinimizeButton" DockPanel.Dock="Right" MouseDown="MinimizeButtonMouseDown" Kind="WindowMinimize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="20" Margin="0,8.5,5,6.5" Cursor="Hand" Foreground="White" Background="#00000000" />
+                <materialDesign:PackIcon x:Name="packIcon" DockPanel.Dock="Right"  Kind="Cog" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Background="#00000000" RenderTransformOrigin="0.5,0.5" >
+                    <materialDesign:PackIcon.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:PackIcon.Foreground>
+                    <materialDesign:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </materialDesign:PackIcon.RenderTransform>
+                </materialDesign:PackIcon>
             </DockPanel>
 
             <!-- Main Pages here. -->

@@ -42,7 +42,6 @@ namespace Mr.Krabs.UI.Scenes {
 
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
-
         private void Rendered(object sender, RoutedEventArgs e) {
 
             var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
@@ -76,11 +75,13 @@ namespace Mr.Krabs.UI.Scenes {
 
         private void AlwaysOnTopChanged(object sender, RoutedEventArgs e) {
             if (_parent != null) _parent.Topmost = (bool)(sender as CheckBox).IsChecked;
+            e.Handled = true;
         }
 
         public event EventHandler Closing;
         private void CloseSettings(object sender, MouseButtonEventArgs e) {
             Closing?.Invoke(this, e);
+            e.Handled = true;
         }
     }
 }

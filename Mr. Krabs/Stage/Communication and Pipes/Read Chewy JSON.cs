@@ -21,7 +21,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
     }
 
     public class Read_Chewy_JSON {
-
+        private const int _json_refresh_rate = 200; // milliseconds
         private string _filepath = "";
         private Hacks _hacks;
         private FileStream _read_fileStream;
@@ -32,7 +32,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             _read_stream = new StreamReader(_read_fileStream);
         }
 
-        public async Task<ChewyStatus> Read() {
+        public async Task<ChewyStatus> ReadAndSetHacks() {
             return await Task.Run(() => {
                 try {
                     var filestring = File.ReadAllText(_filepath);
@@ -80,7 +80,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             _keep_reading = true;
             Task.Factory.StartNew(async () => {
                 while (_keep_reading) {
-                    await Task.Delay(1000);
+                    await Task.Delay(_json_refresh_rate);
 
                     string read = _read_stream.ReadToEnd();
 

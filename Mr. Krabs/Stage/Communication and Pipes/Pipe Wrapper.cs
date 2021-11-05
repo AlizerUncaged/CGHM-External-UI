@@ -44,12 +44,15 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             }
         }
         public void Start() {
-            if (_client_pipe == null) {
-                init(_pipe_name);
-            }
-            if (!_client_pipe.IsConnected)
-                _client_pipe.Connect();
-            Connected?.Invoke(this, null);
+            Task.Factory.StartNew(() => {
+                if (_client_pipe == null) {
+                    init(_pipe_name);
+                }
+                if (!_client_pipe.IsConnected)
+                    _client_pipe.Connect();
+
+                Connected?.Invoke(this, null);
+            });
 
             //return;
 

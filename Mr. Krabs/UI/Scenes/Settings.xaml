@@ -129,7 +129,7 @@
                     <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
 
                 </DockPanel>
-               <StackPanel Margin="15,15,0,0">
+               <StackPanel x:Name="Parent" Margin="15,15,0,0">
                     <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}"  Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,20"></CheckBox>
                 </StackPanel>
             </DockPanel>

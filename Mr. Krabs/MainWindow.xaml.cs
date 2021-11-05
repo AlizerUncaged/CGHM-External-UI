@@ -58,8 +58,11 @@ namespace Mr.Krabs {
 
             AnimateAquarium();
             Version.Text =
-                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion} {(Static_Utilities.AmIAdmin() ? "(Admin)" : "")}";
-
+                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion} " +
+                $"{(Static_Utilities.AmIAdmin() ? "(Admin)" : "")}";
+#if (DEBUG)
+            Version.Text += " BETA";
+#endif
             // start watching
             SStage = new Stage.Stage();
 
@@ -84,25 +87,28 @@ namespace Mr.Krabs {
             foreach (var j in SkyAnimation) {
                 j.Stop();
             }
-            // remove skies
-            Static_Utilities.RunAnimation(this, "RemoveSky");
-
-            BlobsAnimation.Stop();
-            Static_Utilities.RunAnimation(this, "AquariumHiding");
 
             // dll is there, so that means json file is written right?
-            await SStage.FieldsAndHacks.Read();
+            await SStage.FieldsAndHacks.ReadAndSetHacks();
 
-            var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
-            // add those controls
-            var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
-            foreach (var toggle in toggles) {
-                hacks.AddHack(toggle);
-            }
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                // remove skies
+                Static_Utilities.RunAnimation(this, "RemoveSky");
+                BlobsAnimation.Stop();
+                Static_Utilities.RunAnimation(this, "AquariumHiding");
 
-            SStage.FieldsAndHacks.StartWatchers();
 
-            SetActiveControl(hacks);
+                var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
+                // add those controls
+                var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
+                foreach (var toggle in toggles) {
+                    hacks.AddHack(toggle);
+                }
+
+                SStage.FieldsAndHacks.StartWatchers();
+
+                SetActiveControl(hacks);
+            }));
         }
 
         public void SetActiveControl(UserControl control) {
@@ -149,6 +155,7 @@ namespace Mr.Krabs {
 
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.IsAdmin) {
+                    // check if we're admin, if not restart as admin
                     if (!Static_Utilities.AmIAdmin()) {
                         if (Welcome.Children.Count > 0)
                             Welcome.Children.RemoveAt(0);
@@ -205,11 +212,12 @@ namespace Mr.Krabs {
             if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
                 var settings = new UI.Scenes.Settings(this);
                 settings.Closing += (p, a) => {
-                    Dialogs.Children.RemoveAt(0);
+                    Dialogs.Children.Remove(p as UIElement);
                 };
 
                 Dialogs.Children.Add(settings);
             }
+            e.Handled = true;
         }
     }
 }

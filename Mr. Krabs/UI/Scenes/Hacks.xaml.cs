@@ -24,6 +24,7 @@ namespace Mr.Krabs.UI.Scenes {
     public partial class Hacks : UserControl {
         private Pipe_Wrapper _pipe;
         private Read_Chewy_JSON _json;
+        private Dictionary<string, CheckBox> _cached_checkbox_and_names = new Dictionary<string, CheckBox>();
         public Hacks(Pipe_Wrapper pipe, Read_Chewy_JSON jsonwatcher) {
             InitializeComponent();
             _pipe = pipe;
@@ -58,12 +59,9 @@ namespace Mr.Krabs.UI.Scenes {
         public void Toggle(string name, bool toggle) {
           
             Application.Current.Dispatcher.Invoke(new Action(() => {
-                foreach (var child in Hecks.Children) {
-                    if (child is CheckBox cb) {
-
-                        if (cb.Name == name)
-                            cb.IsChecked = toggle;
-                    }
+                CheckBox cb;
+                if (_cached_checkbox_and_names.TryGetValue(name, out cb)) {
+                    cb.IsChecked = toggle;
                 }
             }));
          
@@ -73,9 +71,10 @@ namespace Mr.Krabs.UI.Scenes {
             switch (info.ControlType) {
                 case Stage.Communication_and_Pipes.HackInfo.HackType.Toggle:
                     string hack_name = jsonInfo.PropertyName;
+                    string variable_name = field.Name;
                     // create checkbox
                     var cb = new CheckBox {
-                        Name = field.Name,
+                        Name = variable_name,
                         Content = info.Name,
                         Margin = new Thickness(0, 0, 0, 20),
                         Background = new SolidColorBrush(Colors.Transparent)
@@ -100,6 +99,7 @@ namespace Mr.Krabs.UI.Scenes {
                         // enable
 
                     };
+                    _cached_checkbox_and_names.Add(variable_name, cb);
                     Hecks.Children.Add(cb);
                     break;
             }

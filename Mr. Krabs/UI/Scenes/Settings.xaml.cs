@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +16,19 @@ using System.Windows.Shapes;
 
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
-    /// Interaction logic for New_Update.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class New_Update : UserControl {
-        private string _link, _desc;
-        public New_Update(string desc, string link) {
-            _link = link; _desc = desc;
+    public partial class Settings : UserControl, IDialog {
+        private Window _parent;
+        public Settings(Window parent) {
+            _parent = parent;
             InitializeComponent();
-            Description.Text = _desc;
+        }
+        /// <summary>
+        /// Placeholder.
+        /// </summary>
+        public Settings() {
+            InitializeComponent();
         }
 
         public void StopAnimations() {
@@ -38,36 +42,45 @@ namespace Mr.Krabs.UI.Scenes {
 
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
-        private void Update(object sender, MouseButtonEventArgs e) {
-            Process.Start(_link);
-            e.Handled = true;
-        }
 
         private void Rendered(object sender, RoutedEventArgs e) {
 
-            var comets = SkullEmoji.Children.OfType<Path>().ToArray();
-            const int MaxMovement = 50;
+            var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
             // sky
-
             foreach (var comet in comets) {
 
-                var maxTop = comet.Margin.Top - MaxMovement;
-                var maxLeft = comet.Margin.Left - MaxMovement;
-                var maxBottom = comet.Margin.Top + MaxMovement;
-                var maxRight = comet.Margin.Left + MaxMovement;
 
                 UI.Move_Randomly skyMoveEllipses =
                     new UI.Move_Randomly(
-                        new UI.Resolution { MaxHeight = maxBottom, MaxWidth = maxRight, MinWidth = maxLeft, MinHeight = maxTop },
+                        new UI.Resolution { 
+                            MaxHeight = SkullEmoji.ActualHeight, 
+                            MaxWidth = SkullEmoji.ActualWidth, 
+                            MinWidth = -comet.Width, 
+                            MinHeight = -comet.Height},
                         new FrameworkElement[] { comet },
-                        new UI.Interval { Min = 1000, Max = 1500 },
+                        new UI.Interval { Min = 2000, Max = 3000 },
                         new SineEase { EasingMode = EasingMode.EaseInOut }
                         );
 
                 SkyAnimation.Add(skyMoveEllipses);
                 skyMoveEllipses.Start();
             }
+
+            Static_Utilities.RunAnimation(this, "Represent");
+            if (_parent != null) {
+                AlwaysOnTopCB.IsChecked = _parent.Topmost;
+            }
+
             e.Handled = true;
+        }
+
+        private void AlwaysOnTopChanged(object sender, RoutedEventArgs e) {
+            if (_parent != null) _parent.Topmost = (bool)(sender as CheckBox).IsChecked;
+        }
+
+        public event EventHandler Closing;
+        private void CloseSettings(object sender, MouseButtonEventArgs e) {
+            Closing?.Invoke(this, e);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         /// Process is running or opened.
         /// </summary>
         FoundRunning,
-
+        IsAdmin,
         DllNotFound,
         DllFound
     }

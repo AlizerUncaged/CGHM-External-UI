@@ -216,7 +216,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="7" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
     </WindowChrome.WindowChrome>
-    <Grid Background="{DynamicResource BackgroundNormal}">
+    <Grid x:Name="StageMaster" Background="{DynamicResource BackgroundNormal}">
         <Grid x:Name="Aquarium">
             <Grid.Effect>
                 <BlurEffect Radius="200"/>
@@ -318,7 +318,7 @@
 
                 <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseButtonMouseDown" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Foreground="White" Background="#00000000" />
                 <materialDesign:PackIcon x:Name="MinimizeButton" DockPanel.Dock="Right" MouseDown="MinimizeButtonMouseDown" Kind="WindowMinimize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="20" Margin="0,8.5,5,6.5" Cursor="Hand" Foreground="White" Background="#00000000" />
-                <materialDesign:PackIcon x:Name="packIcon" DockPanel.Dock="Right"  Kind="Cog" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Background="#00000000" RenderTransformOrigin="0.5,0.5" >
+                <materialDesign:PackIcon PreviewMouseDown="ShowSettings" x:Name="packIcon" DockPanel.Dock="Right"  Kind="Cog" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Background="#00000000" RenderTransformOrigin="0.5,0.5" >
                     <materialDesign:PackIcon.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White" Offset="0"/>
@@ -341,6 +341,9 @@
                 <scenes:Wait_for_Crab_Game_Page/>
             </DockPanel>
 
+        </DockPanel>
+        <DockPanel x:Name="Dialogs">
+            
         </DockPanel>
     </Grid>
 </Window>

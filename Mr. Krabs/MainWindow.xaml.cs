@@ -89,6 +89,8 @@ namespace Mr.Krabs {
             }
 
             // dll is there, so that means json file is written right?
+            if (SStage.FieldsAndHacks == null)
+                SStage.FieldsAndHacks = new Stage.Communication_and_Pipes.Read_Chewy_JSON(SStage.Pipe, SStage.CHEWY_JSON_PATH);
             await SStage.FieldsAndHacks.ReadAndSetHacks();
 
             Application.Current.Dispatcher.Invoke(new Action(() => {

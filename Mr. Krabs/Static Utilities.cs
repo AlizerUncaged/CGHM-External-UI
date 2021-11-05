@@ -18,7 +18,7 @@ namespace Mr.Krabs {
         public const string ReadMe = "hello decompiler lets sex";
 
         public const int MajorVersion = 1;
-        public const int MinorVersion = 3;
+        public const int MinorVersion = 4;
 
         public static Random Random = new Random(DateTime.UtcNow.Second + DateTime.UtcNow.Millisecond);
 

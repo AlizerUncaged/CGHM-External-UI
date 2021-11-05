@@ -30,12 +30,19 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         public Read_Chewy_JSON(Pipe_Wrapper comms, string filepath) {
             _filepath = filepath;
             _comms = comms;
+        }
 
-            if (!File.Exists(_filepath))
+        public async Task InitializeStreams() {
+
+            while (!File.Exists(_filepath)) {
                 _ = _comms.Send("esp_box.active.false");
+
+                await Task.Delay(200);
+            }
 
             _read_fileStream = File.Open(_filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             _read_stream = new StreamReader(_read_fileStream);
+
         }
 
         public async Task<ChewyStatus> ReadAndSetHacks() {
@@ -96,7 +103,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     var _read_hacks =
                     JsonConvert.DeserializeObject<Hacks>(read);
-                    
+
                     if (_read_hacks == null) {
                         /*
                         try {
@@ -111,7 +118,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                         */
                         continue;
                     }
-                    
+
                     List<PropertyInfo> newProperties = new List<PropertyInfo>();
 
                     foreach (var property in _read_hacks.GetType().GetProperties()) {

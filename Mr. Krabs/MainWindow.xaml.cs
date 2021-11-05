@@ -89,8 +89,11 @@ namespace Mr.Krabs {
             }
 
             // dll is there, so that means json file is written right?
-            if (SStage.FieldsAndHacks == null)
+            if (SStage.FieldsAndHacks == null) {
                 SStage.FieldsAndHacks = new Stage.Communication_and_Pipes.Read_Chewy_JSON(SStage.Pipe, SStage.CHEWY_JSON_PATH);
+                await SStage.FieldsAndHacks.InitializeStreams();
+            }
+
             await SStage.FieldsAndHacks.ReadAndSetHacks();
 
             Application.Current.Dispatcher.Invoke(new Action(() => {
@@ -99,7 +102,7 @@ namespace Mr.Krabs {
                 BlobsAnimation.Stop();
                 Static_Utilities.RunAnimation(this, "AquariumHiding");
 
-
+                // hacks ! Window !
                 var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
                 // add those controls
                 var toggles = SStage.FieldsAndHacks.GetCheckBoxes();

@@ -80,14 +80,21 @@
     <Compile Include="Stage\Update System\Update Checker.cs" />
     <Compile Include="Static Utilities.cs" />
     <Compile Include="UI\Move Randomly.cs" />
+    <Compile Include="UI\Scenes\Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Scenes\Hacks.xaml.cs">
       <DependentUpon>Hacks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Scenes\IDialog.cs" />
     <Compile Include="UI\Scenes\Injecting.xaml.cs">
       <DependentUpon>Injecting.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Scenes\New Update.xaml.cs">
       <DependentUpon>New Update.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Scenes\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Scenes\Wait for Crab Game Page.xaml.cs">
       <DependentUpon>Wait for Crab Game Page.xaml</DependentUpon>
@@ -109,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Scenes\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Scenes\Hacks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Scenes\New Update.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Scenes\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,6 +194,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UI\Images\Large\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Version.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

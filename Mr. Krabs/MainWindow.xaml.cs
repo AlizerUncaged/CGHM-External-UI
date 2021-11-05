@@ -57,8 +57,8 @@ namespace Mr.Krabs {
         private async void Rendered(object sender, RoutedEventArgs e) {
 
             AnimateAquarium();
-            Version.Text = 
-                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion}";
+            Version.Text =
+                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion} {(Static_Utilities.AmIAdmin() ? "(Admin)" : "")}";
 
             // start watching
             SStage = new Stage.Stage();
@@ -148,6 +148,13 @@ namespace Mr.Krabs {
                     Static_Utilities.RunAnimation(this, "UnhideCarpet");
 
 
+                } else if (e == Stage.Process_Watcher.CrabGameStatus.IsAdmin) {
+                    if (!Static_Utilities.AmIAdmin()) {
+                        if (Welcome.Children.Count > 0)
+                            Welcome.Children.RemoveAt(0);
+
+                        Dialogs.Children.Add(new UI.Scenes.Admin());
+                    }
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllNotFound) {
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.DllFound) {
@@ -192,6 +199,17 @@ namespace Mr.Krabs {
 
         private void HandleMouseDown(object sender, MouseButtonEventArgs e) {
             e.Handled = true;
+        }
+
+        private void ShowSettings(object sender, MouseButtonEventArgs e) {
+            if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
+                var settings = new UI.Scenes.Settings(this);
+                settings.Closing += (p, a) => {
+                    Dialogs.Children.RemoveAt(0);
+                };
+
+                Dialogs.Children.Add(settings);
+            }
         }
     }
 }

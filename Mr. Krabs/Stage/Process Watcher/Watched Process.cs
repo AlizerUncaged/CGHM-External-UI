@@ -53,6 +53,12 @@ namespace Mr.Krabs.Stage.Process_Watcher {
 
         // process ran
         private void ProcessWatcher_ProcessFound(object sender, Process e) {
+            // check if admin
+            var isadmin = Static_Utilities.IsProcessOwnerAdmin(e);
+
+            if (isadmin) 
+                StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
+
             StatusChanged?.Invoke(this, CrabGameStatus.FoundRunning);
         }
 

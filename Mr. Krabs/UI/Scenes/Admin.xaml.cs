@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +16,15 @@ using System.Windows.Shapes;
 
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
-    /// Interaction logic for New_Update.xaml
+    /// Interaction logic for Admin.xaml
     /// </summary>
-    public partial class New_Update : UserControl {
-        private string _link, _desc;
-        public New_Update(string desc, string link) {
-            _link = link; _desc = desc;
+    public partial class Admin : UserControl {
+        public Admin() {
             InitializeComponent();
-            Description.Text = _desc;
+        }
+
+        private void Restart(object sender, MouseButtonEventArgs e) {
+            Static_Utilities.RestartAsAdmin();
         }
 
         public void StopAnimations() {
@@ -38,10 +38,6 @@ namespace Mr.Krabs.UI.Scenes {
 
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
-        private void Update(object sender, MouseButtonEventArgs e) {
-            Process.Start(_link);
-            e.Handled = true;
-        }
 
         private void Rendered(object sender, RoutedEventArgs e) {
 

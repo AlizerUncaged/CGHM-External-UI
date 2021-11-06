@@ -21,7 +21,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
     }
 
     public class Read_Chewy_JSON {
-        private const int _json_refresh_rate = 100; // milliseconds
+        private const int _json_refresh_rate = 200; // milliseconds
         private string _filepath = "";
         private Hacks _hacks;
         private FileStream _read_fileStream;

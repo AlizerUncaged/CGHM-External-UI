@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Stage\Communication and Pipes\Attribute - Hack Info.cs" />
     <Compile Include="Stage\Communication and Pipes\Communication.cs" />
     <Compile Include="Stage\Communication and Pipes\JSON - Hacks.cs" />
     <Compile Include="Stage\Communication and Pipes\Pipe Wrapper.cs" />

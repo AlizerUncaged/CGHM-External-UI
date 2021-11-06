@@ -6,16 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
-    public class HackInfo : Attribute {
-        public enum HackType {
-            Toggle, TextBox, BoolButton
-        }
-        public readonly HackType ControlType;
-        public readonly string Name;
-        public HackInfo(string name, HackType t) {
-            Name = name; ControlType = t;
-        }
-    }
+   
     public class Hacks {
 
         [JsonProperty("menu_color.x")]

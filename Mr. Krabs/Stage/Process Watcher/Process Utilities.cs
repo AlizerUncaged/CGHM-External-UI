@@ -43,7 +43,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             return await Task.Run(() => {
                 string filename = proc.MainModule.FileName;
                 proc.Kill();
-                return Process.Start(filename);
+                return Process.Start("steam://rungameid/1782210");
             });
         }
     }

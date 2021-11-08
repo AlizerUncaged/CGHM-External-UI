@@ -37,7 +37,7 @@ namespace Mr.Krabs {
 
         private void Clicked(object sender, MouseButtonEventArgs e) {
             if (e.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
+                this.DragMove();    
             e.Handled = true;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,11 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             await Task.Delay(1000);
             // process watcher for process running and whatnot
             ProcessWatcher = new Process_Finder();
-            ProcessWatcher.ProcessFound += ProcessWatcher_ProcessFound;
+            // ProcessWatcher.ProcessFound += ProcessWatcher_ProcessFound;
             // not async
-            BaseProcess = await ProcessWatcher.Start();
+            var procs = await ProcessWatcher.Start();
+            BaseProcess = _get_valid_crabgame_process(procs);
+
             BaseProcess.EnableRaisingEvents = true;
             BaseProcess.Exited += BaseProcess_Exited;
 
@@ -51,16 +54,29 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             _ = StartWatching();
         }
 
-        // process ran
-        private void ProcessWatcher_ProcessFound(object sender, Process e) {
-            // check if admin
-            var isadmin = Static_Utilities.IsProcessOwnerAdmin(e);
+        private Process _get_valid_crabgame_process(IEnumerable<Process> e) {
+            foreach (var process in e) {
+                var isadmin = Static_Utilities.IsProcessOwnerAdmin(process);
 
-            if (isadmin) 
-                StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
+                if (isadmin)
+                    StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
 
-            StatusChanged?.Invoke(this, CrabGameStatus.FoundRunning);
+                // return if we're not admin
+                if (isadmin && !Static_Utilities.AmIAdmin()) return null;
+
+                // now check if the file path is correct if GameAssembly is there
+                var appdir = Path.GetDirectoryName(process.MainModule.FileName);
+                var userassemblypath = $@"{appdir}\GameAssembly.dll";
+
+                if (File.Exists(userassemblypath)) {
+                    StatusChanged?.Invoke(this, CrabGameStatus.FoundRunning);
+                    return process;
+                }
+
+            }
+            return null;
         }
+
 
         public event EventHandler<CrabGameStatus> StatusChanged;
     }

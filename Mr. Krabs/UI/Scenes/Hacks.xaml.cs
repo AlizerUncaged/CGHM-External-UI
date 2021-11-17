@@ -74,7 +74,7 @@ namespace Mr.Krabs.UI.Scenes {
 
                     cb.Click += (s, e) => {
 
-                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { field.VariableName, (bool)cb.IsChecked } };
+                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { field.RawName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
 
                         Task.Factory.StartNew(async () => {

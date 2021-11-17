@@ -12,6 +12,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
 
         public struct HackMetadata {
+            public string RawName;
             public string VariableName;
             public string Name;
             public HackType HackType;
@@ -19,7 +20,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         private static readonly Regex rgx = new Regex("[^a-zA-Z0-9 -]");
         public static HackMetadata GetHackTypeFromName(string name) {
             HackMetadata metadata = new HackMetadata();
-
+            metadata.RawName = name;
             metadata.VariableName = rgx.Replace(name, string.Empty);
             // parse name
             string metadataName = name.Replace("mod_", string.Empty);

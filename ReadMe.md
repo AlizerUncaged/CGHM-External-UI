@@ -11,6 +11,8 @@
 ![](https://img.shields.io/badge/vulnerabilities-0-46C018)
 ![](https://img.shields.io/discord/905112200618860576)
 
+<br>
+<br>
 
 ## 📋 Contains the...
 - External UI for CGHM.

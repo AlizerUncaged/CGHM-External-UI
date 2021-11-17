@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Mr.Krabs.UI.Scenes {
             _json.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
         }
 
-        private void _add_datas(Stage.Communication_and_Pipes.Hacks k, PropertyInfo[] e) {
+        private void _add_datas(ExpandoObject k, PropertyInfo[] e) {
             foreach (var h in e) {
                 if (h.PropertyType == typeof(bool)) {
                     var name = h.Name;
@@ -44,17 +45,8 @@ namespace Mr.Krabs.UI.Scenes {
                 }
             }
         }
-        private void Jsonwatcher_ChangedCheckBoxes(object sender, (Stage.Communication_and_Pipes.Hacks k, PropertyInfo[]) e) {
+        private void Jsonwatcher_ChangedCheckBoxes(object sender, (ExpandoObject k, PropertyInfo[]) e) {
             _add_datas(e.k, e.Item2);
-        }
-
-        public void AddHack(PropertyInfo field) {
-            if (field.PropertyType == typeof(bool)) {
-                var k = (Stage.Communication_and_Pipes.HackInfo[])field.GetCustomAttributes(typeof(Stage.Communication_and_Pipes.HackInfo), false);
-                var json = (JsonPropertyAttribute[])field.GetCustomAttributes(typeof(JsonPropertyAttribute), false);
-
-                AddHack(field, k.FirstOrDefault(), json.FirstOrDefault());
-            }
         }
         public void Toggle(string name, bool toggle) {
           
@@ -67,22 +59,22 @@ namespace Mr.Krabs.UI.Scenes {
          
         }
 
-        public void AddHack(PropertyInfo field, Stage.Communication_and_Pipes.HackInfo info, JsonPropertyAttribute jsonInfo) {
-            switch (info.ControlType) {
+        public void AddHack(PropertyInfo field) {
+            string propertyName = field.Name;
+            var hackMetadata = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(propertyName);
+            switch (hackMetadata.HackType) {
                 case Stage.Communication_and_Pipes.HackInfo.HackType.Toggle:
-                    string hack_name = jsonInfo.PropertyName;
-                    string variable_name = field.Name;
                     // create checkbox
                     var cb = new CheckBox {
-                        Name = variable_name,
-                        Content = info.Name,
+                        Name = propertyName,
+                        Content = hackMetadata.Name,
                         Margin = new Thickness(0, 0, 0, 20),
                         Background = new SolidColorBrush(Colors.Transparent)
                     };
 
                     cb.Click += (s, e) => {
 
-                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { hack_name, (bool)cb.IsChecked } };
+                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { propertyName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
 
                         Task.Factory.StartNew(async () => {
@@ -99,7 +91,7 @@ namespace Mr.Krabs.UI.Scenes {
                         // enable
 
                     };
-                    _cached_checkbox_and_names.Add(variable_name, cb);
+                    _cached_checkbox_and_names.Add(propertyName, cb);
                     Hecks.Children.Add(cb);
                     break;
             }

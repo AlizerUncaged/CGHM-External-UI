@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -92,10 +93,10 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                 .ToArray();
             return properties;
         }
-        private Hacks _old_hacks;
+        private ExpandoObject _old_hacks;
         private bool _keep_reading = false;
         public void StartWatchers() {
-            _old_hacks = new Hacks();
+            _old_hacks = new ExpandoObject();
             if (_keep_reading) return;
 
             _keep_reading = true;
@@ -109,7 +110,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                     _read_stream.DiscardBufferedData();
 
                     var _read_hacks =
-                    JsonConvert.DeserializeObject<Hacks>(read);
+                    JsonConvert.DeserializeObject<ExpandoObject>(read);
 
                     if (_read_hacks == null) {
                         /*
@@ -152,7 +153,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
 
         // contains new values
-        public event EventHandler<(Hacks k, PropertyInfo[])> ChangedCheckBoxes;
+        public event EventHandler<(ExpandoObject k, PropertyInfo[])> ChangedCheckBoxes;
 
     }
 }

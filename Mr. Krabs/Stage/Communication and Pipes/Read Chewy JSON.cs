@@ -16,7 +16,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
     public struct ChewyStatus {
 
-        public Hacks Hacks;
+        public Dictionary<string, object> Hacks;
 
         public bool Success;
     }
@@ -24,7 +24,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
     public class Read_Chewy_JSON {
         private const int _json_refresh_rate = 200; // milliseconds
         private string _filepath = "";
-        private Hacks _hacks;
+        private Dictionary<string, object> _hacks;
         private FileStream _read_fileStream;
         private StreamReader _read_stream;
         private Pipe_Wrapper _comms;
@@ -57,7 +57,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                             await Task.Delay(200);
                     }
 
-                    var hacks = JsonConvert.DeserializeObject<Hacks>(filestring);
+                    var hacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(filestring);
 
                     _hacks = hacks;
 
@@ -85,18 +85,17 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                         BindingFlags.Instance |
                         BindingFlags.Static;
         // booleans
-        public PropertyInfo[] GetCheckBoxes() {
-            var properties = _hacks
-                .GetType()
-                .GetProperties(bindingFlags)
-                .Where(x => x.PropertyType == typeof(bool))
-                .ToArray();
-            return properties;
+        public IEnumerable<HackInfo.HackMetadata> GetCheckBoxes() {
+            List<HackInfo.HackMetadata> metadatas = new List<HackInfo.HackMetadata>();
+            foreach (var i in _hacks) {
+                metadatas.Add(HackInfo.GetHackTypeFromName(i.Key));
+            }
+            return metadatas;
         }
-        private ExpandoObject _old_hacks;
+        private Dictionary<string, object> _old_hacks;
         private bool _keep_reading = false;
         public void StartWatchers() {
-            _old_hacks = new ExpandoObject();
+            _old_hacks = new Dictionary<string, object>();
             if (_keep_reading) return;
 
             _keep_reading = true;
@@ -109,41 +108,26 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                     _read_fileStream.Position = 0;
                     _read_stream.DiscardBufferedData();
 
-                    var _read_hacks =
-                    JsonConvert.DeserializeObject<ExpandoObject>(read);
+                    Dictionary<string, object> newHacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(read);
 
-                    if (_read_hacks == null) {
-                        /*
-                        try {
-                            _read_fileStream.Close();
-                        } catch { Debug.WriteLine("_read_fileStream dispose fail."); }
-                        _read_fileStream = File.Open(_filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-                        try {
-                            _read_stream.Close();
-                        } catch { Debug.WriteLine("_read_stream dispose fail."); }
-                        _read_stream = new StreamReader(_read_fileStream);
-                        */
+                    if (newHacks == null) {
                         continue;
                     }
 
-                    List<PropertyInfo> newProperties = new List<PropertyInfo>();
+                    List<(string, object)> newProperties = new List<(string, object)>();
 
-                    foreach (var property in _read_hacks.GetType().GetProperties()) {
-                        var oldValue = property.GetValue(_old_hacks, null);
-                        var newValue = property.GetValue(_read_hacks, null);
-
-                        if (!object.Equals(oldValue, newValue)) {
-                            newProperties.Add(property);
+                    for (int i = 0; i < newHacks.Count; i++) {
+                        var newHacksElementAtIndex = newHacks.ElementAt(i);
+                        if (newHacksElementAtIndex.Value != _old_hacks.ElementAt(i).Value) {
+                            newProperties.Add((newHacksElementAtIndex.Key, newHacksElementAtIndex.Value));
                         }
-
                     }
 
                     if (newProperties.Count > 0) {
-                        ChangedCheckBoxes?.Invoke(this, (_read_hacks, newProperties.ToArray()));
+                        ChangedCheckBoxes?.Invoke(this, newProperties);
                     }
 
-                    _old_hacks = _read_hacks;
+                    _old_hacks = newHacks;
 
                 }
             });
@@ -153,7 +137,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
 
         // contains new values
-        public event EventHandler<(ExpandoObject k, PropertyInfo[])> ChangedCheckBoxes;
+        public event EventHandler<List<(string, object)>> ChangedCheckBoxes;
 
     }
 }

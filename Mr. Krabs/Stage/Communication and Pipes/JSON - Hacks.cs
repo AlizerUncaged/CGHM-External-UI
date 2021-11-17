@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
    
-    public class Hacks {
+    public class _Hacks {
 
         [JsonProperty("menu_color.x")]
         public double MenuColorX { get; set; }
@@ -39,35 +39,35 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         [JsonProperty("menu_show.hotkey")]
         public int MenuShowHotkey { get; set; }
 
-        [HackInfo("Fly Mod" , HackInfo.HackType.Toggle)]
+        // [HackInfo("Fly Mod" , HackInfo.HackType.Toggle)]
         [JsonProperty("mod_fly.active")]
         public bool ModFlyActive { get; set; }
 
         [JsonProperty("mod_fly.hotkey")]
         public int ModFlyHotkey { get; set; }
 
-        [HackInfo("No-Clip", HackInfo.HackType.Toggle)]
+        // [HackInfo("No-Clip", HackInfo.HackType.Toggle)]
         [JsonProperty("mod_noclip.active")]
         public bool ModNoclipActive { get; set; }
 
         [JsonProperty("mod_noclip.hotkey")]
         public int ModNoclipHotkey { get; set; }
 
-        [HackInfo("Infinite Punch", HackInfo.HackType.Toggle)]
+        // [HackInfo("Infinite Punch", HackInfo.HackType.Toggle)]
         [JsonProperty("mod_infinite_punch.active")]
         public bool ModInfinitePunchActive { get; set; }
 
         [JsonProperty("mod_infinite_punch.hotkey")]
         public int ModInfinitePunchHotkey { get; set; }
 
-        [HackInfo("Game Start", HackInfo.HackType.BoolButton)]
+        // [HackInfo("Game Start", HackInfo.HackType.BoolButton)]
         [JsonProperty("mod_game_start.active")]
         public bool ModGameStartActive { get; set; }
 
         [JsonProperty("mod_game_start.hotkey")]
         public int ModGameStartHotkey { get; set; }
 
-        [HackInfo("Game Start", HackInfo.HackType.BoolButton)]
+        // [HackInfo("Game Start", HackInfo.HackType.BoolButton)]
         [JsonProperty("mod_game_next.active")]
         public bool ModGameNextActive { get; set; }
 
@@ -86,7 +86,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         [JsonProperty("esp_box.value.w")]
         public double EspBoxValueW { get; set; }
 
-        [HackInfo("Player ESP Box", HackInfo.HackType.Toggle)]
+        // [HackInfo("Player ESP Box", HackInfo.HackType.Toggle)]
         [JsonProperty("esp_box.active")]
         public bool EspBoxActive { get; set; }
 
@@ -105,7 +105,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         [JsonProperty("esp_tracer.value.w")]
         public double EspTracerValueW { get; set; }
 
-        [HackInfo("Player ESP Tracer", HackInfo.HackType.Toggle)]
+        // [HackInfo("Player ESP Tracer", HackInfo.HackType.Toggle)]
         [JsonProperty("esp_tracer.active")]
         public bool EspTracerActive { get; set; }
 

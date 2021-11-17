@@ -33,20 +33,22 @@ namespace Mr.Krabs.UI.Scenes {
             _json.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
         }
 
-        private void _add_datas(ExpandoObject k, PropertyInfo[] e) {
-            foreach (var h in e) {
-                if (h.PropertyType == typeof(bool)) {
-                    var name = h.Name;
+        private void _add_datas(List<(string, object)> e) {
 
-                    var value = h.GetValue(k);
+
+            foreach (var h in e) {
+
+                var hackMetadata = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(h.Item1);
+                var value = h.Item2;
+                if (value.GetType() == typeof(bool)) {
+                    var name = hackMetadata.VariableName;
                     var sval = value.ToString().ToLower();
-                    // MessageBox.Show(sval);
                     Toggle(name, bool.Parse(sval));
                 }
             }
         }
-        private void Jsonwatcher_ChangedCheckBoxes(object sender, (ExpandoObject k, PropertyInfo[]) e) {
-            _add_datas(e.k, e.Item2);
+        private void Jsonwatcher_ChangedCheckBoxes(object sender, List<(string, object)> e) {
+            _add_datas(e);
         }
         public void Toggle(string name, bool toggle) {
           
@@ -59,22 +61,20 @@ namespace Mr.Krabs.UI.Scenes {
          
         }
 
-        public void AddHack(PropertyInfo field) {
-            string propertyName = field.Name;
-            var hackMetadata = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(propertyName);
-            switch (hackMetadata.HackType) {
+        public void AddHack(HackInfo.HackMetadata field) {
+            switch (field.HackType) {
                 case Stage.Communication_and_Pipes.HackInfo.HackType.Toggle:
                     // create checkbox
                     var cb = new CheckBox {
-                        Name = propertyName,
-                        Content = hackMetadata.Name,
+                        Name = field.VariableName,
+                        Content = field.Name,
                         Margin = new Thickness(0, 0, 0, 20),
                         Background = new SolidColorBrush(Colors.Transparent)
                     };
 
                     cb.Click += (s, e) => {
 
-                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { propertyName, (bool)cb.IsChecked } };
+                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { field.VariableName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
 
                         Task.Factory.StartNew(async () => {
@@ -91,7 +91,7 @@ namespace Mr.Krabs.UI.Scenes {
                         // enable
 
                     };
-                    _cached_checkbox_and_names.Add(propertyName, cb);
+                    _cached_checkbox_and_names.Add(field.VariableName, cb);
                     Hecks.Children.Add(cb);
                     break;
             }

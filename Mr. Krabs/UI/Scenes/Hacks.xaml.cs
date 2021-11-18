@@ -64,8 +64,9 @@ namespace Mr.Krabs.UI.Scenes {
                         case HackInfo.HackType.TextBox:
                             if (element is TextBox tb) {
                                 string value = toggle.Value.ToString();
-                                if (!tb.Text.Equals(value))
-                                    tb.Text = value;
+                                if (!string.IsNullOrWhiteSpace(tb.Text))
+                                    if (!tb.Text.Equals(value))
+                                        tb.Text = value;
                             }
                             break;
                     }
@@ -128,17 +129,27 @@ namespace Mr.Krabs.UI.Scenes {
                     };
                     tb.TextChanged += (s, e) => {
 
-                        if (string.IsNullOrWhiteSpace(tb.Text)) return;
+                        if (!tb.IsFocused) return;
 
-                        var originalTypeParsed = Convert.ChangeType(tb.Text, field.Value.GetType());
-                        Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { field.RawName, originalTypeParsed } };
-                        string jsoned = JsonConvert.SerializeObject(nameAndVal);
+                        Dictionary<object, object> defaultVal = new Dictionary<object, object>() 
+                        { { field.RawName, Activator.CreateInstance(field.Value.GetType()) } };
+
+                        string jsoned = JsonConvert.SerializeObject(defaultVal);
+
+                        if (!string.IsNullOrWhiteSpace(tb.Text)) {
+                            var originalTypeParsed = Convert.ChangeType(tb.Text, field.Value.GetType());
+                            defaultVal[field.RawName] = originalTypeParsed;
+                            jsoned = JsonConvert.SerializeObject(defaultVal);
+                        }
+
                         Task.Factory.StartNew(async () => {
                             await _pipe.Send(jsoned);
                         });
 
+                        e.Handled = true;
+
                     };
-                    MaterialDesignThemes.Wpf.HintAssist.SetHint(tb, field.Name);
+                    MaterialDesignThemes.Wpf.HintAssist.SetHelperText(tb, field.Name);
                     MaterialDesignThemes.Wpf.HintAssist.SetBackground(tb, Brushes.Transparent);
                     _cached_checkbox_and_names.Add(field.VariableName, tb);
                     Hecks.Children.Add(tb);

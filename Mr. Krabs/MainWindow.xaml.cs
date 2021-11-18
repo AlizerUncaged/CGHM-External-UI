@@ -130,7 +130,8 @@ namespace Mr.Krabs {
                 // hacks ! Window !
                 var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
                 // add those controls
-                var toggles = SStage.FieldsAndHacks.GetCheckBoxes();
+                var toggles = SStage.FieldsAndHacks.GetFields();
+                // MessageBox.Show($"Toggles: {toggles.Count()}");
                 foreach (var toggle in toggles) {
                     hacks.AddHack(toggle);
                 }

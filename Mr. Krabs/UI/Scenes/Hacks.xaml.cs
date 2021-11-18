@@ -3,10 +3,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +27,9 @@ namespace Mr.Krabs.UI.Scenes {
     public partial class Hacks : UserControl {
         private Pipe_Wrapper _pipe;
         private Read_Chewy_JSON _json;
-        private Dictionary<string, CheckBox> _cached_checkbox_and_names = new Dictionary<string, CheckBox>();
+
+        private Dictionary<string  /* element name */, FrameworkElement> _cached_checkbox_and_names =
+            new Dictionary<string, FrameworkElement>();
         public Hacks(Pipe_Wrapper pipe, Read_Chewy_JSON jsonwatcher) {
             InitializeComponent();
             _pipe = pipe;
@@ -35,35 +39,45 @@ namespace Mr.Krabs.UI.Scenes {
 
         private void _add_datas(List<(string, object)> e) {
 
-
             foreach (var h in e) {
-
-                var hackMetadata = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(h.Item1);
+                var hackMetadata = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(h.Item1, h.Item2);
                 var value = h.Item2;
-                if (value.GetType() == typeof(bool)) {
-                    var name = hackMetadata.VariableName;
-                    var sval = value.ToString().ToLower();
-                    Toggle(name, bool.Parse(sval));
-                }
+                Toggle(hackMetadata);
+
             }
         }
-        private void Jsonwatcher_ChangedCheckBoxes(object sender, List<(string, object)> e) {
+        private void Jsonwatcher_ChangedCheckBoxes(object sender, List<(string /* name */, object /* value */)> e) {
             _add_datas(e);
         }
-        public void Toggle(string name, bool toggle) {
-          
+        public void Toggle(HackInfo.HackMetadata toggle) {
+            // Debug.WriteLine($"New Toggle: {toggle.Value}");
+
             Application.Current.Dispatcher.Invoke(new Action(() => {
-                CheckBox cb;
-                if (_cached_checkbox_and_names.TryGetValue(name, out cb)) {
-                    cb.IsChecked = toggle;
+                FrameworkElement element;
+                if (_cached_checkbox_and_names.TryGetValue(toggle.VariableName, out element)) {
+                    switch (toggle.HackType) {
+                        case HackInfo.HackType.Toggle:
+                            if (element is CheckBox cb) {
+                                cb.IsChecked = (bool)toggle.Value;
+                            }
+                            break;
+                        case HackInfo.HackType.TextBox:
+                            if (element is TextBox tb) {
+                                string value = toggle.Value.ToString();
+                                if (!tb.Text.Equals(value))
+                                    tb.Text = value;
+                            }
+                            break;
+                    }
                 }
             }));
-         
+
         }
 
+        private static readonly Regex onlyNumbers = new Regex("[^0-9.-]+");
         public void AddHack(HackInfo.HackMetadata field) {
             switch (field.HackType) {
-                case Stage.Communication_and_Pipes.HackInfo.HackType.Toggle:
+                case HackInfo.HackType.Toggle:
                     // create checkbox
                     var cb = new CheckBox {
                         Name = field.VariableName,
@@ -74,7 +88,7 @@ namespace Mr.Krabs.UI.Scenes {
 
                     cb.Click += (s, e) => {
 
-                        Dictionary<string, bool> nameAndVal = new Dictionary<string, bool>() { { field.RawName, (bool)cb.IsChecked } };
+                        Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { field.RawName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
 
                         Task.Factory.StartNew(async () => {
@@ -94,12 +108,57 @@ namespace Mr.Krabs.UI.Scenes {
                     _cached_checkbox_and_names.Add(field.VariableName, cb);
                     Hecks.Children.Add(cb);
                     break;
+                case HackInfo.HackType.TextBox:
+                    var tb = new TextBox {
+                        Name = field.VariableName,
+                        // Content = field.Name,
+                        Margin = new Thickness(0, 0, 0, 20),
+                        Background = new SolidColorBrush(Colors.Transparent),
+                        Foreground = PlaceholderName.Foreground,
+                        BorderBrush = PlaceholderName.BorderBrush,
+                        Text = $"{field.Value}"
+                    };
+                    tb.PreviewTextInput += (s, e) => {
+                        var text = e.Text;
+                        var valueType = field.Value.GetType();
+                        if (valueType == typeof(double) || valueType == typeof(int) || valueType == typeof(float)) {
+                            e.Handled = onlyNumbers.IsMatch(text) && !string.IsNullOrWhiteSpace(text);
+                        }
+
+                    };
+                    tb.TextChanged += (s, e) => {
+
+                        if (string.IsNullOrWhiteSpace(tb.Text)) return;
+
+                        var originalTypeParsed = Convert.ChangeType(tb.Text, field.Value.GetType());
+                        Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { field.RawName, originalTypeParsed } };
+                        string jsoned = JsonConvert.SerializeObject(nameAndVal);
+                        Task.Factory.StartNew(async () => {
+                            await _pipe.Send(jsoned);
+                        });
+
+                    };
+                    MaterialDesignThemes.Wpf.HintAssist.SetHint(tb, field.Name);
+                    MaterialDesignThemes.Wpf.HintAssist.SetBackground(tb, Brushes.Transparent);
+                    _cached_checkbox_and_names.Add(field.VariableName, tb);
+                    Hecks.Children.Add(tb);
+
+                    break;
             }
         }
 
         private void Rendered(object sender, RoutedEventArgs e) {
-            // remove placeholder lol
-            Hecks.Children.Remove(PlaceHolder);
+            // remove placeholders lol
+            const string placeholderTag = "Placeholder";
+            for (int i = Hecks.Children.Count - 1; i >= 0; i--) {
+                var control = Hecks.Children[i] as FrameworkElement;
+                if (control.Tag != null) {
+                    string tagName = control.Tag.ToString();
+                    if (tagName == placeholderTag)
+                        Hecks.Children.Remove(control);
+                }
+            }
+
             Scrolly.MaxHeight = this.ActualHeight;
         }
 

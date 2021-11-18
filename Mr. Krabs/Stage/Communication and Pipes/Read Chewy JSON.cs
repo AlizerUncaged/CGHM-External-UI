@@ -58,7 +58,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                     }
 
                     var hacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(filestring);
-
                     _hacks = hacks;
 
                     return new ChewyStatus {
@@ -80,15 +79,11 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             errorContext.Handled = true;
         }
 
-        private readonly BindingFlags bindingFlags = BindingFlags.Public |
-                        BindingFlags.NonPublic |
-                        BindingFlags.Instance |
-                        BindingFlags.Static;
         // booleans
-        public IEnumerable<HackInfo.HackMetadata> GetCheckBoxes() {
+        public IEnumerable<HackInfo.HackMetadata> GetFields() {
             List<HackInfo.HackMetadata> metadatas = new List<HackInfo.HackMetadata>();
             foreach (var i in _hacks) {
-                metadatas.Add(HackInfo.GetHackTypeFromName(i.Key));
+                metadatas.Add(HackInfo.GetHackTypeFromName(i.Key, i.Value));
             }
             return metadatas;
         }
@@ -118,14 +113,15 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     for (int i = 0; i < newHacks.Count; i++) {
                         var newHacksElementAtIndex = newHacks.ElementAt(i);
-                        if (newHacksElementAtIndex.Value != _old_hacks.ElementAt(i).Value) {
-                            newProperties.Add((newHacksElementAtIndex.Key, newHacksElementAtIndex.Value));
-                        }
+                        if (i < _old_hacks.Count)
+                            if (newHacksElementAtIndex.Value.Equals(_old_hacks.ElementAt(i).Value)) {
+                                newProperties.Add((newHacksElementAtIndex.Key, newHacksElementAtIndex.Value));
+                            }
                     }
 
-                    if (newProperties.Count > 0) {
+                    if (newProperties.Count > 0)
                         ChangedCheckBoxes?.Invoke(this, newProperties);
-                    }
+
 
                     _old_hacks = newHacks;
 

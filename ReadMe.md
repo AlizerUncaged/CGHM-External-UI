@@ -2,7 +2,7 @@
 <div>
   <img height="210" align="left" src="https://i.kym-cdn.com/photos/images/original/000/963/789/6be.gif" alt="LoveLetter"/>
   <br>
-  <h1><b>🦀 Mr. Krabs</b></h1>
+  <h1><b>🦀 CGHM - External UI</b></h1>
   <p>Crab Game HackerMode!</p>
 </div>
 
@@ -31,3 +31,6 @@
 
 ## 🐞 Issues
 Bugs? Create a new issue on the [issues page!](https://github.com/AlizerUncaged/mr-krabs/issues)
+
+## 📧 Terms and Conditions
+The license disallows any commercial use of Crab Game HackerMode without the permission of Crab Game HackerMode Developer Team (“we” or “us” or “our”). By installing, copying, or otherwise using the SOFTWARE, you agree to be bound by the terms of the [End User License Agreement and Privacy Statement](LICENSE). If you do not agree to the Terms and Conditions, then do not install or use the SOFTWARE.

@@ -246,8 +246,8 @@
                                         <LinearGradientBrush>
                                             <GradientStop Color="#FFF14DFF" Offset="0"/>
                                             <GradientStop Color="#6E58EB" Offset="1"/>
-                                    </LinearGradientBrush>
-                                        </Setter.Value>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
                                 </Setter>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
@@ -275,11 +275,35 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
-        <ScrollViewer x:Name="Scrolly" Margin="20,0,20,0" VerticalAlignment="Top">
-            <StackPanel x:Name="Hecks" Margin="20,0,20,0" VerticalAlignment="Top">
-                <Grid Margin="0,20,0,0"></Grid>
-                <CheckBox x:Name="PlaceHolder"/>
-            </StackPanel>
-        </ScrollViewer>
+        <Grid Margin="20,0,20,0"  VerticalAlignment="Stretch">
+            <Grid.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.05"/>
+                    <GradientStop Color="Transparent" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.OpacityMask>
+            <ScrollViewer x:Name="Scrolly" >
+                <StackPanel x:Name="Hecks" Margin="20,0,20,0" VerticalAlignment="Top">
+                    <Grid Margin="0,20,0,0"/>
+                    <CheckBox Tag="Placeholder" Margin="0,0,0,20"/>
+                    <TextBox x:Name="PlaceholderName" Tag="Placeholder" materialDesign:HintAssist.Hint="Epic Gmaer " FontFamily="{materialDesign:MaterialDesignFont}"  Margin="20,0,20,20" Foreground="White">
+                        <TextBox.BorderBrush>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                        <RotateTransform Angle="-45" CenterY="0.5" CenterX="0.5"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="#FFF14DFF"/>
+                                <GradientStop Color="#FF6E58EB" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.BorderBrush>
+                    </TextBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </DockPanel>
 </UserControl>

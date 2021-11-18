@@ -56,16 +56,21 @@ namespace Mr.Krabs.Stage.Process_Watcher {
 
         private Process _get_valid_crabgame_process(IEnumerable<Process> e) {
             foreach (var process in e) {
-                var isadmin = Static_Utilities.IsProcessOwnerAdmin(process);
+
+                var isadmin =
+                    Static_Utilities.IsProcessOwnerAdmin(process);
 
                 if (isadmin)
                     StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
 
                 // return if we're not admin
-                if (isadmin && !Static_Utilities.AmIAdmin()) return null;
+                if (isadmin && !Static_Utilities.AmIAdmin()) 
+                    return null;
 
                 // now check if the file path is correct if GameAssembly is there
-                var appdir = Path.GetDirectoryName(process.MainModule.FileName);
+                var appdir = 
+                    Path.GetDirectoryName(process.MainModule.FileName);
+
                 var userassemblypath = $@"{appdir}\GameAssembly.dll";
 
                 if (File.Exists(userassemblypath)) {

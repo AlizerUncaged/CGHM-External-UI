@@ -204,7 +204,10 @@
     <Resource Include="UI\Images\Large\Settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="UI\Images\Large\Discord.png" />
+    <Resource Include="UI\Images\Large\Discord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Images\Large\Cute Catgirl.png" />
     <Content Include="Version.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

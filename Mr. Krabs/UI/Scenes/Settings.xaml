@@ -130,7 +130,7 @@
 
                 </DockPanel>
                <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,0" VerticalAlignment="Top">
-                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}" Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,20"></CheckBox>
+                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}" Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,10"></CheckBox>
                 </StackPanel>
                 <StackPanel MouseDown="DiscordJoin" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,15" Cursor="Hand" Background="#00000000">
                     <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"></Label>

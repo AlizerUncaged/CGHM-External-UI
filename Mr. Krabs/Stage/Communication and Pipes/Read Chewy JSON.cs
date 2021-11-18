@@ -58,6 +58,12 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                     }
 
                     var hacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(filestring);
+
+                    foreach (var settingsOption in UI.Scenes.Settings.settingsFields) {
+                        bool isRemoved =
+                        hacks.Remove(settingsOption);
+                    }
+
                     _hacks = hacks;
 
                     return new ChewyStatus {
@@ -87,10 +93,11 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             }
             return metadatas;
         }
-        private Dictionary<string, object> _old_hacks;
+
+        public Dictionary<string, object> Hacks;
         private bool _keep_reading = false;
         public void StartWatchers() {
-            _old_hacks = new Dictionary<string, object>();
+            Hacks = new Dictionary<string, object>();
             if (_keep_reading) return;
 
             _keep_reading = true;
@@ -105,6 +112,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     Dictionary<string, object> newHacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(read);
 
+
                     if (newHacks == null) {
                         continue;
                     }
@@ -113,8 +121,8 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     for (int i = 0; i < newHacks.Count; i++) {
                         var newHacksElementAtIndex = newHacks.ElementAt(i);
-                        if (i < _old_hacks.Count)
-                            if (newHacksElementAtIndex.Value.Equals(_old_hacks.ElementAt(i).Value)) {
+                        if (i < Hacks.Count)
+                            if (newHacksElementAtIndex.Value.Equals(Hacks.ElementAt(i).Value)) {
                                 newProperties.Add((newHacksElementAtIndex.Key, newHacksElementAtIndex.Value));
                             }
                     }
@@ -123,7 +131,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                         ChangedCheckBoxes?.Invoke(this, newProperties);
 
 
-                    _old_hacks = newHacks;
+                    Hacks = newHacks;
 
                 }
             });

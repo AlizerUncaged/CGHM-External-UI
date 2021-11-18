@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,8 +21,17 @@ namespace Mr.Krabs.UI.Scenes {
     /// Interaction logic for Settings.xaml
     /// </summary>
     public partial class Settings : UserControl, IDialog {
+
+        public static string[] settingsFields = new string[] {
+            "run_external_on_start.active"
+        };
+
+        private Stage.Communication_and_Pipes.Pipe_Wrapper _pipe;
+        private Stage.Communication_and_Pipes.Read_Chewy_JSON _json;
         private Window _parent;
-        public Settings(Window parent) {
+        public Settings(Stage.Communication_and_Pipes.Read_Chewy_JSON json, Stage.Communication_and_Pipes.Pipe_Wrapper pipe, Window parent) {
+            _json = json;
+            _pipe = pipe;
             _parent = parent;
             InitializeComponent();
         }
@@ -52,11 +62,12 @@ namespace Mr.Krabs.UI.Scenes {
 
                 UI.Move_Randomly skyMoveEllipses =
                     new UI.Move_Randomly(
-                        new UI.Resolution { 
-                            MaxHeight = SkullEmoji.ActualHeight, 
-                            MaxWidth = SkullEmoji.ActualWidth, 
-                            MinWidth = -comet.Width, 
-                            MinHeight = -comet.Height},
+                        new UI.Resolution {
+                            MaxHeight = SkullEmoji.ActualHeight,
+                            MaxWidth = SkullEmoji.ActualWidth,
+                            MinWidth = -comet.Width,
+                            MinHeight = -comet.Height
+                        },
                         new FrameworkElement[] { comet },
                         new UI.Interval { Min = 2000, Max = 3000 },
                         new SineEase { EasingMode = EasingMode.EaseInOut }
@@ -70,6 +81,38 @@ namespace Mr.Krabs.UI.Scenes {
             if (_parent != null) {
                 AlwaysOnTopCB.IsChecked = _parent.Topmost;
             }
+
+            if (_json != null && _json.Hacks != null)
+                foreach (var i in settingsFields) {
+                    var parsedHackInfo = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(i, _json.Hacks[i]);
+
+                    var cb = new CheckBox {
+                        Name = parsedHackInfo.VariableName,
+                        Content = parsedHackInfo.Name,
+                        Margin = new Thickness(0, 0, 0, 20),
+                        Background = new SolidColorBrush(Colors.Transparent),
+                        Foreground = AlwaysOnTopCB.Foreground,
+                        FontFamily = AlwaysOnTopCB.FontFamily,
+                    };
+
+                    cb.Loaded += (s, _e) => {
+                        cb.IsChecked = (bool)_json.Hacks[i];
+                    };
+
+                    cb.Click += (s, _e) => {
+
+                        Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { parsedHackInfo.RawName, (bool)cb.IsChecked } };
+                        string jsoned = JsonConvert.SerializeObject(nameAndVal);
+
+                        Task.Factory.StartNew(async () => {
+                            await _pipe.Send(jsoned);
+                        });
+
+                        e.Handled = true;
+                    };
+
+                    Parent.Children.Add(cb);
+                }
 
             e.Handled = true;
         }

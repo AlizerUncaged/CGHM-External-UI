@@ -21,5 +21,15 @@ namespace Mr.Krabs.UI.Scenes {
         public Injecting() {
             InitializeComponent();
         }
+
+        // Above window
+        private void Clicked(object sender, MouseButtonEventArgs e) {
+
+        }
+
+        // window
+        private void AnotherClick(object sender, MouseButtonEventArgs e) {
+
+        }
     }
 }

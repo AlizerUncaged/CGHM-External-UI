@@ -37,7 +37,7 @@ namespace Mr.Krabs {
 
         private void Clicked(object sender, MouseButtonEventArgs e) {
             if (e.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();    
+                this.DragMove();
             e.Handled = true;
         }
 
@@ -79,11 +79,11 @@ namespace Mr.Krabs {
 
             var required_dll = await Static_Utilities.CheckRequiredDlls();
             if (!required_dll.AllFound) {
-                var message = 
+                var message =
                     new UI.Scenes.MessageA(
-                        $"{System.IO.Path.GetFileName(required_dll.Name)} not found!", 
-                        required_dll.Desc, 
-                        required_dll.Link, 
+                        $"{System.IO.Path.GetFileName(required_dll.Name)} not found!",
+                        required_dll.Desc,
+                        required_dll.Link,
                         true);
                 message.Closing += DialogsClosing;
 
@@ -239,7 +239,7 @@ namespace Mr.Krabs {
 
         private void ShowSettings(object sender, MouseButtonEventArgs e) {
             if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
-                var settings = new UI.Scenes.Settings(this);
+                var settings = new UI.Scenes.Settings(SStage.FieldsAndHacks, SStage.Pipe, this);
                 settings.Closing += DialogsClosing;
 
                 Dialogs.Children.Add(settings);

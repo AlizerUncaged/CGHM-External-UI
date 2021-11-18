@@ -15,7 +15,6 @@ using System.Windows.Media.Animation;
 namespace Mr.Krabs {
 
     public static class Static_Utilities {
-        public const string ReadMe = "Haa";
 
         public const int MajorVersion = 1;
         public const int MinorVersion = 4;

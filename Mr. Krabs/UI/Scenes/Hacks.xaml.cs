@@ -99,13 +99,6 @@ namespace Mr.Krabs.UI.Scenes {
                         e.Handled = true;
                     };
 
-                    cb.Checked += (s, e) => {
-                        // enable
-                    };
-                    cb.Unchecked += (s, e) => {
-                        // enable
-
-                    };
                     _cached_checkbox_and_names.Add(field.VariableName, cb);
                     Hecks.Children.Add(cb);
                     break;
@@ -113,12 +106,14 @@ namespace Mr.Krabs.UI.Scenes {
                     var tb = new TextBox {
                         Name = field.VariableName,
                         // Content = field.Name,
-                        Margin = new Thickness(0, 0, 0, 20),
+                        Margin = new Thickness(0, 0, 0, 30),
                         Background = new SolidColorBrush(Colors.Transparent),
                         Foreground = PlaceholderName.Foreground,
                         BorderBrush = PlaceholderName.BorderBrush,
-                        Text = $"{field.Value}"
+                        Text = $"{field.Value}",
+                        FontFamily = PlaceholderName.FontFamily
                     };
+
                     tb.PreviewTextInput += (s, e) => {
                         var text = e.Text;
                         var valueType = field.Value.GetType();
@@ -127,6 +122,7 @@ namespace Mr.Krabs.UI.Scenes {
                         }
 
                     };
+
                     tb.TextChanged += (s, e) => {
 
                         if (!tb.IsFocused) return;
@@ -151,6 +147,7 @@ namespace Mr.Krabs.UI.Scenes {
                     };
                     MaterialDesignThemes.Wpf.HintAssist.SetHelperText(tb, field.Name);
                     MaterialDesignThemes.Wpf.HintAssist.SetBackground(tb, Brushes.Transparent);
+                    MaterialDesignThemes.Wpf.HintAssist.SetFontFamily(tb, PlaceholderName.FontFamily);
                     _cached_checkbox_and_names.Add(field.VariableName, tb);
                     Hecks.Children.Add(tb);
 

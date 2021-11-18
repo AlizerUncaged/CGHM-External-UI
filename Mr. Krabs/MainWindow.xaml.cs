@@ -116,6 +116,7 @@ namespace Mr.Krabs {
             // dll is there, so that means json file is written right? yes.
             if (SStage.FieldsAndHacks == null) {
                 SStage.FieldsAndHacks = new Stage.Communication_and_Pipes.Read_Chewy_JSON(SStage.Pipe, SStage.CHEWY_JSON_PATH);
+                SStage.FieldsAndHacks.OnSettingsLoaded += FieldsAndHacks_OnSettingsLoaded;
                 await SStage.FieldsAndHacks.InitializeStreams();
             }
 
@@ -140,6 +141,16 @@ namespace Mr.Krabs {
 
                 SetActiveControl(hacks);
             }));
+        }
+
+        private void FieldsAndHacks_OnSettingsLoaded(object sender, (string, object) e) {
+            switch (e.Item1) {
+                case "run_external_on_start.active":
+                    var crabGameDir = SStage.CrabGame.GetCrabGameDirectory();
+                    var isAlreadyCopied = Static_Utilities.CheckIfCopiedToCrabGame(crabGameDir);
+                    if (!isAlreadyCopied) Static_Utilities.CopyToCrabGameFolder(crabGameDir);
+                    break;
+            }
         }
 
         public void SetActiveControl(UserControl control) {

@@ -45,45 +45,44 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
         }
 
+        // penis? cock? maybe even cum sometimes
         public async Task<ChewyStatus> ReadAndSetHacks() {
             return await Task.Run(async () => {
-                try {
-                    string filestring = null;
-                    while (filestring == null) {
-                        filestring = _read_stream.ReadToEnd();
-                        _read_fileStream.Position = 0;
-                        _read_stream.DiscardBufferedData();
-                        if (filestring == null)
-                            await Task.Delay(200);
-                    }
 
-                    var hacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(filestring);
+                string filestring = null;
+                while (filestring == null) {
+                    filestring = _read_stream.ReadToEnd();
+                    _read_fileStream.Position = 0;
+                    _read_stream.DiscardBufferedData();
+                    if (filestring == null)
+                        await Task.Delay(200);
+                }
 
-                    foreach (var settingsOption in UI.Scenes.Settings.settingsFields) {
+                var hacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(filestring);
+
+                foreach (var settingsOption in UI.Scenes.Settings.settingsFields) {
+                    if (hacks.ContainsKey(settingsOption)) {
+
+                        OnSettingsLoaded?.Invoke(this, (settingsOption, hacks[settingsOption]));
+
+
                         bool isRemoved =
                         hacks.Remove(settingsOption);
                     }
-
-                    _hacks = hacks;
-
-                    return new ChewyStatus {
-                        Hacks = hacks,
-                        Success = true
-                    };
-                } catch {
-
-                    return new ChewyStatus {
-                        Hacks = null,
-                        Success = false
-                    };
                 }
+
+                _hacks = hacks;
+
+                return new ChewyStatus {
+                    Hacks = hacks,
+                    Success = true
+                };
+
             });
         }
 
-        [OnError]
-        internal void OnError(StreamingContext context, ErrorContext errorContext) {
-            errorContext.Handled = true;
-        }
+
+        public event EventHandler<(string, object)> OnSettingsLoaded;
 
         // booleans
         public IEnumerable<HackInfo.HackMetadata> GetFields() {

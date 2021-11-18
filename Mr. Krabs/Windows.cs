@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mr.Krabs {
     public static class Windows {
+        
         public static void Exit() {
             Environment.Exit(Environment.ExitCode);
         }

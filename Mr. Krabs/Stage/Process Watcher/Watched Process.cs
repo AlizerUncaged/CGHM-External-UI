@@ -16,6 +16,11 @@ namespace Mr.Krabs.Stage.Process_Watcher {
 
         public Process_Finder ProcessWatcher;
         public Process BaseProcess = null;
+        public string GetCrabGameDirectory() {
+            return 
+                Path.GetDirectoryName(
+                BaseProcess.MainModule.FileName);
+        }
         /// <returns>ProcessWatcher property.</returns>
         public async Task<Process_Finder> StartWatching() {
             await Task.Delay(1000);

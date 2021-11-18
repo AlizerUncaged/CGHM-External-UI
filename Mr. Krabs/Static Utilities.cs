@@ -47,8 +47,32 @@ namespace Mr.Krabs {
             });
         }
 
+        public static bool CopyToCrabGameFolder(string crabGameFolder) {
+            var d = new DirectoryInfo(CurrentFolder);
+            var f = d.GetFiles();
+            foreach (var g in f) {
+
+                var file = $"{crabGameFolder}/{g.Name}";
+
+                if (!File.Exists(file)) {
+                    File.Copy(g.FullName, file, true);
+                }
+            }
+            return true;
+        }
+        public static bool CheckIfCopiedToCrabGame(string crabGameFolder) {
+            var d = new DirectoryInfo(CurrentFolder);
+            var f = d.GetFiles();
+            foreach (var g in f) {
+                if (!File.Exists($"{crabGameFolder}/{g.Name}")) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public struct Required_Dll {
-            public bool AllFound; public string Path;  public string Name; public string Link; public string Desc;
+            public bool AllFound; public string Path; public string Name; public string Link; public string Desc;
         }
         private static readonly List<Required_Dll> _required_files = new List<Required_Dll>{
             new Required_Dll {

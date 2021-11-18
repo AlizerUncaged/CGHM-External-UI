@@ -69,7 +69,6 @@
     </ApplicationDefinition>
     <Compile Include="Stage\Communication and Pipes\Hack Info.cs" />
     <Compile Include="Stage\Communication and Pipes\Communication.cs" />
-    <Compile Include="Stage\Communication and Pipes\JSON - Hacks.cs" />
     <Compile Include="Stage\Communication and Pipes\Pipe Wrapper.cs" />
     <Compile Include="Stage\Communication and Pipes\Read Chewy JSON.cs" />
     <Compile Include="Stage\Main.cs" />

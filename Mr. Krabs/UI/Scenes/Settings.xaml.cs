@@ -84,6 +84,9 @@ namespace Mr.Krabs.UI.Scenes {
 
             if (_json != null && _json.Hacks != null)
                 foreach (var i in settingsFields) {
+
+                    if (!_json.Hacks.ContainsKey(i)) continue;
+
                     var parsedHackInfo = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(i, _json.Hacks[i]);
 
                     var cb = new CheckBox {

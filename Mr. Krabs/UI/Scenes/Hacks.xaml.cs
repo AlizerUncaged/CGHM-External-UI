@@ -91,7 +91,6 @@ namespace Mr.Krabs.UI.Scenes {
 
                         Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { field.RawName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
-
                         Task.Factory.StartNew(async () => {
                             await _pipe.Send(jsoned);
                         });

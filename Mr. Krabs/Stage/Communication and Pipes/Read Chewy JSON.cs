@@ -26,10 +26,13 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             _comms = comms;
         }
 
-        public async Task InitializeStreams() {
 
+        public async Task InitializeStreams() {
             while (!File.Exists(_filepath)) {
-                _ = _comms.Send("esp_box.active.false");
+
+                const string initiator = "{\"mod_game_next.active\":true}";
+                _ = _comms.Send(initiator);
+
                 await Task.Delay(200);
             }
 
@@ -40,7 +43,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
         // penis? cock? maybe even cum sometimes
         public async Task ReadAndSetHacks() {
-             await Task.Run(async () => {
+            await Task.Run(async () => {
 
                 string filestring = null;
                 while (filestring == null) {

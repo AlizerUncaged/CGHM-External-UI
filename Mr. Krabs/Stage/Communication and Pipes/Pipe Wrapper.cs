@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
         public event EventHandler Connected;
         public async Task Send(string message) {
+            Debug.WriteLine($"Json Sent: {Environment.NewLine}{message}");
             await Send(Encoding.UTF8.GetBytes(message));
         }
         public async Task Send(byte[] bytes) {

@@ -14,13 +14,6 @@ using System.Windows;
 
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
-    public struct ChewyStatus {
-
-        public Dictionary<string, object> Hacks;
-
-        public bool Success;
-    }
-
     public class Read_Chewy_JSON {
         private const int _json_refresh_rate = 200; // milliseconds
         private string _filepath = "";
@@ -46,8 +39,8 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
 
         // penis? cock? maybe even cum sometimes
-        public async Task<ChewyStatus> ReadAndSetHacks() {
-            return await Task.Run(async () => {
+        public async Task ReadAndSetHacks() {
+             await Task.Run(async () => {
 
                 string filestring = null;
                 while (filestring == null) {
@@ -72,11 +65,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                 }
 
                 _hacks = hacks;
-
-                return new ChewyStatus {
-                    Hacks = hacks,
-                    Success = true
-                };
 
             });
         }

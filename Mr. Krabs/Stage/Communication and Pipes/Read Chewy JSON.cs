@@ -58,7 +58,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                         OnSettingsLoaded?.Invoke(this, (settingsOption, hacks[settingsOption]));
 
-
                         bool isRemoved =
                         hacks.Remove(settingsOption);
                     }

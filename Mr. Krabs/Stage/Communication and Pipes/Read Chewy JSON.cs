@@ -28,11 +28,9 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
 
         public async Task InitializeStreams() {
-            while (!File.Exists(_filepath)) {
-
-                const string initiator = "{\"mod_game_next.active\":true}";
+            for (int i = 0; !File.Exists(_filepath); i++) {
+                string initiator = $"{{\"mod_fly.active\": {(i % 2 == 0 ? "true" : "false")}}}";
                 _ = _comms.Send(initiator);
-
                 await Task.Delay(200);
             }
 

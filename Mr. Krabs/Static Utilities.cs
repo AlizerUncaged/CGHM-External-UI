@@ -40,10 +40,14 @@ namespace Mr.Krabs {
 
         public static async Task<string> QuickReadURL(string url) {
             return await Task.Run(() => {
-                using (WebClient client = new WebClient()) {
-                    string s = client.DownloadString(url);
-                    return s;
-                }
+                string s = null;
+                try {
+                    using (WebClient client = new WebClient()) {
+                        s = client.DownloadString(url);
+                        Debug.WriteLine($"TCP in: {s}");
+                    }
+                } catch { }
+                return s;
             });
         }
 

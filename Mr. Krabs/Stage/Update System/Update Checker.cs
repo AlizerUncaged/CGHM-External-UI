@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,9 @@ namespace Mr.Krabs.Stage.Update_System {
             };
 
             string data_from_server = await Static_Utilities.QuickReadURL(_update_data);
+
+            if (data_from_server == null) return result;
+
             result.Success = true;
 
             result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
@@ -37,6 +41,7 @@ namespace Mr.Krabs.Stage.Update_System {
             } else if (result.Data.MajorVersion > Static_Utilities.MajorVersion) {
                 result.NewVersion = true;
             }
+
             return result;
         }
     }

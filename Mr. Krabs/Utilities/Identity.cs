@@ -63,6 +63,8 @@ namespace Mr.Krabs.Utilities {
                 return new Required_Dll { AllFound = true };
             });
         }
+
+        
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool OpenProcessToken(IntPtr ProcessHandle, UInt32 DesiredAccess, out IntPtr TokenHandle);
 

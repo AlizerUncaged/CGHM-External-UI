@@ -144,7 +144,7 @@ namespace Mr.Krabs {
 
                 SetActiveControl(hacks);
             }));
-        }
+        
 
         private void FieldsAndHacks_OnSettingsLoaded(object sender, (string, object) e) {
             switch (e.Item1) {

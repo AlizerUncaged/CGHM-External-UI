@@ -3,30 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Animation;
 
-namespace Mr.Krabs {
-
-    // all kinds of shit thrown into one place
-    public static class Static_Utilities {
-
+namespace Mr.Krabs.Utilities {
+    public static class Identity {
         public const int MajorVersion = 1;
         public const int MinorVersion = 4;
-
-        public static Random Random = new Random(DateTime.UtcNow.Second + DateTime.UtcNow.Millisecond);
-
-        public static readonly string CurrentFilename = Assembly.GetExecutingAssembly().Location;
-        public static readonly string CurrentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        public static double RandomDouble(double max, double min = 0) {
-            return Random.NextDouble() * (min - max) + max;
-        }
 
         public static bool AmIAdmin() {
             using (WindowsIdentity identity = WindowsIdentity.GetCurrent()) {
@@ -34,26 +19,9 @@ namespace Mr.Krabs {
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
-        public static void RunAnimation(this FrameworkElement window, string resourceName) {
-            Storyboard sb = window.FindResource(resourceName) as Storyboard;
-            if (sb != null) { sb.Begin(); }
-        }
-
-        public static async Task<string> QuickReadURL(string url) {
-            return await Task.Run(() => {
-                string s = null;
-                try {
-                    using (WebClient client = new WebClient()) {
-                        s = client.DownloadString(url);
-                        Debug.WriteLine($"TCP in: {s}");
-                    }
-                } catch { }
-                return s;
-            });
-        }
 
         public static bool CopyToCrabGameFolder(string crabGameFolder) {
-            var d = new DirectoryInfo(CurrentFolder);
+            var d = new DirectoryInfo(FileSystem.CurrentFolder);
             var f = d.GetFiles();
             foreach (var g in f) {
 
@@ -66,7 +34,7 @@ namespace Mr.Krabs {
             return true;
         }
         public static bool CheckIfCopiedToCrabGame(string crabGameFolder) {
-            var d = new DirectoryInfo(CurrentFolder);
+            var d = new DirectoryInfo(FileSystem.CurrentFolder);
             var f = d.GetFiles();
             foreach (var g in f) {
                 if (!File.Exists($"{crabGameFolder}/{g.Name}")) {
@@ -95,30 +63,6 @@ namespace Mr.Krabs {
                 return new Required_Dll { AllFound = true };
             });
         }
-        public static void RestartAsAdmin() {
-
-
-            //Create a new process
-            Process target = new Process();
-
-            target.StartInfo.FileName =
-                CurrentFilename;
-
-            //Required for UAC to work
-            target.StartInfo.UseShellExecute = true;
-            target.StartInfo.Verb = "runas";
-
-            try {
-                target.Start();
-                Process.GetCurrentProcess().Kill();
-            } catch { }
-
-        }
-
-        public static void Exit() {
-            Environment.Exit(Environment.ExitCode);
-        }
-
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool OpenProcessToken(IntPtr ProcessHandle, UInt32 DesiredAccess, out IntPtr TokenHandle);
 
@@ -169,4 +113,3 @@ namespace Mr.Krabs {
         }
     }
 }
-

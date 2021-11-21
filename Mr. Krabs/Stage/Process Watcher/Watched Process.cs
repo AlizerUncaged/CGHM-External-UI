@@ -63,13 +63,13 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             foreach (var process in e) {
 
                 var isadmin =
-                    Static_Utilities.IsProcessOwnerAdmin(process);
+                    Utilities.Identity.IsProcessOwnerAdmin(process);
 
                 if (isadmin)
                     StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
 
                 // return if we're not admin
-                if (isadmin && !Static_Utilities.AmIAdmin()) 
+                if (isadmin && !Utilities.Identity.AmIAdmin()) 
                     return null;
 
                 // now check if the file path is correct if GameAssembly is there

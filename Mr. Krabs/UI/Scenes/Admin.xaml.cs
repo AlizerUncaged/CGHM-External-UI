@@ -24,7 +24,7 @@ namespace Mr.Krabs.UI.Scenes {
         }
 
         private void Restart(object sender, MouseButtonEventArgs e) {
-            Static_Utilities.RestartAsAdmin();
+            Utilities.OSFunctions.RestartAsAdmin();
         }
 
         public void StopAnimations() {

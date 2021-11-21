@@ -75,7 +75,7 @@ namespace Mr.Krabs.UI.Scenes {
                 skyMoveEllipses.Start();
             }
 
-            Static_Utilities.RunAnimation(this, "Represent");
+            Utilities.UI.RunAnimation(this, "Represent");
             if (_parent != null) {
                 AlwaysOnTopCB.IsChecked = _parent.Topmost;
             }

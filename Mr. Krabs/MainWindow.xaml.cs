@@ -43,7 +43,7 @@ namespace Mr.Krabs {
 
         #region Window State and Windows Functions
         private void CloseButtonMouseDown(object sender, MouseButtonEventArgs e) {
-            Static_Utilities.Exit();
+            Utilities.OSFunctions.Exit();
             e.Handled = true;
         }
 
@@ -58,8 +58,8 @@ namespace Mr.Krabs {
 
             AnimateAquarium();
             Version.Text =
-                $"v{Static_Utilities.MajorVersion}.{Static_Utilities.MinorVersion} " +
-                $"{(Static_Utilities.AmIAdmin() ? "(Admin)" : "")}";
+                $"v{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion} " +
+                $"{(Utilities.Identity.AmIAdmin() ? "(Admin)" : "")}";
 #if (DEBUG)
             Version.Text += " BETA";
 #endif
@@ -77,7 +77,7 @@ namespace Mr.Krabs {
                 ShowUpdatePage(update_status.Data.Description, update_status.Data.Link);
             }
 
-            var required_dll = await Static_Utilities.CheckRequiredDlls();
+            var required_dll = await Utilities.Identity.CheckRequiredDlls();
             if (!required_dll.AllFound) {
                 var message =
                     new UI.Scenes.MessageA(
@@ -124,9 +124,9 @@ namespace Mr.Krabs {
 
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 // remove skies
-                Static_Utilities.RunAnimation(this, "RemoveSky");
+                Utilities.UI.RunAnimation(this, "RemoveSky");
                 BlobsAnimation.Stop();
-                Static_Utilities.RunAnimation(this, "AquariumHiding");
+                Utilities.UI.RunAnimation(this, "AquariumHiding");
 
                 // hacks ! Window !
                 var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
@@ -147,8 +147,8 @@ namespace Mr.Krabs {
             switch (e.Item1) {
                 case "run_external_on_start.active":
                     var crabGameDir = SStage.CrabGame.GetCrabGameDirectory();
-                    var isAlreadyCopied = Static_Utilities.CheckIfCopiedToCrabGame(crabGameDir);
-                    if (!isAlreadyCopied) Static_Utilities.CopyToCrabGameFolder(crabGameDir);
+                    var isAlreadyCopied = Utilities.Identity.CheckIfCopiedToCrabGame(crabGameDir);
+                    if (!isAlreadyCopied) Utilities.Identity.CopyToCrabGameFolder(crabGameDir);
                     break;
             }
         }
@@ -167,7 +167,7 @@ namespace Mr.Krabs {
                     SetActiveControl(waiting_page);
                     SStage.Pipe.Stop();
 
-                    Static_Utilities.RunAnimation(this, "RemoveSkyReverse");
+                    Utilities.UI.RunAnimation(this, "RemoveSkyReverse");
                     foreach (var j in SkyAnimation) {
                         j.Start();
                     }
@@ -192,13 +192,13 @@ namespace Mr.Krabs {
 
                     BlobsAnimation.Start();
 
-                    Static_Utilities.RunAnimation(this, "AquariumHidingReverse");
-                    Static_Utilities.RunAnimation(this, "UnhideCarpet");
+                    Utilities.UI.RunAnimation(this, "AquariumHidingReverse");
+                    Utilities.UI.RunAnimation(this, "UnhideCarpet");
 
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.IsAdmin) {
                     // check if we're admin, if not restart as admin
-                    if (!Static_Utilities.AmIAdmin()) {
+                    if (!Utilities.Identity.AmIAdmin()) {
                         if (Welcome.Children.Count > 0)
                             Welcome.Children.RemoveAt(0);
 

@@ -27,6 +27,7 @@ namespace Mr.Krabs {
         public Stage.Stage SStage;
         //////////////// stage
 
+        private Stopwatch uiRenderTime = Stopwatch.StartNew();
         public MainWindow() {
             InitializeComponent();
 
@@ -55,7 +56,6 @@ namespace Mr.Krabs {
 
         #region Animations 'n Shit
         private async void Rendered(object sender, RoutedEventArgs e) {
-
             AnimateAquarium();
             Version.Text =
                 $"v{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion} " +
@@ -92,6 +92,9 @@ namespace Mr.Krabs {
                     Dialogs.Children.Add(message);
                 }
             }
+
+            Debug.WriteLine($"Took {uiRenderTime.ElapsedMilliseconds}ms to render {this.GetType().Name}.");
+            uiRenderTime.Stop();
 
             e.Handled = true;
         }

@@ -11,6 +11,7 @@
 ![](https://img.shields.io/badge/vulnerabilities-0-46C018)
 [![](https://img.shields.io/discord/905112200618860576)](https://discord.gg/n6AW3q4ewQ)
 ![](https://github.com/AlizerUncaged/CGHM-External-UI/actions/workflows/dotnet.yml/badge.svg)
+![](https://img.shields.io/badge/license-no%20commercial%20use-8DBA05)
 
 <br>
 

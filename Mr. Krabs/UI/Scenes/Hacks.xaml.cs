@@ -79,8 +79,13 @@ namespace Mr.Krabs.UI.Scenes {
         public void AddHack(HackInfo.HackMetadata field) {
             switch (field.HackType) {
                 case HackInfo.HackType.Toggle:
-
-                    var cb = ControlFactory.CreateGenericCheckBoxClassA(field.VariableName, field.Name);
+                    // create checkbox
+                    var cb = new CheckBox {
+                        Name = field.VariableName,
+                        Content = field.Name,
+                        Margin = new Thickness(0, 0, 0, 20),
+                        Background = new SolidColorBrush(Colors.Transparent)
+                    };
 
                     cb.Click += (s, e) => {
 
@@ -97,9 +102,16 @@ namespace Mr.Krabs.UI.Scenes {
                     Hecks.Children.Add(cb);
                     break;
                 case HackInfo.HackType.TextBox:
-
-
-                    var tb = ControlFactory.CreateGenericTextBoxClassA(field.VariableName, field.Value.ToString(), PlaceholderName.BorderBrush);
+                    var tb = new TextBox {
+                        Name = field.VariableName,
+                        // Content = field.Name,
+                        Margin = new Thickness(0, 0, 0, 30),
+                        Background = new SolidColorBrush(Colors.Transparent),
+                        Foreground = PlaceholderName.Foreground,
+                        BorderBrush = PlaceholderName.BorderBrush,
+                        Text = $"{field.Value}",
+                        FontFamily = PlaceholderName.FontFamily
+                    };
 
                     tb.PreviewTextInput += (s, e) => {
                         var text = e.Text;
@@ -113,7 +125,7 @@ namespace Mr.Krabs.UI.Scenes {
 
                         if (!tb.IsFocused) return;
 
-                        Dictionary<object, object> defaultVal = new Dictionary<object, object>()
+                        Dictionary<object, object> defaultVal = new Dictionary<object, object>() 
                         { { field.RawName, Activator.CreateInstance(field.Value.GetType()) } };
 
                         string jsoned = JsonConvert.SerializeObject(defaultVal);

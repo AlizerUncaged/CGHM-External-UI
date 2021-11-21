@@ -81,7 +81,6 @@
     <Compile Include="UI\Scenes\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Scenes\Control Factory.cs" />
     <Compile Include="UI\Scenes\Hacks.xaml.cs">
       <DependentUpon>Hacks.xaml</DependentUpon>
     </Compile>

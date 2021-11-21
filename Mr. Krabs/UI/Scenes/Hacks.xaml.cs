@@ -79,13 +79,8 @@ namespace Mr.Krabs.UI.Scenes {
         public void AddHack(HackInfo.HackMetadata field) {
             switch (field.HackType) {
                 case HackInfo.HackType.Toggle:
-                    // create checkbox
-                    var cb = new CheckBox {
-                        Name = field.VariableName,
-                        Content = field.Name,
-                        Margin = new Thickness(0, 0, 0, 20),
-                        Background = new SolidColorBrush(Colors.Transparent)
-                    };
+
+                    var cb = ControlFactory.CreateGenericCheckBoxClassA(field.VariableName, field.Name);
 
                     cb.Click += (s, e) => {
 

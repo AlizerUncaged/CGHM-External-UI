@@ -14,6 +14,7 @@ namespace Mr.Krabs.UI.Scenes {
         private static FontFamily materialDesignsFont = 
             new FontFamily(new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/"), "./#Roboto");
 
+        private static Thickness defaultThickness = new Thickness(0, 0, 0, 20);
         public static CheckBox CreateGenericCheckBoxClassA(
             string variableName,
             string content) {
@@ -21,10 +22,26 @@ namespace Mr.Krabs.UI.Scenes {
             return new CheckBox {
                 Name = variableName,
                 Content = content,
-                Margin = new Thickness(0, 0, 0, 20),
+                Margin = defaultThickness,
                 Background = new SolidColorBrush(Colors.Transparent),
                 Foreground = Brushes.White,
                 FontFamily = materialDesignsFont,
+            };
+        }  
+        public static TextBox CreateGenericTextBoxClassA(
+            string variableName,
+            string title, Brush borderBrush) {
+
+            return new TextBox {
+
+                Name = variableName,
+                // Content = field.Name,
+                Margin = new Thickness(0, 0, 0, 30),
+                Background = new SolidColorBrush(Colors.Transparent),
+                Foreground = Brushes.White,
+                BorderBrush = borderBrush,
+                Text = title,
+                FontFamily = materialDesignsFont
             };
         }
     }

@@ -1,6 +1,6 @@
 
 <div>
-  <img height="210" align="left" src="https://i.kym-cdn.com/photos/images/original/000/963/789/6be.gif" alt="LoveLetter"/>
+  <img height="210" align="left" src="https://i.kym-cdn.com/photos/images/original/000/963/789/6be.gif" style="margin:0px 0px 20px 0px"/>
   <br>
   <h1><b>🦀 CGHM - External UI</b></h1>
   <p>Crab Game HackerMode!</p>
@@ -9,9 +9,8 @@
 ![](https://img.shields.io/badge/Made%20in-💻%20C%23-97C9E0)
 ![legit](https://img.shields.io/badge/code%20quality-A-45BF17)
 ![](https://img.shields.io/badge/vulnerabilities-0-46C018)
-![](https://img.shields.io/discord/905112200618860576)
+[![](https://img.shields.io/discord/905112200618860576)](https://discord.gg/n6AW3q4ewQ)
 
-<br>
 <br>
 
 ## 📋 Contains the...
@@ -25,7 +24,7 @@
 - Braincells.
 ### 🔨 How to build.
 1. Open Visual Studio.
-1. Join our **Discord!** (important)
+1. Join our [**Discord!**](https://discord.gg/n6AW3q4ewQ) (important)
 1. Click clone respository.
 1. Copy paste repo git link.
 

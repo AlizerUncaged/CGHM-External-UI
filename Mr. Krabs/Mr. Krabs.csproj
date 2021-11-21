@@ -69,7 +69,7 @@
     </ApplicationDefinition>
     <Compile Include="Stage\Communication and Pipes\Hack Info.cs" />
     <Compile Include="Stage\Communication and Pipes\Pipe Wrapper.cs" />
-    <Compile Include="Stage\Communication and Pipes\Read Chewy JSON.cs" />
+    <Compile Include="Stage\Communication and Pipes\JSON Watcher.cs" />
     <Compile Include="Stage\Main.cs" />
     <Compile Include="Stage\Process Watcher\Enum - Crab Game Status.cs" />
     <Compile Include="Stage\Process Watcher\Process Finder.cs" />

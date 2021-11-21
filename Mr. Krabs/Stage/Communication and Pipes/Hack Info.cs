@@ -20,9 +20,9 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             public object Value;
             public HackType HackType;
         }
-        private static readonly Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+        private static readonly Regex alphaNumericRegex = new Regex("[^a-zA-Z0-9 -]");
         private static readonly
-            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            TextInfo engrissu = new CultureInfo("en-US", false).TextInfo;
 
         private static readonly string[] removeEnds = new string[] { "active" };
         private static readonly string[] removeStarts = new string[] { "mod" };
@@ -31,10 +31,10 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             HackMetadata metadata = new HackMetadata();
             metadata.RawName = name;
             metadata.Value = value;
-            metadata.VariableName = rgx.Replace(name, string.Empty);
+            metadata.VariableName = alphaNumericRegex.Replace(name, string.Empty);
             // parse name
             string metadataName = name.Replace("mod_", string.Empty);
-            metadataName = rgx.Replace(name, " ");
+            metadataName = alphaNumericRegex.Replace(name, " ");
 
             foreach (string i in removeStarts) {
                 if (metadataName.StartsWith(i)) {
@@ -56,7 +56,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             var words = metadataName
                 .Split(metadataNameSeparator);
 
-            var capitalized = words.Select(x => textInfo.ToTitleCase(x));
+            var capitalized = words.Select(x => engrissu.ToTitleCase(x));
 
             metadata.Name = string.Join(" ", capitalized);
 

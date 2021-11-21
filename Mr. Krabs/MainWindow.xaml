@@ -18,7 +18,7 @@
         WindowStyle="None"
         MouseDown="Clicked"
         Loaded="Rendered"
-        Title="Mr. Krabs" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
+        Title="Chrome" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
     <Window.Resources>
         <Storyboard x:Key="CloseButtonEnter">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="CloseButton">

@@ -35,9 +35,7 @@ namespace Mr.Krabs.UI.Scenes {
             _parent = parent;
             InitializeComponent();
         }
-        /// <summary>
-        /// Placeholder.
-        /// </summary>
+
         public Settings() {
             InitializeComponent();
         }
@@ -89,14 +87,7 @@ namespace Mr.Krabs.UI.Scenes {
 
                     var parsedHackInfo = Stage.Communication_and_Pipes.HackInfo.GetHackTypeFromName(i, _json.Hacks[i]);
 
-                    var cb = new CheckBox {
-                        Name = parsedHackInfo.VariableName,
-                        Content = parsedHackInfo.Name,
-                        Margin = new Thickness(0, 0, 0, 20),
-                        Background = new SolidColorBrush(Colors.Transparent),
-                        Foreground = AlwaysOnTopCB.Foreground,
-                        FontFamily = AlwaysOnTopCB.FontFamily,
-                    };
+                    var cb = ControlFactory.CreateGenericCheckBoxClassA(parsedHackInfo.VariableName, parsedHackInfo.Name);
 
                     cb.Loaded += (s, _e) => {
                         cb.IsChecked = (bool)_json.Hacks[i];

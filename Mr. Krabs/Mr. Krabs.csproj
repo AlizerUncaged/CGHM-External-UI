@@ -190,11 +190,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UI\Images\Large\SubTitle-Welcome.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="UI\Images\Large\Logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

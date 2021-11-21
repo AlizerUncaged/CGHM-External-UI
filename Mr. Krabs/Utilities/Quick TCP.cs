@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mr.Krabs.Utilities {
     public static class QuickTCP {
+        // returns null if no internet
         public static async Task<string> QuickReadURL(string url) {
             return await Task.Run(() => {
                 string s = null;

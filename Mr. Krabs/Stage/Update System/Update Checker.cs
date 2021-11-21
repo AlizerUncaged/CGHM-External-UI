@@ -14,6 +14,7 @@ namespace Mr.Krabs.Stage.Update_System {
     public class Update_Checker {
 
         private const string _update_data = "http://95.111.251.138/cghm/update.json";
+
         /// <summary>
         /// Returns null if there's no new update.
         /// </summary>

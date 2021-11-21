@@ -10,6 +10,7 @@
 ![legit](https://img.shields.io/badge/code%20quality-A-45BF17)
 ![](https://img.shields.io/badge/vulnerabilities-0-46C018)
 [![](https://img.shields.io/discord/905112200618860576)](https://discord.gg/n6AW3q4ewQ)
+![](https://github.com/AlizerUncaged/CGHM-External-UI/actions/workflows/dotnet.yml/badge.svg)
 
 <br>
 

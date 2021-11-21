@@ -35,8 +35,8 @@ namespace Mr.Krabs.UI {
             return new Resolution {
                 MinHeight = 0,
                 MinWidth = 0,
-                MaxHeight = Static_Utilities.Random.Next((int)_max.MinHeight, (int)_max.MaxHeight),
-                MaxWidth = Static_Utilities.RandomDouble((int)_max.MinWidth, (int)_max.MaxWidth)
+                MaxHeight = Utilities.Rand.Random.Next((int)_max.MinHeight, (int)_max.MaxHeight),
+                MaxWidth = Utilities.Rand.RandomDouble((int)_max.MinWidth, (int)_max.MaxWidth)
             };
         }
 
@@ -47,7 +47,7 @@ namespace Mr.Krabs.UI {
                 BeginTime = TimeSpan.Zero,
                 To = new Thickness(random_res.MaxWidth, random_res.MaxHeight, element.Margin.Right, element.Margin.Bottom),
                 Duration = new Duration(TimeSpan.FromMilliseconds(
-                    /* 1 second to 2 second*/ Static_Utilities.Random.Next(_interval.Min, _interval.Max))),
+                    /* 1 second to 2 second*/ Utilities.Rand.Random.Next(_interval.Min, _interval.Max))),
                 EasingFunction = _ease
             };
 

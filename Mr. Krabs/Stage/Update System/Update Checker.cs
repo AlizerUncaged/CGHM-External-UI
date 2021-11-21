@@ -24,21 +24,21 @@ namespace Mr.Krabs.Stage.Update_System {
                 NewVersion = false
             };
 
-            string data_from_server = await Static_Utilities.QuickReadURL(_update_data);
+            string data_from_server = await Utilities.QuickTCP.QuickReadURL(_update_data);
 
             if (data_from_server == null) return result;
 
             result.Success = true;
 
             result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
-            if (result.Data.MinorVersion > Static_Utilities.MinorVersion) {
+            if (result.Data.MinorVersion > Utilities.Identity.MinorVersion) {
                 // greater . []
                 // now check if major is greater or equal than
-                if (result.Data.MajorVersion >= Static_Utilities.MajorVersion) {
+                if (result.Data.MajorVersion >= Utilities.Identity.MajorVersion) {
                     // >= . >
                     result.NewVersion = true;
                 }
-            } else if (result.Data.MajorVersion > Static_Utilities.MajorVersion) {
+            } else if (result.Data.MajorVersion > Utilities.Identity.MajorVersion) {
                 result.NewVersion = true;
             }
 

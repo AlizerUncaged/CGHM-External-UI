@@ -34,7 +34,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             return Task.Run(() => {
                 const string dll_name = "Version.dll";
                 string directory = $@"{Path.GetDirectoryName(exe_path)}\{dll_name}";
-                string dll = $@"{Static_Utilities.CurrentFolder}\{dll_name}";
+                string dll = $@"{Utilities.FileSystem.CurrentFolder}\{dll_name}";
                 File.Copy(dll, directory);
                 return VerifyDllInjected(exe_path);
             });

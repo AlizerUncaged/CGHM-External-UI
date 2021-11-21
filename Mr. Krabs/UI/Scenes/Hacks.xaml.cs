@@ -107,7 +107,6 @@ namespace Mr.Krabs.UI.Scenes {
                         if (valueType == typeof(double) || valueType == typeof(int) || valueType == typeof(float)) {
                             e.Handled = onlyNumbers.IsMatch(text) && !string.IsNullOrWhiteSpace(text);
                         }
-
                     };
 
                     tb.TextChanged += (s, e) => {

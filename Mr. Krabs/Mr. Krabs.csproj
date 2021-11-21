@@ -77,7 +77,6 @@
     <Compile Include="Stage\Process Watcher\Watched Process.cs" />
     <Compile Include="Stage\Update System\JSON - Update.cs" />
     <Compile Include="Stage\Update System\Update Checker.cs" />
-    <Compile Include="Static Utilities.cs" />
     <Compile Include="UI\Move Randomly.cs" />
     <Compile Include="UI\Scenes\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
@@ -102,6 +101,12 @@
     <Compile Include="UI\Scenes\Wait for Crab Game Page.xaml.cs">
       <DependentUpon>Wait for Crab Game Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\File System.cs" />
+    <Compile Include="Utilities\Identity.cs" />
+    <Compile Include="Utilities\OS Functions.cs" />
+    <Compile Include="Utilities\Rand.cs" />
+    <Compile Include="Utilities\Quick TCP.cs" />
+    <Compile Include="Utilities\UI.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

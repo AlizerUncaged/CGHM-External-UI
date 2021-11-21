@@ -14,7 +14,7 @@ namespace Mr.Krabs.Stage {
 
         public Process_Watcher.Watched_Process CrabGame;
         public Communication_and_Pipes.Pipe_Wrapper Pipe;
-        public Communication_and_Pipes.Read_Chewy_JSON FieldsAndHacks;
+        public Communication_and_Pipes.JSONWatcher FieldsAndHacks;
         public Update_System.Update_Checker UpdateChecker;
 
         private const string PIPE_NAME = 

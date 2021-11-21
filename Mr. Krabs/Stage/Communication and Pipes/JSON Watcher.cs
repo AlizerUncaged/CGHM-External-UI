@@ -14,14 +14,14 @@ using System.Windows;
 
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
-    public class Read_Chewy_JSON {
+    public class JSONWatcher {
         private const int _json_refresh_rate = 200; // milliseconds
         private string _filepath = "";
         private Dictionary<string, object> _hacks;
         private FileStream _read_fileStream;
         private StreamReader _read_stream;
         private Pipe_Wrapper _comms;
-        public Read_Chewy_JSON(Pipe_Wrapper comms, string filepath) {
+        public JSONWatcher(Pipe_Wrapper comms, string filepath) {
             _filepath = filepath;
             _comms = comms;
         }

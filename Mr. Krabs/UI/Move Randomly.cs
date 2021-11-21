@@ -39,7 +39,7 @@ namespace Mr.Krabs.UI {
                 MaxWidth = Utilities.Rand.RandomDouble((int)_max.MinWidth, (int)_max.MaxWidth)
             };
         }
-
+         
 
         private ThicknessAnimation _random_thickness(FrameworkElement element) {
             var random_res = _random_resolution_not_greater_than_max();

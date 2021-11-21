@@ -27,9 +27,9 @@ namespace Mr.Krabs.UI.Scenes {
         };
 
         private Stage.Communication_and_Pipes.Pipe_Wrapper _pipe;
-        private Stage.Communication_and_Pipes.Read_Chewy_JSON _json;
+        private Stage.Communication_and_Pipes.JSONWatcher _json;
         private Window _parent;
-        public Settings(Stage.Communication_and_Pipes.Read_Chewy_JSON json, Stage.Communication_and_Pipes.Pipe_Wrapper pipe, Window parent) {
+        public Settings(Stage.Communication_and_Pipes.JSONWatcher json, Stage.Communication_and_Pipes.Pipe_Wrapper pipe, Window parent) {
             _json = json;
             _pipe = pipe;
             _parent = parent;

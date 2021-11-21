@@ -26,11 +26,11 @@ namespace Mr.Krabs.UI.Scenes {
     /// </summary>
     public partial class Hacks : UserControl {
         private Pipe_Wrapper _pipe;
-        private Read_Chewy_JSON _json;
+        private JSONWatcher _json;
 
         private Dictionary<string  /* element name */, FrameworkElement> _cached_checkbox_and_names =
             new Dictionary<string, FrameworkElement>();
-        public Hacks(Pipe_Wrapper pipe, Read_Chewy_JSON jsonwatcher) {
+        public Hacks(Pipe_Wrapper pipe, JSONWatcher jsonwatcher) {
             InitializeComponent();
             _pipe = pipe;
             _json = jsonwatcher;

@@ -4,17 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:scenes="clr-namespace:Mr.Krabs.UI.Scenes"
         mc:Ignorable="d"
         
         TextOptions.TextFormattingMode="Display" 
         TextOptions.TextRenderingMode="Grayscale"
         RenderOptions.BitmapScalingMode="HighQuality"
         RenderOptions.ClearTypeHint="Enabled"
+        
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
-        
-        xmlns:scenes="clr-namespace:Mr.Krabs.UI.Scenes"
-        
         WindowStyle="None"
         MouseDown="Clicked"
         Loaded="Rendered"

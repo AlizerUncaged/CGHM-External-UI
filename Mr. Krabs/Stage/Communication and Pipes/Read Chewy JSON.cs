@@ -97,10 +97,9 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
                     Dictionary<string, object> newHacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(read);
 
-
-                    if (newHacks == null) {
+                    if (newHacks == null) 
                         continue;
-                    }
+                    
 
                     List<(string, object)> newProperties = new List<(string, object)>();
 

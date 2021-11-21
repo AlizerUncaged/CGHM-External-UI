@@ -68,7 +68,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Stage\Communication and Pipes\Hack Info.cs" />
-    <Compile Include="Stage\Communication and Pipes\Communication.cs" />
     <Compile Include="Stage\Communication and Pipes\Pipe Wrapper.cs" />
     <Compile Include="Stage\Communication and Pipes\Read Chewy JSON.cs" />
     <Compile Include="Stage\Main.cs" />
@@ -102,7 +101,6 @@
     <Compile Include="UI\Scenes\Wait for Crab Game Page.xaml.cs">
       <DependentUpon>Wait for Crab Game Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

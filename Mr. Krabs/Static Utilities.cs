@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 
 namespace Mr.Krabs {
 
+    // all kinds of shit thrown into one place
     public static class Static_Utilities {
 
         public const int MajorVersion = 1;
@@ -112,6 +113,10 @@ namespace Mr.Krabs {
                 Process.GetCurrentProcess().Kill();
             } catch { }
 
+        }
+
+        public static void Exit() {
+            Environment.Exit(Environment.ExitCode);
         }
 
         [DllImport("advapi32.dll", SetLastError = true)]

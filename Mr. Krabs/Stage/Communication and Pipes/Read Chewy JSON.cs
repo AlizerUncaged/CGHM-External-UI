@@ -42,7 +42,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         // penis? cock? maybe even cum sometimes
         public async Task ReadAndSetHacks() {
             await Task.Run(async () => {
-
                 string filestring = null;
                 while (filestring == null) {
                     filestring = _read_stream.ReadToEnd();
@@ -65,7 +64,6 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                 }
 
                 _hacks = hacks;
-
             });
         }
 

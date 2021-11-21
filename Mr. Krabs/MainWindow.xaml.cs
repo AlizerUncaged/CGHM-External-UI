@@ -43,7 +43,7 @@ namespace Mr.Krabs {
 
         #region Window State and Windows Functions
         private void CloseButtonMouseDown(object sender, MouseButtonEventArgs e) {
-            Windows.Exit();
+            Static_Utilities.Exit();
             e.Handled = true;
         }
 

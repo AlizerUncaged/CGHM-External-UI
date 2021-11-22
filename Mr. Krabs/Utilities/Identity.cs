@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Mr.Krabs.Utilities {
     public static class Identity {
-        public const int MajorVersion = 1;
-        public const int MinorVersion = 4;
+        public const int MajorVersion = 2;
+        public const int MinorVersion = 0;
 
         public static bool AmIAdmin() {
             using (WindowsIdentity identity = WindowsIdentity.GetCurrent()) {

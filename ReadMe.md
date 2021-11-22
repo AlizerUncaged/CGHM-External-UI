@@ -1,7 +1,7 @@
 
+<img height="210" align="left" src="https://i.kym-cdn.com/photos/images/original/000/963/789/6be.gif" style="margin:0px 0px 20px 0px"/>
+
 <div>
-  <img height="210" align="left" src="https://i.kym-cdn.com/photos/images/original/000/963/789/6be.gif" style="margin:0px 0px 20px 0px"/>
-  <br>
   <h1><b>🦀 CGHM - External UI</b></h1>
   <p>Crab Game HackerMode!</p>
 </div>

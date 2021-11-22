@@ -106,6 +106,7 @@
     <Compile Include="Utilities\OS Functions.cs" />
     <Compile Include="Utilities\Rand.cs" />
     <Compile Include="Utilities\Quick TCP.cs" />
+    <Compile Include="Utilities\String Utilities.cs" />
     <Compile Include="Utilities\UI.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

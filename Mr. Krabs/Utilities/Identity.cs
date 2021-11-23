@@ -71,6 +71,7 @@ namespace Mr.Krabs.Utilities {
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool CloseHandle(IntPtr hObject);
 
+        // windows account access flags
         private const int STANDARD_RIGHTS_REQUIRED = 0xF0000;
         private const int TOKEN_ASSIGN_PRIMARY = 0x1;
         private const int TOKEN_DUPLICATE = 0x2;
@@ -81,7 +82,18 @@ namespace Mr.Krabs.Utilities {
         private const int TOKEN_ADJUST_PRIVILEGES = 0x20;
         private const int TOKEN_ADJUST_SESSIONID = 0x100;
         private const int TOKEN_ADJUST_DEFAULT = 0x80;
-        private const int TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_SESSIONID | TOKEN_ADJUST_DEFAULT);
+        // combining these flags we get the all-access flag
+        private const int TOKEN_ALL_ACCESS = 
+            (STANDARD_RIGHTS_REQUIRED | 
+            TOKEN_ASSIGN_PRIMARY | 
+            TOKEN_DUPLICATE | 
+            TOKEN_IMPERSONATE | 
+            TOKEN_QUERY | 
+            TOKEN_QUERY_SOURCE | 
+            TOKEN_ADJUST_PRIVILEGES | 
+            TOKEN_ADJUST_GROUPS | 
+            TOKEN_ADJUST_SESSIONID | 
+            TOKEN_ADJUST_DEFAULT);
 
         /// <summary>
         /// Checks if the target process is ran as Administrator.
@@ -92,7 +104,8 @@ namespace Mr.Krabs.Utilities {
                 IntPtr ph = IntPtr.Zero;
 
                 // access process
-                OpenProcessToken(proc.Handle, TOKEN_ALL_ACCESS, out ph);
+                OpenProcessToken(proc.Handle, 
+                    TOKEN_ALL_ACCESS /* check if can access everything in the process (required for actual modding) */, out ph);
 
                 WindowsIdentity iden = new WindowsIdentity(ph);
 

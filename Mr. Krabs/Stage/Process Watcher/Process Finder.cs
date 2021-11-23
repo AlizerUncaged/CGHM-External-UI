@@ -30,6 +30,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
                     ProcessFound?.Invoke(this, _base_proc);
                 }
 
+                await Task.Delay(1500);
             } while (_base_proc == null);
 
             return _base_proc;

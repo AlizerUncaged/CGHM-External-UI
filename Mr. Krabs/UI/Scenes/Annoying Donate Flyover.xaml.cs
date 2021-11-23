@@ -81,6 +81,7 @@ namespace Mr.Krabs.UI.Scenes {
                         Process.Start(link);
                 }
             }
+            e.Handled = true;
         }
     }
 }

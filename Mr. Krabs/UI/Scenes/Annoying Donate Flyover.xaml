@@ -132,9 +132,9 @@
                     <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
                 </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
+                <StackPanel  MouseDown="OpenTag" Tag="https://paypal.me/alizer1" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Donate." VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Image Source="/UI/Images/Large/Paypal.png" Height="30"/>
                 </StackPanel>
             </DockPanel>
         </Grid>

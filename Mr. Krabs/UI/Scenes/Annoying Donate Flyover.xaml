@@ -132,9 +132,21 @@
                     <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
                 </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://paypal.me/alizer1" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel  MouseDown="OpenTag" Tag="https://paypal.me/alizer1" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
                     <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Donate." VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <Image Source="/UI/Images/Large/Paypal.png" Height="30"/>
+                </StackPanel>
+                <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCTtA84Gb2StiefbZfCx9i6A" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Alizer" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Grid Width="30" Height="30">
+                        <Image Source="/UI/Images/Large/Yt.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCHd1E0CPJ7cfoNi_BLb9JiQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Muffeen" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Grid Width="30" Height="30">
+                        <Image Source="/UI/Images/Large/Yt.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
                 </StackPanel>
             </DockPanel>
         </Grid>

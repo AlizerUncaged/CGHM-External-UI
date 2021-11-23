@@ -210,9 +210,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UI\Images\Large\Settings.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="UI\Images\Large\Discord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

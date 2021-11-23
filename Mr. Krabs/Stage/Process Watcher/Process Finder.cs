@@ -19,7 +19,6 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         public event EventHandler<IEnumerable<Process>> ProcessFound;
 
         public async Task<IEnumerable<Process>> Start() {
-            // watch for each second find crab game via title
             do {
 
                 var proces = await Process_Utilities.FindProcessViaWindowName(_window_name);
@@ -28,9 +27,8 @@ namespace Mr.Krabs.Stage.Process_Watcher {
                     _base_proc = proces;
                     // found process
                     ProcessFound?.Invoke(this, _base_proc);
-                }
+                } else await Task.Delay(1500);
 
-                await Task.Delay(1500);
             } while (_base_proc == null);
 
             return _base_proc;

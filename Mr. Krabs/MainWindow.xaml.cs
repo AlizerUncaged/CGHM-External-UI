@@ -30,10 +30,7 @@ namespace Mr.Krabs {
         private Stopwatch uiRenderTime = Stopwatch.StartNew();
         public MainWindow() {
             InitializeComponent();
-
-            this.WindowStyle =
-                WindowStyle.SingleBorderWindow;
-
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
         private void Clicked(object sender, MouseButtonEventArgs e) {

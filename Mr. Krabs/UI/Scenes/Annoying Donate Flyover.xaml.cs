@@ -40,6 +40,7 @@ namespace Mr.Krabs.UI.Scenes {
 
         private async void Rendered(object sender, RoutedEventArgs e) {
             border.Width = 50;
+            border_Copy.Width = 50;
             var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
             // sky
             foreach (var comet in comets) {

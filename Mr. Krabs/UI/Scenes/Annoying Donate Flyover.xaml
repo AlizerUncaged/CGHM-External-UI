@@ -112,7 +112,7 @@
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="border_Copy">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="176">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="175">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <QuinticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
@@ -121,12 +121,14 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Grid x:Name="grid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200"  Margin="0,470,0,-330" Height="300" >
+        <Grid x:Name="grid" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,470,0,-330" Width="200" Height="300">
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=Forgor}" />
             </Grid.OpacityMask>
-            <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" />
-            <Grid>
+            <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" Width="200" Height="300">
+                <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="HackerMode by" FontSize="10" HorizontalAlignment="Center" Margin="0,188,0,86"/>
+            </Border>
+            <Grid Width="200">
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
                     <Grid.Effect>
                         <BlurEffect Radius="100"/>
@@ -175,7 +177,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <StackPanel Margin="0,200,0,45" Height="74">
+                    <StackPanel Margin="0,213,0,13" Height="74">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="75" Cursor="Hand">
                             <StackPanel Tag="https://www.youtube.com/channel/UCTtA84Gb2StiefbZfCx9i6A" MouseDown="OpenTag" Orientation="Vertical" Margin="0,0,10,0">
                                 <Ellipse Width="40" Height="40" Margin="0" HorizontalAlignment="Center" >

@@ -313,7 +313,7 @@
             <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,5,0">
                 <Image x:Name="image" Source="UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="5,7,0,7" Width="0"/>
                 <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"/>
-                <TextBlock FontFamily="{materialDesign:MaterialDesignFont}" x:Name="Version" Text="version" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                <TextBlock FontFamily="{materialDesign:MaterialDesignFont}" x:Name="Version" Text="version" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14"></TextBlock>
 
                 <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseButtonMouseDown" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Cursor="Hand" Foreground="White" Background="#00000000" />
                 <materialDesign:PackIcon x:Name="MinimizeButton" DockPanel.Dock="Right" MouseDown="MinimizeButtonMouseDown" Kind="WindowMinimize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="20" Margin="0,8.5,5,6.5" Cursor="Hand" Foreground="White" Background="#00000000" />

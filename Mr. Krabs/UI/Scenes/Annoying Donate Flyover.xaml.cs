@@ -72,5 +72,15 @@ namespace Mr.Krabs.UI.Scenes {
             Closing?.Invoke(this, e);
             e.Handled = true;
         }
+
+        private void OpenTag(object sender, MouseButtonEventArgs e) {
+            if (sender is FrameworkElement control) {
+                if (control.Tag != null) {
+                    var link = control.Tag.ToString();
+                    if (!string.IsNullOrWhiteSpace(link))
+                        Process.Start(link);
+                }
+            }
+        }
     }
 }

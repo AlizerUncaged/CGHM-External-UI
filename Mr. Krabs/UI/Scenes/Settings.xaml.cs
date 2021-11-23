@@ -122,9 +122,5 @@ namespace Mr.Krabs.UI.Scenes {
             e.Handled = true;
         }
 
-        private void DiscordJoin(object sender, MouseButtonEventArgs e) {
-            Process.Start("https://discord.gg/n6AW3q4ewQ");
-            e.Handled = true;
-        }
     }
 }

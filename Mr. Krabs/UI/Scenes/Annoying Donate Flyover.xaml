@@ -122,13 +122,20 @@
                     <Ellipse Width="100" Height="100" Fill="#4D85E3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
                     <Ellipse Width="100" Height="100" Fill="#B775F0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
                 </Grid>
+                <DockPanel Margin="15,5,5,0" DockPanel.Dock="Top" VerticalAlignment="Top" >
+                    <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
+                </DockPanel>
             </Grid>
             <DockPanel Margin="0">
-                <DockPanel Margin="15,15,15,0" DockPanel.Dock="Top" VerticalAlignment="Top" >
-                    <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
-
-                </DockPanel>
-               <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,0" VerticalAlignment="Top"/>
+               <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,15" VerticalAlignment="Top"/>
+                <StackPanel  MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
+                </StackPanel>
+                <StackPanel  MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
+                </StackPanel>
             </DockPanel>
         </Grid>
     </Grid>

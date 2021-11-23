@@ -122,19 +122,14 @@
                     <Ellipse Width="100" Height="100" Fill="#6855EF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
                     <Ellipse Width="100" Height="100" Fill="#FFFB4444" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
                 </Grid>
+                <DockPanel Margin="15,5,5,0" VerticalAlignment="Top" >
+                    <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
+                </DockPanel>
             </Grid>
             <DockPanel Margin="0">
-                <DockPanel Margin="15,15,15,0" DockPanel.Dock="Top" VerticalAlignment="Top" >
-                    <Image DockPanel.Dock="Left" Height="21" Source="/Mr.Krabs;component/UI/Images/Large/Settings.png" HorizontalAlignment="Left" />
-                    <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
-
-                </DockPanel>
-               <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,0" VerticalAlignment="Top">
-                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}" Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,10"></CheckBox>
-                </StackPanel>
-                <StackPanel MouseDown="DiscordJoin" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,15" Cursor="Hand" Background="#00000000">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"></Label>
-                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
+                <StackPanel DockPanel.Dock="Top" x:Name="Space" Width="100" Margin="0,15,0,15"/>
+                <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,0,0,15" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <CheckBox x:Name="AlwaysOnTopCB" FontFamily="{materialDesign:MaterialDesignFont}" Click="AlwaysOnTopChanged" Content="Always on Top" Foreground="White" Margin="0,0,0,10"/>
                 </StackPanel>
             </DockPanel>
         </Grid>

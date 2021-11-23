@@ -250,14 +250,26 @@ namespace Mr.Krabs {
         private void HandleMouseDown(object sender, MouseButtonEventArgs e) {
             e.Handled = true;
         }
-
-        private void ShowSettings(object sender, MouseButtonEventArgs e) {
+        public bool ShowAsDialog(UI.Scenes.IDialog dialog) {
             if (Dialogs.Children.Count <= 0 /* make sure theres no other dialogs */) {
-                var settings = new UI.Scenes.Settings(SStage.FieldsAndHacks, SStage.Pipe, this);
-                settings.Closing += DialogsClosing;
+                var userControl = dialog as UserControl;
+                // var settings = new UI.Scenes.Settings(SStage.FieldsAndHacks, SStage.Pipe, this);
+                dialog.Closing += DialogsClosing;
 
-                Dialogs.Children.Add(settings);
+                Dialogs.Children.Add(userControl);
+                return true;
             }
+            return false;
+        }
+        private void ShowSettings(object sender, MouseButtonEventArgs e) {
+            var settings = new UI.Scenes.Settings(SStage.FieldsAndHacks, SStage.Pipe, this);
+            ShowAsDialog(settings);
+            e.Handled = true;
+        }
+
+        private void OpenInformation(object sender, MouseButtonEventArgs e) {
+            var infoPage = new UI.Scenes.AnnoyingDonateFlyover();
+            ShowAsDialog(infoPage);
             e.Handled = true;
         }
     }

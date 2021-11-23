@@ -333,6 +333,14 @@
                         </TransformGroup>
                     </materialDesign:PackIcon.RenderTransform>
                 </materialDesign:PackIcon>
+                <materialDesign:PackIcon  DockPanel.Dock="Right" Kind="Github" Cursor="Hand" Background="#00000000" VerticalAlignment="Center" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,5,0" Visibility="Collapsed" d:IsHidden="True" >
+                    <materialDesign:PackIcon.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:PackIcon.Foreground>
+                </materialDesign:PackIcon>
             </DockPanel>
 
             <!-- Main Pages here. -->

@@ -39,6 +39,7 @@ namespace Mr.Krabs.UI.Scenes {
 
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
+
         private async void Rendered(object sender, RoutedEventArgs e) {
             border.Width = 50;
             border_Copy.Width = 50;

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Mr.Krabs.Stage.Update_System {
     public struct Update_Result {
@@ -32,16 +33,11 @@ namespace Mr.Krabs.Stage.Update_System {
             result.Success = true;
 
             result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
-            if (result.Data.MinorVersion > Utilities.Identity.MinorVersion) {
-                // greater . []
-                // now check if major is greater or equal than
-                if (result.Data.MajorVersion >= Utilities.Identity.MajorVersion) {
-                    // >= . >
-                    result.NewVersion = true;
-                }
-            } else if (result.Data.MajorVersion > Utilities.Identity.MajorVersion) {
-                result.NewVersion = true;
-            }
+            string newVersionFloatString = $"{result.Data.MajorVersion}.{result.Data.MinorVersion}";
+            string oldVersionFloatString = $"{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion}";
+            float oldVersion = float.Parse(oldVersionFloatString);
+            float newVersion = float.Parse(newVersionFloatString);
+            result.NewVersion = newVersion > oldVersion;
 
             return result;
         }

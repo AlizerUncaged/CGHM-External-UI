@@ -128,7 +128,7 @@
             <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" Width="200" Height="300">
                 <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="HackerMode by" FontSize="10" HorizontalAlignment="Center" Margin="0,188,0,86"/>
             </Border>
-            <Grid Width="200">
+            <Grid>
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
                     <Grid.Effect>
                         <BlurEffect Radius="100"/>

@@ -115,7 +115,6 @@
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
                     <Grid.Effect>
                         <BlurEffect Radius="100"/>
-
                     </Grid.Effect>
                     <Ellipse Width="100" Height="100" Fill="#FFEF55DB" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
                     <Ellipse Width="100" Height="100" Fill="#FFFF6F6F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>

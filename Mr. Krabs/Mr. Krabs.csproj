@@ -104,6 +104,8 @@
     <Compile Include="UI\Scenes\Wait for Crab Game Page.xaml.cs">
       <DependentUpon>Wait for Crab Game Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\CrabTopia Widget\CrabTopia.cs" />
+    <Compile Include="Utilities\CrabTopia Widget\Server Info.cs" />
     <Compile Include="Utilities\File System.cs" />
     <Compile Include="Utilities\Identity.cs" />
     <Compile Include="Utilities\OS Functions.cs" />

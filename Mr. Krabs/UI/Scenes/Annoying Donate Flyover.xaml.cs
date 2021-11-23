@@ -38,8 +38,8 @@ namespace Mr.Krabs.UI.Scenes {
 
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
-        private void Rendered(object sender, RoutedEventArgs e) {
-
+        private async void Rendered(object sender, RoutedEventArgs e) {
+            border.Width = 50;
             var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
             // sky
             foreach (var comet in comets) {
@@ -62,7 +62,17 @@ namespace Mr.Krabs.UI.Scenes {
                 skyMoveEllipses.Start();
             }
 
-            Utilities.UI.RunAnimation(this, "Represent");
+            Storyboard sb = this.FindResource("Represent") as Storyboard;
+            Timeline.SetDesiredFrameRate(sb, 60);
+            sb.Completed += (_s, _e) => {
+                Utilities.UI.RunAnimation(this, "CrabTopiaShow");
+            };
+            if (sb != null) { sb.Begin(); }
+
+            // get crabtopia info
+            var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
+            MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
+            ServerInfo.Visibility = Visibility.Visible;
             e.Handled = true;
         }
 

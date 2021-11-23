@@ -110,7 +110,7 @@
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=Forgor}" />
             </Grid.OpacityMask>
-            <Border x:Name="Forgor" CornerRadius="5" Background="{DynamicResource BackgroundNormal}" Width="200" Height="250"/>
+            <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" Width="200" Height="250"/>
             <Grid>
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
                     <Grid.Effect>

@@ -101,57 +101,80 @@
                 </EasingThicknessKeyFrame>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="CrabTopiaShow">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="border">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="175">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
-    </UserControl.Triggers>
     <Grid>
         <Grid x:Name="grid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200"  Margin="0,470,0,-330" Height="300" >
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=Forgor}" />
             </Grid.OpacityMask>
-            <Border x:Name="Forgor" CornerRadius="5" Background="#FF1C1D31" />
+            <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" />
             <Grid>
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
                     <Grid.Effect>
                         <BlurEffect Radius="100"/>
                     </Grid.Effect>
-                    <Ellipse Width="100" Height="100" Fill="#2ECC9D" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
-                    <Ellipse Width="100" Height="100" Fill="#F36297" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
-                    <Ellipse Width="100" Height="100" Fill="#4D85E3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
-                    <Ellipse Width="100" Height="100" Fill="#B775F0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-102,0,0,0"/>
+                    <Ellipse Width="100" Height="100" Fill="#2ECC9D" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    <Ellipse Width="100" Height="100" Fill="#F36297" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    <Ellipse Width="100" Height="100" Fill="#4D85E3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    <Ellipse Width="100" Height="100" Fill="#B775F0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,0,0,0"/>
                 </Grid>
                 <DockPanel Margin="15,5,5,0" DockPanel.Dock="Top" VerticalAlignment="Top" >
                     <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
                 </DockPanel>
+                <Grid x:Name="DiscordInvites">
+                    <Border x:Name="border" Cursor="Hand" MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" Background="{DynamicResource BackgroundLight}" CornerRadius="5,5,5,5" Width="175" Height="50" Margin="-40,56,65,194">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.5"/>
+                        </Border.Effect>
+                        <StackPanel Orientation="Horizontal" Height="50" Margin="5,0" VerticalAlignment="Center">
+                            <Border Margin="0,5,0,5" DockPanel.Dock="Left" Background="{DynamicResource BackgroundNormal}" CornerRadius="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" >
+                                    <Image Source="/UI/Images/Large/Logo.ico"/>
+                                </StackPanel>
+                            </Border>
+                            <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" Width="100">
+                                <TextBlock Text="Join Crabtopia!" FontFamily="{materialDesign:MaterialDesignFont}" Foreground="White" FontWeight="Bold" FontSize="14" Height="16" Width="100"/>
+                                <StackPanel x:Name="ServerInfo" Orientation="Horizontal" Visibility="Collapsed">
+                                    <Ellipse Fill="#FF40AC7A" Width="5" Height="5" VerticalAlignment="Center"></Ellipse>
+                                    <TextBlock x:Name="MembersOnline" FontFamily="{materialDesign:MaterialDesignFont}" Margin="3,0,0,0" Text="Online" FontSize="10" Foreground="#BFFFFFFF"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Grid>
-            <DockPanel Margin="0">
+            <DockPanel Visibility="Collapsed" Margin="0" d:IsHidden="True">
                 <StackPanel DockPanel.Dock="Top" x:Name="Parent" Margin="15,15,0,15" VerticalAlignment="Top"/>
-                <StackPanel  MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Join the Discord!" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Image Source="/UI/Images/Large/Discord.png" Height="30"/>
-                </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://paypal.me/alizer1" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Donate!" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Image Source="/UI/Images/Large/Paypal.png" Height="30"/>
-                </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCTtA84Gb2StiefbZfCx9i6A" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Alizer" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Grid Width="30" Height="30">
-                        <Image Source="/UI/Images/Large/Yt.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCHd1E0CPJ7cfoNi_BLb9JiQ" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Muffeen" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Grid Width="30" Height="30">
-                        <Image Source="/UI/Images/Large/Yt.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </StackPanel>
-                <StackPanel  MouseDown="OpenTag" Tag="https://github.com/AlizerUncaged/mr-krabs" DockPanel.Dock="Top" Orientation="Horizontal" Cursor="Hand" Background="#00000000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Repository" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <StackPanel  MouseDown="OpenTag" Tag="https://paypal.me/alizer1" Orientation="Horizontal" Cursor="Hand" Background="#00000000" Margin="0,0,0,20">
+                        <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Donate!" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <materialDesign:PackIcon Kind="Heart" Height="30" Foreground="White" Width="30"/>
+                    </StackPanel>
+                    <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCTtA84Gb2StiefbZfCx9i6A" Orientation="Horizontal" Cursor="Hand" Background="#00000000" Margin="0,0,0,20">
+                        <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Alizer" VerticalAlignment="Center" Margin="0,0,5,0"/>
 
-                    <Image Height="30" Source="/UI/Images/Large/Github.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="Youtube" Height="30" Foreground="White" Width="30"/>
+                    </StackPanel>
+                    <StackPanel  MouseDown="OpenTag" Tag="https://www.youtube.com/channel/UCHd1E0CPJ7cfoNi_BLb9JiQ" Orientation="Horizontal" Cursor="Hand" Background="#00000000" Margin="0,0,0,20">
+                        <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Muffeen" VerticalAlignment="Center" Margin="0,0,5,0"/>
 
+                        <materialDesign:PackIcon Kind="Youtube" Height="30" Foreground="White" Width="30"/>
+                    </StackPanel>
+                    <StackPanel  MouseDown="OpenTag" Tag="https://github.com/AlizerUncaged/mr-krabs" Orientation="Horizontal" Cursor="Hand" Background="#00000000" Margin="0,0,0,20">
+                        <Label FontFamily="{materialDesign:MaterialDesignFont}" Content="Repository" VerticalAlignment="Center" Margin="0,0,5,0"/>
+
+                        <materialDesign:PackIcon Kind="Github" Height="30" Foreground="White" Width="30"/>
+                    </StackPanel>
                 </StackPanel>
             </DockPanel>
         </Grid>

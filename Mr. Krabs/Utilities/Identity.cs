@@ -83,22 +83,27 @@ namespace Mr.Krabs.Utilities {
         private const int TOKEN_ADJUST_DEFAULT = 0x80;
         private const int TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_SESSIONID | TOKEN_ADJUST_DEFAULT);
 
-        // true if admin
+        /// <summary>
+        /// Checks if the target process is ran as Administrator.
+        /// </summary>
+        /// <returns>Bool true if the process is admin, false otherwise.</returns>
         public static bool IsProcessOwnerAdmin(Process proc) {
             try {
                 IntPtr ph = IntPtr.Zero;
 
+                // access process
                 OpenProcessToken(proc.Handle, TOKEN_ALL_ACCESS, out ph);
 
                 WindowsIdentity iden = new WindowsIdentity(ph);
 
                 bool result = false;
-
+                
                 foreach (IdentityReference role in iden.Groups) {
                     if (role.IsValidTargetType(typeof(SecurityIdentifier))) {
                         SecurityIdentifier sid = role as SecurityIdentifier;
 
-                        if (sid.IsWellKnown(WellKnownSidType.AccountAdministratorSid) || sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid)) {
+                        if (sid.IsWellKnown(WellKnownSidType.AccountAdministratorSid) || 
+                            sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid)) {
                             result = true;
                             break;
                         }
@@ -109,7 +114,7 @@ namespace Mr.Krabs.Utilities {
 
                 return result;
             } catch {
-                // its admin
+                // it crashed while accessing process therefore it's admin
                 return true;
             }
         }

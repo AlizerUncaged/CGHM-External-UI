@@ -21,6 +21,7 @@ namespace Mr.Krabs.UI.Scenes {
     /// Interaction logic for Settings.xaml
     /// </summary>
     public partial class AnnoyingDonateFlyover : UserControl, IDialog {
+        private static int runCounter;
         private Window _parent;
         public AnnoyingDonateFlyover() {
             InitializeComponent();
@@ -65,16 +66,16 @@ namespace Mr.Krabs.UI.Scenes {
 
             Storyboard sb = this.FindResource("Represent") as Storyboard;
             Timeline.SetDesiredFrameRate(sb, 60);
-            sb.Completed += (_s, _e) => {
-                Utilities.UI.RunAnimation(this, "CrabTopiaShow");
-            };
             if (sb != null) { sb.Begin(); }
 
+            Utilities.UI.RunAnimation(this, "CrabTopiaShow");
             // get crabtopia info
             var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
             MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
             ServerInfo.Visibility = Visibility.Visible;
+
             e.Handled = true;
+            runCounter++;
         }
 
 

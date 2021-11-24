@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -34,9 +36,25 @@ namespace Mr.Krabs {
             this.WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
+        private bool isBeingMoved = false;
+        // mousedown
         private void Clicked(object sender, MouseButtonEventArgs e) {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            e.Handled = true;
+            if (e.LeftButton == MouseButtonState.Pressed) {
+                isBeingMoved = true;
+
+                UI.Move_Randomly.PauseAnimations();
+                Debug.WriteLine("Animations paused.");
+
                 this.DragMove();
+
+                UI.Move_Randomly.StartAnimations();
+                Debug.WriteLine("Animations restarted.");
+
+            } else if (e.LeftButton == MouseButtonState.Released) {
+            }
+        }
+        private void MouseMoved(object sender, MouseEventArgs e) {
             e.Handled = true;
         }
 

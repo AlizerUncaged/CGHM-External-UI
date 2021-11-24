@@ -9,7 +9,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Mr.Krabs.UI {
-
     public struct Resolution {
         public double MinHeight, MinWidth;
         public double MaxHeight, MaxWidth;
@@ -22,15 +21,28 @@ namespace Mr.Krabs.UI {
         public int Min, Max;
     }
     public class Move_Randomly {
+        public static List<Move_Randomly> ActiveAnimations = new List<Move_Randomly>();
+        public static void PauseAnimations() {
+            foreach (var moveRandAnimation in ActiveAnimations) {
+                moveRandAnimation.Stop();
+            }
+        }
+        public static void StartAnimations() {
+            foreach (var moveRandAnimation in ActiveAnimations) {
+                moveRandAnimation.Start();
+            }
+        }
         private const int maxFramerate = 60;
         private Interval interval;
         private Resolution max;
         private FrameworkElement[] elements;
         private IEasingFunction ease;
         private bool keepGoing = true;
+        private bool paused = false;
 
         public Move_Randomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
             this.elements = elements; max = resolution; this.interval = interval; this.ease = ease;
+            ActiveAnimations.Add(this);
         }
         private Resolution randomResolutionNotGreaterThanMax() {
             return new Resolution {
@@ -40,7 +52,7 @@ namespace Mr.Krabs.UI {
                 MaxWidth = Utilities.Rand.RandomDouble((int)max.MinWidth, (int)max.MaxWidth)
             };
         }
-         
+
 
         private ThicknessAnimation randomThicknessAnimation(FrameworkElement element) {
             var random_res = randomResolutionNotGreaterThanMax();
@@ -51,6 +63,7 @@ namespace Mr.Krabs.UI {
                     /* 1 second to 2 second*/ Utilities.Rand.Random.Next(interval.Min, interval.Max))),
                 EasingFunction = ease
             };
+
             Timeline.SetDesiredFrameRate(ta, maxFramerate);
             return ta;
         }
@@ -77,6 +90,10 @@ namespace Mr.Krabs.UI {
         }
 
         public void Stop() {
+            foreach (var element in elements) {
+                // generate random resolution first
+                element.BeginAnimation(FrameworkElement.MarginProperty, null);
+            }
             keepGoing = false;
         }
     }

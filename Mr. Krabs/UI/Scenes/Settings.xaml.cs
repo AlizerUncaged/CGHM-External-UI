@@ -26,10 +26,10 @@ namespace Mr.Krabs.UI.Scenes {
             "run_external_on_start.active"
         };
 
-        private Stage.Communication_and_Pipes.Pipe_Wrapper _pipe;
+        private Stage.Communication_and_Pipes.PipeWrapper _pipe;
         private Stage.Communication_and_Pipes.JSONWatcher _json;
         private Window _parent;
-        public Settings(Stage.Communication_and_Pipes.JSONWatcher json, Stage.Communication_and_Pipes.Pipe_Wrapper pipe, Window parent) {
+        public Settings(Stage.Communication_and_Pipes.JSONWatcher json, Stage.Communication_and_Pipes.PipeWrapper pipe, Window parent) {
             _json = json;
             _pipe = pipe;
             _parent = parent;

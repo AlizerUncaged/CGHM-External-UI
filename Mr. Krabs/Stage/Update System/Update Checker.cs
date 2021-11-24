@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Mr.Krabs.Stage.Update_System {
-    public struct Update_Result {
+    public struct UpdateResult {
         public bool Success, NewVersion;
         public Update Data;
     }
-    public class Update_Checker {
+    public class UpdateChecker {
 
-        private const string _update_data = "http://95.111.251.138/cghm/update.json";
+        private const string updateEndpoint = "http://95.111.251.138/cghm/update.json";
 
         /// <summary>
         /// Returns null if there's no new update.
         /// </summary>
-        public async Task<Update_Result> GetLink() {
+        public async Task<UpdateResult> GetLink() {
 
-            Update_Result result = new Update_Result {
+            UpdateResult result = new UpdateResult {
                 Success = false,
                 NewVersion = false
             };
 
-            string data_from_server = await Utilities.QuickTCP.QuickReadURL(_update_data);
+            string data_from_server = await Utilities.QuickTCP.QuickReadURL(updateEndpoint);
 
             if (data_from_server == null) return result;
 

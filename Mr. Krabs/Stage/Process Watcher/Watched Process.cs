@@ -12,9 +12,9 @@ namespace Mr.Krabs.Stage.Process_Watcher {
     // this should only be one instance throughout the entire app
     // UI reacts to StatusChanged, and all memory shit goes here
 
-    public class Watched_Process {
+    public class WatchedProcess {
 
-        public Process_Finder ProcessWatcher;
+        public ProcessFinder ProcessWatcher;
         public Process BaseProcess = null;
         public string GetCrabGameDirectory() {
             return 
@@ -22,10 +22,10 @@ namespace Mr.Krabs.Stage.Process_Watcher {
                 BaseProcess.MainModule.FileName);
         }
         /// <returns>ProcessWatcher property.</returns>
-        public async Task<Process_Finder> StartWatching() {
+        public async Task<ProcessFinder> StartWatching() {
             // await Task.Delay(1000);
             // process watcher for process running and whatnot
-            ProcessWatcher = new Process_Finder();
+            ProcessWatcher = new ProcessFinder();
             // ProcessWatcher.ProcessFound += ProcessWatcher_ProcessFound;
             // not async
             var procs = await ProcessWatcher.Start();

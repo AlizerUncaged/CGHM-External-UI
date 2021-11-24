@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
     /// Interaction logic for New_Update.xaml
     /// </summary>
-    public partial class New_Update : UserControl {
-        private string _link, _desc;
-        public New_Update(string desc, string link) {
-            _link = link; _desc = desc;
+    public partial class NewUpdate : UserControl {
+        private string link, description;
+        public NewUpdate(string description, string link) {
+            this.link = link; this.description = description;
             InitializeComponent();
-            Description.Text = _desc;
+            Description.Text = this.description;
         }
 
         public void StopAnimations() {
@@ -39,7 +31,7 @@ namespace Mr.Krabs.UI.Scenes {
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
         private void Update(object sender, MouseButtonEventArgs e) {
-            Process.Start(_link);
+            Process.Start(link);
             e.Handled = true;
         }
 

@@ -25,16 +25,16 @@ namespace Mr.Krabs.UI.Scenes {
     /// Interaction logic for Hacks.xaml
     /// </summary>
     public partial class Hacks : UserControl {
-        private Pipe_Wrapper _pipe;
-        private JSONWatcher _json;
+        private PipeWrapper pipe;
+        private JSONWatcher json;
 
         private Dictionary<string  /* element name */, FrameworkElement> _cached_checkbox_and_names =
             new Dictionary<string, FrameworkElement>();
-        public Hacks(Pipe_Wrapper pipe, JSONWatcher jsonwatcher) {
+        public Hacks(PipeWrapper pipe, JSONWatcher jsonwatcher) {
             InitializeComponent();
-            _pipe = pipe;
-            _json = jsonwatcher;
-            _json.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
+            this.pipe = pipe;
+            json = jsonwatcher;
+            json.ChangedCheckBoxes += Jsonwatcher_ChangedCheckBoxes;
         }
 
         private void _add_datas(List<(string, object)> e) {
@@ -87,7 +87,7 @@ namespace Mr.Krabs.UI.Scenes {
                         Dictionary<object, object> nameAndVal = new Dictionary<object, object>() { { field.RawName, (bool)cb.IsChecked } };
                         string jsoned = JsonConvert.SerializeObject(nameAndVal);
                         Task.Factory.StartNew(async () => {
-                            await _pipe.Send(jsoned);
+                            await pipe.Send(jsoned);
                         });
 
                         e.Handled = true;
@@ -125,7 +125,7 @@ namespace Mr.Krabs.UI.Scenes {
                         }
 
                         Task.Factory.StartNew(async () => {
-                            await _pipe.Send(jsoned);
+                            await pipe.Send(jsoned);
                         });
 
                         e.Handled = true;
@@ -157,7 +157,7 @@ namespace Mr.Krabs.UI.Scenes {
         }
 
         private void RUnloaded(object sender, RoutedEventArgs e) {
-            _json.ChangedCheckBoxes -= Jsonwatcher_ChangedCheckBoxes;
+            json.ChangedCheckBoxes -= Jsonwatcher_ChangedCheckBoxes;
         }
     }
 }

@@ -345,7 +345,7 @@
 
             <!-- Main Pages here. -->
             <DockPanel x:Name="Welcome" Margin="0,10,0,0">
-                <scenes:Wait_for_Crab_Game_Page/>
+                <scenes:WaitForCrabGamePage/>
             </DockPanel>
 
         </DockPanel>

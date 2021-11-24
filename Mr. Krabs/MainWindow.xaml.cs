@@ -103,7 +103,7 @@ namespace Mr.Krabs {
 
         public void ShowUpdatePage(string desc, string link) {
             Welcome.Visibility = Visibility.Collapsed;
-            var update_page = new UI.Scenes.New_Update(desc, link);
+            var update_page = new UI.Scenes.NewUpdate(desc, link);
             DokcuPanelu.Children.Add(update_page);
 
         }
@@ -116,7 +116,7 @@ namespace Mr.Krabs {
 
             // dll is there, so that means json file is written right? yes.
             if (SStage.FieldsAndHacks == null) {
-                SStage.FieldsAndHacks = new Stage.Communication_and_Pipes.JSONWatcher(SStage.Pipe, SStage.CHEWY_JSON_PATH);
+                SStage.FieldsAndHacks = new Stage.Communication_and_Pipes.JSONWatcher(SStage.Pipe, SStage.chewyJsonPath);
                 SStage.FieldsAndHacks.OnSettingsLoaded += FieldsAndHacks_OnSettingsLoaded;
                 await SStage.FieldsAndHacks.InitializeStreams();
             }
@@ -164,7 +164,7 @@ namespace Mr.Krabs {
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 /* Not running! */
                 if (e == Krabs.Stage.Process_Watcher.CrabGameStatus.Offline) {
-                    var waiting_page = new UI.Scenes.Wait_for_Crab_Game_Page();
+                    var waiting_page = new UI.Scenes.WaitForCrabGamePage();
                     SetActiveControl(waiting_page);
                     SStage.Pipe.Stop();
 

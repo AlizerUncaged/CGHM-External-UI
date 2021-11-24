@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mr.Krabs.Utilities {
-    public static class String_Utilities {
+    public static class StringUtilities {
         // null terminates a string
         public static string NullTerminate(this string str) {
             return str + '\0';

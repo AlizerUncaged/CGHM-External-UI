@@ -20,18 +20,18 @@ namespace Mr.Krabs.UI.Scenes {
     /// Interaction logic for MessageA.xaml
     /// </summary>
     public partial class MessageA : UserControl, IDialog {
-        private string _link;
-        private bool _close;
+        private string link;
+        private bool close;
         public MessageA(string title, string message, string process_start, bool close = false) {
             InitializeComponent();
             Title.Text = title;
             Desc.Text = message;
-            _link = process_start;
-            _close = close;
+            link = process_start;
+            this.close = close;
         }
 
         private void InvokeR(object sender, MouseButtonEventArgs e) {
-            Process.Start(_link);
+            Process.Start(link);
             Closing?.Invoke(this, e);
         }
 

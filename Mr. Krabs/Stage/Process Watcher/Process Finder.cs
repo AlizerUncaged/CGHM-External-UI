@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mr.Krabs.Stage.Process_Watcher {
-    public class Process_Finder {
+    public class ProcessFinder {
 
-        private string _window_name;
+        private string windowName;
 
         private IEnumerable<Process> _base_proc = null;
 
-        public Process_Finder(string window_name = "Crab Game") {
-            _window_name = window_name;
+        public ProcessFinder(string window_name = "Crab Game") {
+            windowName = window_name;
         }
 
         public event EventHandler<IEnumerable<Process>> ProcessFound;
@@ -21,7 +21,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
         public async Task<IEnumerable<Process>> Start() {
             do {
 
-                var proces = await Process_Utilities.FindProcessViaWindowName(_window_name);
+                var proces = await Process_Utilities.FindProcessViaWindowName(windowName);
 
                 if (proces.Count() > 0) {
                     _base_proc = proces;

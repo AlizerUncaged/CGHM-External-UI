@@ -15,27 +15,27 @@ using System.Windows;
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
 
     public class JSONWatcher {
-        private const int _json_refresh_rate = 200; // milliseconds
-        private string _filepath = "";
-        private Dictionary<string, object> _hacks;
-        private FileStream _read_fileStream;
-        private StreamReader _read_stream;
-        private Pipe_Wrapper _comms;
-        public JSONWatcher(Pipe_Wrapper comms, string filepath) {
-            _filepath = filepath;
-            _comms = comms;
+        private const int jsonRefreshRate = 200; // milliseconds
+        private string jsonFilePath;
+        private Dictionary<string, object> hacksLoaded;
+        private FileStream readFileStream;
+        private StreamReader readStream;
+        private PipeWrapper communicationBridge;
+        public JSONWatcher(PipeWrapper comms, string filepath) {
+            jsonFilePath = filepath;
+            communicationBridge = comms;
         }
 
 
         public async Task InitializeStreams() {
-            for (int i = 0; !File.Exists(_filepath); i++) {
+            for (int i = 0; !File.Exists(jsonFilePath); i++) {
                 string initiator = $"{{\"mod_fly.active\": {(i % 2 == 0 ? "true" : "false")}}}";
-                _ = _comms.Send(initiator);
+                _ = communicationBridge.Send(initiator);
                 await Task.Delay(200);
             }
 
-            _read_fileStream = File.Open(_filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            _read_stream = new StreamReader(_read_fileStream);
+            readFileStream = File.Open(jsonFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            readStream = new StreamReader(readFileStream);
 
         }
 
@@ -44,9 +44,9 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             await Task.Run(async () => {
                 string filestring = null;
                 while (filestring == null) {
-                    filestring = _read_stream.ReadToEnd();
-                    _read_fileStream.Position = 0;
-                    _read_stream.DiscardBufferedData();
+                    filestring = readStream.ReadToEnd();
+                    readFileStream.Position = 0;
+                    readStream.DiscardBufferedData();
                     if (filestring == null)
                         await Task.Delay(200);
                 }
@@ -62,7 +62,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
                     }
                 }
 
-                _hacks = hacks;
+                hacksLoaded = hacks;
             });
         }
 
@@ -72,7 +72,7 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         // booleans
         public IEnumerable<HackInfo.HackMetadata> GetFields() {
             List<HackInfo.HackMetadata> metadatas = new List<HackInfo.HackMetadata>();
-            foreach (var i in _hacks) {
+            foreach (var i in hacksLoaded) {
                 metadatas.Add(HackInfo.GetHackTypeFromName(i.Key, i.Value));
             }
             return metadatas;
@@ -87,12 +87,12 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
             _keep_reading = true;
             Task.Factory.StartNew(async () => {
                 while (_keep_reading) {
-                    await Task.Delay(_json_refresh_rate);
+                    await Task.Delay(jsonRefreshRate);
 
-                    string read = _read_stream.ReadToEnd();
+                    string read = readStream.ReadToEnd();
 
-                    _read_fileStream.Position = 0;
-                    _read_stream.DiscardBufferedData();
+                    readFileStream.Position = 0;
+                    readStream.DiscardBufferedData();
 
                     Dictionary<string, object> newHacks = JsonConvert.DeserializeObject<Dictionary<string, object>>(read);
 

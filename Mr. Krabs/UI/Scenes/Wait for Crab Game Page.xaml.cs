@@ -17,8 +17,8 @@ namespace Mr.Krabs.UI.Scenes {
     /// <summary>
     /// Interaction logic for Wait_for_Crab_Game_Page.xaml
     /// </summary>
-    public partial class Wait_for_Crab_Game_Page : UserControl {
-        public Wait_for_Crab_Game_Page() {
+    public partial class WaitForCrabGamePage : UserControl {
+        public WaitForCrabGamePage() {
             InitializeComponent();
         }
     }

@@ -32,6 +32,7 @@ namespace Mr.Krabs.UI.Scenes {
                 j.Stop();
             }
         }
+
         private void RUnloaded(object sender, RoutedEventArgs e) {
             StopAnimations();
         }

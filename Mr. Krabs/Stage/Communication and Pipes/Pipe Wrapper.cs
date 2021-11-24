@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Mr.Krabs.Stage.Communication_and_Pipes {
-    public class Pipe_Wrapper {
+    public class PipeWrapper {
 
         // pipin
-        private NamedPipeClientStream _client_pipe;
-        private BinaryWriter _writer;
+        private NamedPipeClientStream clientPipe;
+        private BinaryWriter writerStream;
 
-        private string _pipe_name;
+        private string pipeName;
 
-        public Pipe_Wrapper(string pipe_name) {
+        public PipeWrapper(string pipe_name) {
             init(pipe_name);
         }
 
         private void init(string pipe_name) {
 
-            _pipe_name = pipe_name;
-            _client_pipe = new NamedPipeClientStream(_pipe_name);
-            _writer = new BinaryWriter(_client_pipe);
+            pipeName = pipe_name;
+            clientPipe = new NamedPipeClientStream(pipeName);
+            writerStream = new BinaryWriter(clientPipe);
         }
 
         public event EventHandler Connected;
@@ -35,23 +35,23 @@ namespace Mr.Krabs.Stage.Communication_and_Pipes {
         }
         public async Task Send(byte[] bytes) {
             // await _server_pipe.WaitForConnectionAsync();
-            await _client_pipe.WriteAsync(bytes, 0, bytes.Length);
-            _writer.Flush();
+            await clientPipe.WriteAsync(bytes, 0, bytes.Length);
+            writerStream.Flush();
             //   _client_pipe.WaitForPipeDrain();
         }
         public void Stop() {
-            if (_client_pipe != null) {
-                _client_pipe.Close();
-                _client_pipe = null;
+            if (clientPipe != null) {
+                clientPipe.Close();
+                clientPipe = null;
             }
         }
         public void Start() {
             Task.Factory.StartNew(() => {
-                if (_client_pipe == null) {
-                    init(_pipe_name);
+                if (clientPipe == null) {
+                    init(pipeName);
                 }
-                if (!_client_pipe.IsConnected)
-                    _client_pipe.Connect();
+                if (!clientPipe.IsConnected)
+                    clientPipe.Connect();
 
                 Connected?.Invoke(this, null);
             });

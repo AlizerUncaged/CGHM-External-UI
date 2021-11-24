@@ -111,8 +111,8 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="border_Copy">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="175">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.25" Value="175">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <QuinticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>

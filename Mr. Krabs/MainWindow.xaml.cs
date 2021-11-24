@@ -41,7 +41,7 @@ namespace Mr.Krabs {
             e.Handled = true;
         }
 
-        private const double confidence = 30;
+        private const double confidence = 10;
         private Point oldCursorPosition;
         private void PreviewMove(object sender, MouseEventArgs e) {
 

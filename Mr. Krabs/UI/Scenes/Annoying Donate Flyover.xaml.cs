@@ -61,6 +61,32 @@ namespace Mr.Krabs.UI.Scenes {
         // gets called when main page parent is rendered
         private void Rendered(object sender, RoutedEventArgs e) {
 
+            border.Width = 50;
+            border_Copy.Width = 50;
+
+
+            var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
+            // sky
+            foreach (var comet in comets) {
+
+
+                UI.Move_Randomly skyMoveEllipses =
+                    new UI.Move_Randomly(
+                        new UI.Resolution {
+                            MaxHeight = SkullEmoji.ActualHeight,
+                            MaxWidth = SkullEmoji.ActualWidth,
+                            MinWidth = -comet.Width,
+                            MinHeight = -comet.Height
+                        },
+                        new FrameworkElement[] { comet },
+                        new UI.Interval { Min = 2000, Max = 3000 },
+                        new SineEase { EasingMode = EasingMode.EaseInOut }
+                        );
+
+                SkyAnimation.Add(skyMoveEllipses);
+                skyMoveEllipses.Start();
+            }
+
         }
 
         // gets called when the last image is rendered
@@ -68,35 +94,13 @@ namespace Mr.Krabs.UI.Scenes {
             // dispatcher to really ensure everything has been rendered
             Dispatcher.BeginInvoke(new Action(async () => {
 
-                border.Width = 50;
-                border_Copy.Width = 50;
-                var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
-                // sky
-                foreach (var comet in comets) {
-
-
-                    UI.Move_Randomly skyMoveEllipses =
-                        new UI.Move_Randomly(
-                            new UI.Resolution {
-                                MaxHeight = SkullEmoji.ActualHeight,
-                                MaxWidth = SkullEmoji.ActualWidth,
-                                MinWidth = -comet.Width,
-                                MinHeight = -comet.Height
-                            },
-                            new FrameworkElement[] { comet },
-                            new UI.Interval { Min = 2000, Max = 3000 },
-                            new SineEase { EasingMode = EasingMode.EaseInOut }
-                            );
-
-                    SkyAnimation.Add(skyMoveEllipses);
-                    skyMoveEllipses.Start();
-                }
-
                 Storyboard sb = this.FindResource("Represent") as Storyboard;
+                sb.Completed += (_pe, _nis) => {
+                    Utilities.UI.RunAnimation(this, "CrabTopiaShow");
+                };
                 Timeline.SetDesiredFrameRate(sb, 60);
                 if (sb != null) { sb.Begin(); }
 
-                Utilities.UI.RunAnimation(this, "CrabTopiaShow");
                 // get crabtopia info
                 var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
                 MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";

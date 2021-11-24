@@ -17,7 +17,7 @@ namespace Mr.Krabs.Utilities {
                         s = client.DownloadString(url);
                         Debug.WriteLine($"TCP in: {s}");
                     }
-                } catch { }
+                } catch (Exception ex){ Debug.WriteLine($"Reading TCP Error: {ex}"); }
                 return s;
             });
         }

@@ -16,7 +16,6 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         MouseDown="Clicked"
-        PreviewMouseMove="PreviewMove"
         Loaded="Rendered"
         Title="Chrome" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
     <Window.Resources>
@@ -90,47 +89,17 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="RemoveSkyReverse">
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="path">
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-97.324,-62.092,0,0">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse">
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="38,159,0,0">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse1">
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="88,97,0,0">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse2">
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="197,461,0,0">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="path1">
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="233.387,376.274,-100,-100">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="image">
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipse2_Copy">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="78">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse2_Copy">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="45">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
@@ -191,6 +160,94 @@
                 </EasingColorKeyFrame>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="RemoveSkyReverse">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="path">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-200,-200,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-97.324,-62.092,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-200,-200,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="38,159,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse1">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-200,-200,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="88,97,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse2">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="400,500,-200,-200">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="197,461,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="path1">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="400,500,-200,-200">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="233.387,376.274,-100,-100">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="image">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="23">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipse2_Copy">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse2_Copy">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="CloseButton">
@@ -231,38 +288,8 @@
         </Grid>
         <Grid x:Name="Carpet" Background="#BF0F0F17"/>
         <Grid x:Name="Space">
-
-            <Path x:Name="path1_Copy" Data="M156.14694,256.61222 C192.47825,277.53563 139.15588,359.74545 150.71925,361.30109 189.14447,366.47051 188.79268,406.48048 230.30139,420.31672 284.30139,438.31672 202.5,458.5 165.5,455.5 130.46089,452.65899 35.345716,283.83944 142.3125,211.36015 148.29869,207.30399 111.18425,230.71794 156.14694,256.61222 z" HorizontalAlignment="Left" Height="420.94" Margin="10.46,280.246,0,-201.186" Stretch="Fill" VerticalAlignment="Top" Width="232.728" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
-                <Path.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Path.Effect>
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-101.634"/>
-                        <TranslateTransform X="79.995649315000122" Y="-65.538654009723928"/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
-                        <LinearGradientBrush.RelativeTransform>
-                            <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FFFF3E89"/>
-                        <GradientStop Color="#FFFFB198" Offset="1"/>
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
             <Ellipse x:Name="ellipse2" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="197,461,0,0">
-                <Ellipse.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Ellipse.Effect>
+          
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
                         <LinearGradientBrush.RelativeTransform>
@@ -279,9 +306,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <Path x:Name="path1" Data="M113,313 C253.49959,241.49998 152.5,376.5 206.5,394.5 260.5,412.5 202.5,458.5 165.5,455.5 128.5,452.5 -27.499586,384.50002 113,313 z" HorizontalAlignment="Left" Height="165" Margin="233.387,376.274,-100,-100" Stretch="Fill" VerticalAlignment="Top" Width="170" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
-                <Path.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Path.Effect>
+          
                 <Path.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -305,27 +330,8 @@
                     </LinearGradientBrush>
                 </Path.Fill>
             </Path>
-            <Path x:Name="path_Copy" Data="M70,-47 C125.99993,13.000049 47.000017,14.001075 44.000128,90.001132 42.540794,126.97234 41.000123,126.00118 28.000148,157.00118 15.000174,188.00118 -41.640583,195.05231 -33.640598,278.05231 -25.640614,361.05231 -145.00041,335.00028 -148.00026,303.00059 -151.00012,271.0009 -80.000269,217.00069 -147.00025,137.00087 -204.43186,90.88602 -12.614839,-68.865315 70,-47 z" HorizontalAlignment="Left" Height="382.696" Margin="-78.555,-45.045,0,0" Stretch="Fill" VerticalAlignment="Top" Width="247.565" RenderTransformOrigin="0.5,0.5">
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="6.104"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF20EADF" Offset="1"/>
-                        <GradientStop Color="#FF055CD7"/>
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
             <Path x:Name="path" Data="M70,-47 C125.99993,13.000049 118,27 106,62 94,97 69.000002,90 56.000027,121 43.000053,152 3.0001293,127 11.000114,210 19.000098,293 -46.000239,287 -86.000281,280 -126.00032,273 -30.000313,212.99997 -97.000294,133.00015 -154.4319,86.885299 -12.614839,-68.865315 70,-47 z" HorizontalAlignment="Left" Height="332.811" Margin="-97.324,-62.092,0,0" Stretch="Fill" VerticalAlignment="Top" Width="224.981">
-                <Path.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Path.Effect>
+                
                 <Path.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF20EADF" Offset="0"/>
@@ -334,9 +340,7 @@
                 </Path.Fill>
             </Path>
             <Ellipse x:Name="ellipse" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,159,0,0">
-                <Ellipse.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Ellipse.Effect>
+           
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
                         <LinearGradientBrush.RelativeTransform>
@@ -353,9 +357,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <Ellipse x:Name="ellipse1" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,97,0,0">
-                <Ellipse.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Ellipse.Effect>
+         
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
                         <LinearGradientBrush.RelativeTransform>
@@ -371,10 +373,15 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse x:Name="ellipse2_Copy" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="279,374,0,0">
-                <Ellipse.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Ellipse.Effect>
+            <Ellipse x:Name="ellipse2_Copy" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="279,374,0,0" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
                         <LinearGradientBrush.RelativeTransform>
@@ -393,7 +400,7 @@
 
         </Grid>
         <DockPanel x:Name="DokcuPanelu">
-            <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,5,5,0">
+            <DockPanel PreviewMouseMove="PreviewMove" x:Name="UpperBorder" DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,3,5,0" Background="#00000000">
                 <Image x:Name="image" Source="UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="5,7,0,7" Width="0"/>
                 <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"/>
                 <TextBlock FontFamily="{materialDesign:MaterialDesignFont}" x:Name="Version" Text="version" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>

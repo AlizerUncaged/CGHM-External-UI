@@ -24,27 +24,24 @@ namespace Mr.Krabs.Utilities {
             }
         }
         /* required for external auto-start feature */
-        public static bool CopyToCrabGameFolder(string crabGameFolder) {
+        public static bool CopyToLocalAppData() {
             var d = new DirectoryInfo(FileSystem.CurrentFolder);
             var f = d.GetFiles();
             foreach (var g in f) {
 
-                var file = $"{crabGameFolder}/{g.Name}";
+                var file = $"{FileSystem.ChewyGumballInstallationFolder}/{g.Name}";
 
-                if (!File.Exists(file)) {
+                // no way to check if the file is being used without exception
+                try {
+                    // overwrite for update feature...
                     File.Copy(g.FullName, file, true);
-                }
+                } catch { }
+
             }
-            return true;
-        }
-        public static bool CheckIfCopiedToCrabGame(string crabGameFolder) {
-            var d = new DirectoryInfo(FileSystem.CurrentFolder);
-            var f = d.GetFiles();
-            foreach (var g in f) {
-                if (!File.Exists($"{crabGameFolder}/{g.Name}")) {
-                    return false;
-                }
-            }
+            // force copy again as Mr.Krabs because some people rename
+            try {
+                File.Copy(FileSystem.CurrentFilename, $"{FileSystem.ChewyGumballInstallationFolder}/Mr.Krabs.exe", true);
+            } catch { }
             return true;
         }
 
@@ -68,7 +65,7 @@ namespace Mr.Krabs.Utilities {
             });
         }
 
-        
+
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool OpenProcessToken(IntPtr ProcessHandle, UInt32 DesiredAccess, out IntPtr TokenHandle);
 
@@ -87,16 +84,16 @@ namespace Mr.Krabs.Utilities {
         private const int TOKEN_ADJUST_SESSIONID = 0x100;
         private const int TOKEN_ADJUST_DEFAULT = 0x80;
         // combining these flags we get the all-access flag
-        private const int TOKEN_ALL_ACCESS = 
-            (STANDARD_RIGHTS_REQUIRED | 
-            TOKEN_ASSIGN_PRIMARY | 
-            TOKEN_DUPLICATE | 
-            TOKEN_IMPERSONATE | 
-            TOKEN_QUERY | 
-            TOKEN_QUERY_SOURCE | 
-            TOKEN_ADJUST_PRIVILEGES | 
-            TOKEN_ADJUST_GROUPS | 
-            TOKEN_ADJUST_SESSIONID | 
+        private const int TOKEN_ALL_ACCESS =
+            (STANDARD_RIGHTS_REQUIRED |
+            TOKEN_ASSIGN_PRIMARY |
+            TOKEN_DUPLICATE |
+            TOKEN_IMPERSONATE |
+            TOKEN_QUERY |
+            TOKEN_QUERY_SOURCE |
+            TOKEN_ADJUST_PRIVILEGES |
+            TOKEN_ADJUST_GROUPS |
+            TOKEN_ADJUST_SESSIONID |
             TOKEN_ADJUST_DEFAULT);
 
         /// <summary>
@@ -108,18 +105,18 @@ namespace Mr.Krabs.Utilities {
                 IntPtr ph = IntPtr.Zero;
 
                 // access process
-                OpenProcessToken(proc.Handle, 
+                OpenProcessToken(proc.Handle,
                     TOKEN_ALL_ACCESS /* check if can access everything in the process (required for actual modding) */, out ph);
 
                 WindowsIdentity iden = new WindowsIdentity(ph);
 
                 bool result = false;
-                
+
                 foreach (IdentityReference role in iden.Groups) {
                     if (role.IsValidTargetType(typeof(SecurityIdentifier))) {
                         SecurityIdentifier sid = role as SecurityIdentifier;
 
-                        if (sid.IsWellKnown(WellKnownSidType.AccountAdministratorSid) || 
+                        if (sid.IsWellKnown(WellKnownSidType.AccountAdministratorSid) ||
                             sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid)) {
                             result = true;
                             break;

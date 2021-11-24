@@ -68,7 +68,6 @@ namespace Mr.Krabs {
                 oldCursorPosition = new Point(0, 0);
             }
 
-            e.Handled = true;
         }
 
         #region Window State and Windows Functions
@@ -178,8 +177,7 @@ namespace Mr.Krabs {
             switch (e.Item1) {
                 case "run_external_on_start.active":
                     var crabGameDir = SStage.CrabGame.GetCrabGameDirectory();
-                    var isAlreadyCopied = Utilities.Identity.CheckIfCopiedToCrabGame(crabGameDir);
-                    if (!isAlreadyCopied) Utilities.Identity.CopyToCrabGameFolder(crabGameDir);
+                    Utilities.Identity.CopyToLocalAppData();
                     break;
             }
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,9 +36,13 @@ namespace Mr.Krabs.Stage.Update_System {
             result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
             string newVersionFloatString = $"{result.Data.MajorVersion}.{result.Data.MinorVersion}";
             string oldVersionFloatString = $"{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion}";
-            float oldVersion = float.Parse(oldVersionFloatString);
-            float newVersion = float.Parse(newVersionFloatString);
+            float oldVersion, newVersion;
+
+            if (!float.TryParse(oldVersionFloatString, out oldVersion)) return result;
+            if (!float.TryParse(newVersionFloatString, out newVersion)) return result;
+
             result.NewVersion = newVersion > oldVersion;
+
 
             return result;
         }

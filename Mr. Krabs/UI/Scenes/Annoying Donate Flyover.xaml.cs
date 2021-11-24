@@ -22,7 +22,6 @@ namespace Mr.Krabs.UI.Scenes {
     /// Interaction logic for Settings.xaml
     /// </summary>
     public partial class AnnoyingDonateFlyover : UserControl, IDialog {
-        private static int runCounter;
         public AnnoyingDonateFlyover() {
             InitializeComponent();
         }
@@ -105,7 +104,6 @@ namespace Mr.Krabs.UI.Scenes {
             }), DispatcherPriority.ContextIdle);
 
             e.Handled = true;
-            runCounter++;
         }
     }
 }

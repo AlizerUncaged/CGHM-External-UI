@@ -24,21 +24,21 @@ namespace Mr.Krabs.UI {
         public static List<Move_Randomly> ActiveAnimations = new List<Move_Randomly>();
         public static void PauseAnimations() {
             foreach (var moveRandAnimation in ActiveAnimations) {
-                moveRandAnimation.Stop();
+                moveRandAnimation.Pause();
             }
         }
         public static void StartAnimations() {
             foreach (var moveRandAnimation in ActiveAnimations) {
-                moveRandAnimation.Start();
+                moveRandAnimation.Play();
             }
         }
         private const int maxFramerate = 60;
         private Interval interval;
         private Resolution max;
         private FrameworkElement[] elements;
+        private List<Storyboard> storyboards = new List<Storyboard>();
         private IEasingFunction ease;
-        private bool keepGoing = true;
-        private bool paused = false;
+        private bool paused = false, disposing = false;
 
         public Move_Randomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
             this.elements = elements; max = resolution; this.interval = interval; this.ease = ease;
@@ -54,7 +54,7 @@ namespace Mr.Krabs.UI {
         }
 
 
-        private ThicknessAnimation randomThicknessAnimation(FrameworkElement element) {
+        private Storyboard randomThicknessAnimation(FrameworkElement element) {
             var random_res = randomResolutionNotGreaterThanMax();
             var ta = new ThicknessAnimation {
                 BeginTime = TimeSpan.Zero,
@@ -65,11 +65,16 @@ namespace Mr.Krabs.UI {
             };
 
             Timeline.SetDesiredFrameRate(ta, maxFramerate);
-            return ta;
+
+            Storyboard storyboard = new Storyboard();
+            Storyboard.SetTarget(ta, element);
+
+            Storyboard.SetTargetProperty(ta, new PropertyPath("(FrameworkElement.Margin)"));
+            storyboard.Children.Add(ta);
+            return storyboard;
         }
 
         public void Start() {
-            keepGoing = true;
             // add storyboard to each blob
             foreach (var element in elements) {
                 // generate random resolution first
@@ -79,22 +84,42 @@ namespace Mr.Krabs.UI {
 
         private void addAnimationToElement(FrameworkElement element) {
             var ta = randomThicknessAnimation(element);
+            storyboards.Add(ta);
             ta.Completed += (s, e) => {
-                if (keepGoing) {
-                    // replay
-                    var random_res = randomResolutionNotGreaterThanMax();
-                    addAnimationToElement(element);
-                }
+
+                if (!disposing) addAnimationToElement(element);
             };
-            element.BeginAnimation(FrameworkElement.MarginProperty, ta);
+
+            ta.Begin();
+            if (paused) ta.Pause();
+
+            // Storyboard.SetTargetProperty(translateYAnimation, "TranslateY");
+            // element.BeginAnimation(FrameworkElement.MarginProperty, ta);
         }
 
         public void Stop() {
-            foreach (var element in elements) {
+            disposing = true;
+            foreach (var storyboard in storyboards) {
+                storyboard.Stop();
                 // generate random resolution first
-                element.BeginAnimation(FrameworkElement.MarginProperty, null);
+                // element.BeginAnimation(FrameworkElement.MarginProperty, null);
             }
-            keepGoing = false;
+        }
+        public void Pause() {
+            paused = true;
+            foreach (var storyboard in storyboards) {
+                storyboard.Pause();
+                // generate random resolution first
+                // element.BeginAnimation(FrameworkElement.MarginProperty, null);
+            }
+        }
+        public void Play() {
+            paused = false;
+            foreach (var storyboard in storyboards) {
+                storyboard.Resume();
+                // generate random resolution first
+                // element.BeginAnimation(FrameworkElement.MarginProperty, null);
+            }
         }
     }
 

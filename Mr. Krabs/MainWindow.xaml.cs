@@ -39,20 +39,37 @@ namespace Mr.Krabs {
         // mousedown
         private void Clicked(object sender, MouseButtonEventArgs e) {
             e.Handled = true;
+        }
+
+        private const double confidence = 30;
+        private double xChange = 0, yChange = 0;
+        private Point oldCursorPosition;
+        private void PreviewMove(object sender, MouseEventArgs e) {
+
             if (e.LeftButton == MouseButtonState.Pressed) {
+                var point = e.GetPosition(this);
+                if (oldCursorPosition.X == 0 && oldCursorPosition.Y == 0) {
+                    oldCursorPosition = point;
+                }
+                xChange = Math.Abs(point.X - oldCursorPosition.X);
+                yChange = Math.Abs(point.Y - oldCursorPosition.Y);
 
-                UI.Move_Randomly.PauseAnimations();
-                Debug.WriteLine("Animations paused.");
+                if (xChange > confidence || yChange > confidence) {
+                    UI.Move_Randomly.PauseAnimations();
+                    Debug.WriteLine("Animations paused.");
 
-                this.DragMove();
+                    this.DragMove();
 
-                UI.Move_Randomly.StartAnimations();
-                Debug.WriteLine("Animations restarted.");
+                    UI.Move_Randomly.StartAnimations();
+                    Debug.WriteLine("Animations restarted.");
+                }
 
             } else if (e.LeftButton == MouseButtonState.Released) {
+                xChange = 0;
+                yChange = 0;
+                oldCursorPosition = new Point(0, 0);
             }
-        }
-        private void MouseMoved(object sender, MouseEventArgs e) {
+
             e.Handled = true;
         }
 

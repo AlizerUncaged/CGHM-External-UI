@@ -16,7 +16,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         MouseDown="Clicked"
-        MouseMove="MouseMoved"
+        PreviewMouseMove="PreviewMove"
         Loaded="Rendered"
         Title="Chrome" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
     <Window.Resources>
@@ -231,34 +231,6 @@
         </Grid>
         <Grid x:Name="Carpet" Background="#BF0F0F17"/>
         <Grid x:Name="Space">
-
-            <Path x:Name="path1_Copy1" Data="M144.56021,247.99768 C180.89152,268.92109 127.83548,271.51352 177.68587,344.23329 199.97493,376.74769 117.56293,395.69077 204.47106,409.63056 238.53918,415.09498 278.38662,453.12976 267.36103,474.97785 230.25645,548.50349 202.5,458.5 165.5,455.5 130.46089,452.65899 7.0037354,256.77229 113.97052,184.293 119.95671,180.23684 99.597525,222.1034 144.56021,247.99768 z" HorizontalAlignment="Left" Height="549.647" Margin="-32.231,280.451,0,-330.098" Stretch="Fill" VerticalAlignment="Top" Width="296.793" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
-                <Path.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="50" Opacity="0.5"/>
-                </Path.Effect>
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-101.634"/>
-                        <TranslateTransform X="104.5349076515088" Y="-174.24404435518341"/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" SpreadMethod="Reflect">
-                        <LinearGradientBrush.RelativeTransform>
-                            <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FFFF3E89" Offset="1"/>
-                        <GradientStop Color="#FFFFB198"/>
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
 
             <Path x:Name="path1_Copy" Data="M156.14694,256.61222 C192.47825,277.53563 139.15588,359.74545 150.71925,361.30109 189.14447,366.47051 188.79268,406.48048 230.30139,420.31672 284.30139,438.31672 202.5,458.5 165.5,455.5 130.46089,452.65899 35.345716,283.83944 142.3125,211.36015 148.29869,207.30399 111.18425,230.71794 156.14694,256.61222 z" HorizontalAlignment="Left" Height="420.94" Margin="10.46,280.246,0,-201.186" Stretch="Fill" VerticalAlignment="Top" Width="232.728" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
                 <Path.Effect>

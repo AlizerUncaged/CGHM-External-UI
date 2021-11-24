@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
@@ -22,7 +23,6 @@ namespace Mr.Krabs.UI.Scenes {
     /// </summary>
     public partial class AnnoyingDonateFlyover : UserControl, IDialog {
         private static int runCounter;
-        private Window _parent;
         public AnnoyingDonateFlyover() {
             InitializeComponent();
         }
@@ -40,45 +40,6 @@ namespace Mr.Krabs.UI.Scenes {
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
 
 
-        private async void Rendered(object sender, RoutedEventArgs e) {
-            border.Width = 50;
-            border_Copy.Width = 50;
-            var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
-            // sky
-            foreach (var comet in comets) {
-
-
-                UI.Move_Randomly skyMoveEllipses =
-                    new UI.Move_Randomly(
-                        new UI.Resolution {
-                            MaxHeight = SkullEmoji.ActualHeight,
-                            MaxWidth = SkullEmoji.ActualWidth,
-                            MinWidth = -comet.Width,
-                            MinHeight = -comet.Height
-                        },
-                        new FrameworkElement[] { comet },
-                        new UI.Interval { Min = 2000, Max = 3000 },
-                        new SineEase { EasingMode = EasingMode.EaseInOut }
-                        );
-
-                SkyAnimation.Add(skyMoveEllipses);
-                skyMoveEllipses.Start();
-            }
-
-            Storyboard sb = this.FindResource("Represent") as Storyboard;
-            Timeline.SetDesiredFrameRate(sb, 60);
-            if (sb != null) { sb.Begin(); }
-
-            Utilities.UI.RunAnimation(this, "CrabTopiaShow");
-            // get crabtopia info
-            var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
-            MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
-            ServerInfo.Visibility = Visibility.Visible;
-
-            e.Handled = true;
-            runCounter++;
-        }
-
 
         public event EventHandler Closing;
         private void CloseSettings(object sender, MouseButtonEventArgs e) {
@@ -95,6 +56,56 @@ namespace Mr.Krabs.UI.Scenes {
                 }
             }
             e.Handled = true;
+        }
+
+        // gets called when main page parent is rendered
+        private void Rendered(object sender, RoutedEventArgs e) {
+
+        }
+
+        // gets called when the last image is rendered
+        private void LastImageRendered(object sender, RoutedEventArgs e) {
+            // dispatcher to really ensure everything has been rendered
+            Dispatcher.BeginInvoke(new Action(async () => {
+
+                border.Width = 50;
+                border_Copy.Width = 50;
+                var comets = SkullEmoji.Children.OfType<Ellipse>().ToArray();
+                // sky
+                foreach (var comet in comets) {
+
+
+                    UI.Move_Randomly skyMoveEllipses =
+                        new UI.Move_Randomly(
+                            new UI.Resolution {
+                                MaxHeight = SkullEmoji.ActualHeight,
+                                MaxWidth = SkullEmoji.ActualWidth,
+                                MinWidth = -comet.Width,
+                                MinHeight = -comet.Height
+                            },
+                            new FrameworkElement[] { comet },
+                            new UI.Interval { Min = 2000, Max = 3000 },
+                            new SineEase { EasingMode = EasingMode.EaseInOut }
+                            );
+
+                    SkyAnimation.Add(skyMoveEllipses);
+                    skyMoveEllipses.Start();
+                }
+
+                Storyboard sb = this.FindResource("Represent") as Storyboard;
+                Timeline.SetDesiredFrameRate(sb, 60);
+                if (sb != null) { sb.Begin(); }
+
+                Utilities.UI.RunAnimation(this, "CrabTopiaShow");
+                // get crabtopia info
+                var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
+                MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
+                ServerInfo.Visibility = Visibility.Visible;
+
+            }), DispatcherPriority.ContextIdle, null);
+
+            e.Handled = true;
+            runCounter++;
         }
     }
 }

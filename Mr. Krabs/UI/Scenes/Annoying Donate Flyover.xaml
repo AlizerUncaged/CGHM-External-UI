@@ -161,7 +161,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <Border x:Name="border_Copy" Cursor="Hand" MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" Background="{DynamicResource BackgroundLight}" CornerRadius="5,5,5,5" Width="175" Height="50" Margin="-40,135,65,115">
+                    <Border x:Name="border_Copy" Cursor="Hand" MouseDown="OpenTag" Tag="https://paypal.me/alizer1" Background="{DynamicResource BackgroundLight}" CornerRadius="5,5,5,5" Width="175" Height="50" Margin="-40,135,65,115">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.5"/>
                         </Border.Effect>
@@ -204,7 +204,7 @@
                         <StackPanel Orientation="Horizontal" Height="50" Margin="5,0" VerticalAlignment="Center">
                             <Border Margin="0,5,0,5" DockPanel.Dock="Left" Background="{DynamicResource BackgroundNormal}" CornerRadius="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Git" Foreground="White" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                    <materialDesign:PackIcon Loaded="LastImageRendered" Kind="Git" Foreground="White" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
                                 </StackPanel>
                             </Border>
                             <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" Width="100">

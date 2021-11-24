@@ -29,7 +29,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             // ProcessWatcher.ProcessFound += ProcessWatcher_ProcessFound;
             // not async
             var procs = await ProcessWatcher.Start();
-            BaseProcess = _get_valid_crabgame_process(procs);
+            BaseProcess = getValidCrabGameProcess(procs);
 
             BaseProcess.EnableRaisingEvents = true;
             BaseProcess.Exited += BaseProcess_Exited;
@@ -59,17 +59,18 @@ namespace Mr.Krabs.Stage.Process_Watcher {
             _ = StartWatching();
         }
 
-        private Process _get_valid_crabgame_process(IEnumerable<Process> e) {
+        private Process getValidCrabGameProcess(IEnumerable<Process> e) {
             foreach (var process in e) {
 
-                var isadmin =
+                var isRanAsAdmin =
                     Utilities.Identity.IsProcessOwnerAdmin(process);
 
-                if (isadmin)
+                if (isRanAsAdmin)
                     StatusChanged?.Invoke(this, CrabGameStatus.IsAdmin);
 
-                // return if we're not admin
-                if (isadmin && !Utilities.Identity.AmIAdmin()) 
+                // check if the process was ran as admin and we're not admin
+                // if we're not ran as admin but crabgame is ran as admin return
+                if (isRanAsAdmin && !Utilities.Identity.AmIAdmin()) 
                     return null;
 
                 // now check if the file path is correct if GameAssembly is there

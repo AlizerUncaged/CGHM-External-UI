@@ -13,13 +13,17 @@ namespace Mr.Krabs.Utilities {
         public const int MajorVersion = 2;
         public const int MinorVersion = 0;
 
+        /// <summary>
+        /// Checks if we're ran as admin.
+        /// </summary>
+        /// <returns>Bool true if we're admin, false if not.</returns>
         public static bool AmIAdmin() {
             using (WindowsIdentity identity = WindowsIdentity.GetCurrent()) {
                 WindowsPrincipal principal = new WindowsPrincipal(identity);
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
-
+        /* required for external auto-start feature */
         public static bool CopyToCrabGameFolder(string crabGameFolder) {
             var d = new DirectoryInfo(FileSystem.CurrentFolder);
             var f = d.GetFiles();

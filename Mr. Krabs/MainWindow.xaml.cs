@@ -42,7 +42,6 @@ namespace Mr.Krabs {
         }
 
         private const double confidence = 30;
-        private double xChange = 0, yChange = 0;
         private Point oldCursorPosition;
         private void PreviewMove(object sender, MouseEventArgs e) {
 
@@ -51,7 +50,8 @@ namespace Mr.Krabs {
                 if (oldCursorPosition.X == 0 && oldCursorPosition.Y == 0) {
                     oldCursorPosition = point;
                 }
-                xChange = Math.Abs(point.X - oldCursorPosition.X);
+
+                double xChange = Math.Abs(point.X - oldCursorPosition.X),
                 yChange = Math.Abs(point.Y - oldCursorPosition.Y);
 
                 if (xChange > confidence || yChange > confidence) {
@@ -65,8 +65,6 @@ namespace Mr.Krabs {
                 }
 
             } else if (e.LeftButton == MouseButtonState.Released) {
-                xChange = 0;
-                yChange = 0;
                 oldCursorPosition = new Point(0, 0);
             }
 

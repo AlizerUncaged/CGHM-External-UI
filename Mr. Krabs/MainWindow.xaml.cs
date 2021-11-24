@@ -36,12 +36,10 @@ namespace Mr.Krabs {
             this.WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
-        private bool isBeingMoved = false;
         // mousedown
         private void Clicked(object sender, MouseButtonEventArgs e) {
             e.Handled = true;
             if (e.LeftButton == MouseButtonState.Pressed) {
-                isBeingMoved = true;
 
                 UI.Move_Randomly.PauseAnimations();
                 Debug.WriteLine("Animations paused.");
@@ -250,7 +248,7 @@ namespace Mr.Krabs {
                     new UI.Move_Randomly(
                         new UI.Resolution { MaxHeight = maxBottom, MaxWidth = maxRight, MinWidth = maxLeft, MinHeight = maxTop },
                         new FrameworkElement[] { comet },
-                        new UI.Interval { Min = 1000, Max = 1500 },
+                        new UI.Interval { Min = 1000, Max = 2500 },
                         new SineEase { EasingMode = EasingMode.EaseInOut }
                         );
 

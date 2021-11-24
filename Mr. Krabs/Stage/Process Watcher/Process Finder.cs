@@ -10,7 +10,7 @@ namespace Mr.Krabs.Stage.Process_Watcher {
 
         private string windowName;
 
-        private IEnumerable<Process> _base_proc = null;
+        private IEnumerable<Process> foundProcesses = null;
 
         public ProcessFinder(string window_name = "Crab Game") {
             windowName = window_name;
@@ -24,14 +24,14 @@ namespace Mr.Krabs.Stage.Process_Watcher {
                 var proces = await Process_Utilities.FindProcessViaWindowName(windowName);
 
                 if (proces.Count() > 0) {
-                    _base_proc = proces;
+                    foundProcesses = proces;
                     // found process
-                    ProcessFound?.Invoke(this, _base_proc);
+                    ProcessFound?.Invoke(this, foundProcesses);
                 } else await Task.Delay(1000);
 
-            } while (_base_proc == null);
+            } while (foundProcesses == null);
 
-            return _base_proc;
+            return foundProcesses;
         }
 
     }

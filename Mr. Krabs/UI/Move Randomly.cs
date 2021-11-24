@@ -22,61 +22,62 @@ namespace Mr.Krabs.UI {
         public int Min, Max;
     }
     public class Move_Randomly {
+        private const int maxFramerate = 60;
+        private Interval interval;
+        private Resolution max;
+        private FrameworkElement[] elements;
+        private IEasingFunction ease;
+        private bool keepGoing = true;
 
-        private Interval _interval;
-        private Resolution _max;
-        private FrameworkElement[] _elements;
-        private IEasingFunction _ease;
-        private bool _keepGoing = true;
         public Move_Randomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
-            _elements = elements; _max = resolution; _interval = interval; _ease = ease;
+            this.elements = elements; max = resolution; this.interval = interval; this.ease = ease;
         }
-        private Resolution _random_resolution_not_greater_than_max() {
+        private Resolution randomResolutionNotGreaterThanMax() {
             return new Resolution {
                 MinHeight = 0,
                 MinWidth = 0,
-                MaxHeight = Utilities.Rand.Random.Next((int)_max.MinHeight, (int)_max.MaxHeight),
-                MaxWidth = Utilities.Rand.RandomDouble((int)_max.MinWidth, (int)_max.MaxWidth)
+                MaxHeight = Utilities.Rand.Random.Next((int)max.MinHeight, (int)max.MaxHeight),
+                MaxWidth = Utilities.Rand.RandomDouble((int)max.MinWidth, (int)max.MaxWidth)
             };
         }
          
 
-        private ThicknessAnimation _random_thickness(FrameworkElement element) {
-            var random_res = _random_resolution_not_greater_than_max();
+        private ThicknessAnimation randomThicknessAnimation(FrameworkElement element) {
+            var random_res = randomResolutionNotGreaterThanMax();
             var ta = new ThicknessAnimation {
                 BeginTime = TimeSpan.Zero,
                 To = new Thickness(random_res.MaxWidth, random_res.MaxHeight, element.Margin.Right, element.Margin.Bottom),
                 Duration = new Duration(TimeSpan.FromMilliseconds(
-                    /* 1 second to 2 second*/ Utilities.Rand.Random.Next(_interval.Min, _interval.Max))),
-                EasingFunction = _ease
+                    /* 1 second to 2 second*/ Utilities.Rand.Random.Next(interval.Min, interval.Max))),
+                EasingFunction = ease
             };
-
+            Timeline.SetDesiredFrameRate(ta, maxFramerate);
             return ta;
         }
 
         public void Start() {
-            _keepGoing = true;
+            keepGoing = true;
             // add storyboard to each blob
-            foreach (var element in _elements) {
+            foreach (var element in elements) {
                 // generate random resolution first
-                _add_animation_to_element(element);
+                addAnimationToElement(element);
             }
         }
 
-        private void _add_animation_to_element(FrameworkElement element) {
-            var ta = _random_thickness(element);
+        private void addAnimationToElement(FrameworkElement element) {
+            var ta = randomThicknessAnimation(element);
             ta.Completed += (s, e) => {
-                if (_keepGoing) {
+                if (keepGoing) {
                     // replay
-                    var random_res = _random_resolution_not_greater_than_max();
-                    _add_animation_to_element(element);
+                    var random_res = randomResolutionNotGreaterThanMax();
+                    addAnimationToElement(element);
                 }
             };
             element.BeginAnimation(FrameworkElement.MarginProperty, ta);
         }
 
         public void Stop() {
-            _keepGoing = false;
+            keepGoing = false;
         }
     }
 

@@ -30,6 +30,7 @@ namespace Mr.Krabs {
         private Stopwatch uiRenderTime = Stopwatch.StartNew();
         public MainWindow() {
             InitializeComponent();
+
             this.WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
@@ -67,8 +68,7 @@ namespace Mr.Krabs {
             // start watching
             SStage = new Stage.Stage();
             // start the pipes
-            SStage.Pipe.Connected +=
-            Pipe_Connected;
+            SStage.Pipe.Connected += Pipe_Connected;
 
             SStage.CrabGame.StatusChanged += CrabGame_StatusChanged;
             _ = SStage.CrabGame.StartWatching();
@@ -92,7 +92,6 @@ namespace Mr.Krabs {
                     Dialogs.Children.Add(message);
                 }
             }
-
 
             e.Handled = true;
         }
@@ -218,7 +217,6 @@ namespace Mr.Krabs {
         private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
         // animate blurred blobs
         private void AnimateAquarium() {
-
             const int MaxMovement = 10;
             // sky
             var comets = Space.Children.OfType<FrameworkElement>().ToArray();

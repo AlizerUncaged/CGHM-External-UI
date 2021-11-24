@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Mr.Krabs {
     /// <summary>
@@ -20,6 +22,7 @@ namespace Mr.Krabs {
             this.DispatcherUnhandledException += App_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 #endif
+            RenderOptions.ProcessRenderMode = RenderMode.Default;
             base.OnStartup(e);
         }
 

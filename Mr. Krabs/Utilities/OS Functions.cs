@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 namespace Mr.Krabs.Utilities {
     public static class OSFunctions {
         public static void RestartAsAdmin() {
-
-
             //Create a new process
             Process target = new Process();
 

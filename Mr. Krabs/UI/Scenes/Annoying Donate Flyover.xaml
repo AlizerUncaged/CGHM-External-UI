@@ -126,7 +126,7 @@
                 <VisualBrush Visual="{Binding ElementName=Forgor}" />
             </Grid.OpacityMask>
             <Border x:Name="Forgor" CornerRadius="7" Background="{DynamicResource BackgroundNormal}" Width="200" Height="300">
-                <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="HackerMode by" FontSize="10" HorizontalAlignment="Center" Margin="0,188,0,86"/>
+                <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="Crab Game HackerMode by" FontSize="10" HorizontalAlignment="Center" Margin="0,188,0,86"/>
             </Border>
             <Grid>
                 <Grid x:Name="SkullEmoji" ClipToBounds="True">
@@ -194,6 +194,14 @@
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="Muffeen" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Tag="https://www.youtube.com/channel/UCDnlxnVCzm-rdK7b13eDkRQ" MouseDown="OpenTag" Orientation="Vertical" Margin="20,0,0,0">
+                                <Ellipse Width="40" Height="40" Margin="0" HorizontalAlignment="Center" >
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/UI/Images/Large/Adafcaefc.png"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Label FontFamily="{materialDesign:MaterialDesignFont}"  Content="Adafcaefc" FontSize="10" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

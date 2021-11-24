@@ -102,7 +102,7 @@ namespace Mr.Krabs.UI.Scenes {
                 MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
                 ServerInfo.Visibility = Visibility.Visible;
 
-            }), DispatcherPriority.ContextIdle, null);
+            }), DispatcherPriority.ContextIdle);
 
             e.Handled = true;
             runCounter++;

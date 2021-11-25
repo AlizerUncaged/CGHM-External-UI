@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Mr.Krabs.Utilities {
     public static class OSFunctions {
         public static void RestartAsAdmin() {
-            //Create a new process
+            // Create a new process
             Process target = new Process();
 
             target.StartInfo.FileName =
                 FileSystem.CurrentFilename;
 
-            //Required for UAC to work
+            // Required for UAC to work
             target.StartInfo.UseShellExecute = true;
             target.StartInfo.Verb = "runas";
 

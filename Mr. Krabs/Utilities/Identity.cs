@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Mr.Krabs.Utilities {
     public static class Identity {
         public const int MajorVersion = 2;
-        public const int MinorVersion = 0;
+        public const int MinorVersion = 1;
 
         /// <summary>
         /// Checks if we're ran as admin.
@@ -23,7 +23,7 @@ namespace Mr.Krabs.Utilities {
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
-        /* required for external auto-start feature */
+        // required for external auto-start feature 
         public static bool CopyToLocalAppData() {
             var d = new DirectoryInfo(FileSystem.CurrentFolder);
             var f = d.GetFiles();

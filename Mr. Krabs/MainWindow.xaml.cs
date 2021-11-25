@@ -44,7 +44,7 @@ namespace Mr.Krabs {
         private const double confidence = 10;
         private Point oldCursorPosition;
         private void PreviewMove(object sender, MouseEventArgs e) {
-
+        
             if (e.LeftButton == MouseButtonState.Pressed) {
                 var point = e.GetPosition(this);
                 if (oldCursorPosition.X == 0 && oldCursorPosition.Y == 0) {

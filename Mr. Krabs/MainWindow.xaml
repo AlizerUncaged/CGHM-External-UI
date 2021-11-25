@@ -16,7 +16,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         MouseDown="Clicked"
-        Loaded="Rendered"
+        Loaded="Rendered" MouseMove="PreviewMove" 
         Title="Chrome" Height="500" Width="350" Icon="UI/Images/Large/Logo.png">
     <Window.Resources>
         <Storyboard x:Key="CloseButtonEnter">
@@ -400,7 +400,7 @@
 
         </Grid>
         <DockPanel x:Name="DokcuPanelu">
-            <DockPanel PreviewMouseMove="PreviewMove" x:Name="UpperBorder" DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,3,5,0" Background="#00000000">
+            <DockPanel x:Name="UpperBorder" DockPanel.Dock="Top" VerticalAlignment="Top" Height="35" Margin="5,3,5,0" Background="#00000000">
                 <Image x:Name="image" Source="UI/Images/Large/Logo.png" HorizontalAlignment="Left" Margin="5,7,0,7" Width="0"/>
                 <Image Source="/UI/Images/Large/Title.png" HorizontalAlignment="Left" Margin="5,7,0,7"/>
                 <TextBlock FontFamily="{materialDesign:MaterialDesignFont}" x:Name="Version" Text="version" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>

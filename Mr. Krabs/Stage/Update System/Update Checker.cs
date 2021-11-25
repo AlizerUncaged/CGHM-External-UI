@@ -27,22 +27,23 @@ namespace Mr.Krabs.Stage.Update_System {
                 NewVersion = false
             };
 
-            string data_from_server = await Utilities.QuickTCP.QuickReadURL(updateEndpoint);
+            try {
+                string data_from_server = await Utilities.QuickTCP.QuickReadURL(updateEndpoint);
 
-            if (data_from_server == null) return result;
+                if (data_from_server == null) return result;
 
-            result.Success = true;
+                result.Success = true;
 
-            result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
-            string newVersionFloatString = $"{result.Data.MajorVersion}.{result.Data.MinorVersion}";
-            string oldVersionFloatString = $"{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion}";
-            float oldVersion, newVersion;
+                result.Data = JsonConvert.DeserializeObject<Update>(data_from_server);
+                string newVersionFloatString = $"{result.Data.MajorVersion}.{result.Data.MinorVersion}";
+                string oldVersionFloatString = $"{Utilities.Identity.MajorVersion}.{Utilities.Identity.MinorVersion}";
+                float oldVersion, newVersion;
 
-            if (!float.TryParse(oldVersionFloatString, out oldVersion)) return result;
-            if (!float.TryParse(newVersionFloatString, out newVersion)) return result;
+                if (!float.TryParse(oldVersionFloatString, out oldVersion)) return result;
+                if (!float.TryParse(newVersionFloatString, out newVersion)) return result;
 
-            result.NewVersion = newVersion > oldVersion;
-
+                result.NewVersion = newVersion > oldVersion;
+            } catch { }
 
             return result;
         }

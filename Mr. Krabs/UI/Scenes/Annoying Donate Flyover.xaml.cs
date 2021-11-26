@@ -26,7 +26,6 @@ namespace Mr.Krabs.UI.Scenes {
             InitializeComponent();
         }
 
-
         public void StopAnimations() {
             foreach (var j in SkyAnimation) {
                 j.Stop();
@@ -102,9 +101,10 @@ namespace Mr.Krabs.UI.Scenes {
                 if (sb != null) { sb.Begin(); }
 
                 // get crabtopia info
-                var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
-                MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
-                ServerInfo.Visibility = Visibility.Visible;
+                // var crabtopiaStatus = await Utilities.CrabTopia_Widget.CrabTopia.GetServerInfo();
+                // if (crabtopiaStatus == null) return;
+                // MembersOnline.Text = $"{crabtopiaStatus.presence_count} Online";
+                // ServerInfo.Visibility = Visibility.Visible;
 
             }), DispatcherPriority.ContextIdle);
 

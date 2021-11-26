@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Mr.Krabs.Utilities {
     public static class Identity {
         public const int MajorVersion = 2;
-        public const int MinorVersion = 1;
+        public const int MinorVersion = 2;
 
         /// <summary>
         /// Checks if we're ran as admin.

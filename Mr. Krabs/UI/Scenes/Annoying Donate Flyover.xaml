@@ -142,7 +142,7 @@
                     <materialDesign:PackIcon DockPanel.Dock="Right" MouseDown="CloseSettings" x:Name="CloseButton" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="25" Height="25" Margin="0" Cursor="Hand" Foreground="White" Background="#00000000" />
                 </DockPanel>
                 <Grid x:Name="DiscordInvites">
-                    <Border x:Name="border" Cursor="Hand" MouseDown="OpenTag" Tag="https://discord.gg/n6AW3q4ewQ" Background="{DynamicResource BackgroundLight}" CornerRadius="5,5,5,5" Width="175" Height="50" Margin="-40,55,65,195">
+                    <Border x:Name="border" Cursor="Hand" MouseDown="OpenTag" Tag="https://discord.gg/F5nEJxZ2" Background="{DynamicResource BackgroundLight}" CornerRadius="5,5,5,5" Width="175" Height="50" Margin="-40,55,65,195">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.5"/>
                         </Border.Effect>

@@ -43,6 +43,7 @@ namespace Mr.Krabs.Stage.Update_System {
                 if (!float.TryParse(newVersionFloatString, out newVersion)) return result;
 
                 result.NewVersion = newVersion > oldVersion;
+
             } catch { }
 
             return result;

@@ -50,7 +50,7 @@ namespace Mr.Krabs.UI.Scenes {
             StopAnimations();
         }
 
-        private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
+        private List<UI.MoveRandomly> SkyAnimation = new List<UI.MoveRandomly>();
 
         private void Rendered(object sender, RoutedEventArgs e) {
 
@@ -59,8 +59,8 @@ namespace Mr.Krabs.UI.Scenes {
             foreach (var comet in comets) {
 
 
-                UI.Move_Randomly skyMoveEllipses =
-                    new UI.Move_Randomly(
+                UI.MoveRandomly skyMoveEllipses =
+                    new UI.MoveRandomly(
                         new UI.Resolution {
                             MaxHeight = SkullEmoji.ActualHeight,
                             MaxWidth = SkullEmoji.ActualWidth,

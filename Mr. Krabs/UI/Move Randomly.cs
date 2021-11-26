@@ -20,18 +20,22 @@ namespace Mr.Krabs.UI {
     public struct Interval {
         public int Min, Max;
     }
-    public class Move_Randomly {
-        public static List<Move_Randomly> ActiveAnimations = new List<Move_Randomly>();
+
+    public class MoveRandomly {
+        public static List<MoveRandomly> Instances = new List<MoveRandomly>();
+
         public static void PauseAnimations() {
-            foreach (var moveRandAnimation in ActiveAnimations) {
+            foreach (var moveRandAnimation in Instances) {
                 moveRandAnimation.Pause();
             }
         }
+
         public static void StartAnimations() {
-            foreach (var moveRandAnimation in ActiveAnimations) {
+            foreach (var moveRandAnimation in Instances) {
                 moveRandAnimation.Play();
             }
         }
+
         private const int maxFramerate = 60;
         private Interval interval;
         private Resolution max;
@@ -40,9 +44,9 @@ namespace Mr.Krabs.UI {
         private IEasingFunction ease;
         private bool paused = false, disposing = false;
 
-        public Move_Randomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
+        public MoveRandomly(Resolution resolution, FrameworkElement[] elements, Interval interval, IEasingFunction ease) {
             this.elements = elements; max = resolution; this.interval = interval; this.ease = ease;
-            ActiveAnimations.Add(this);
+            Instances.Add(this);
         }
         private Resolution randomResolutionNotGreaterThanMax() {
             return new Resolution {

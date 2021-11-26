@@ -44,7 +44,9 @@ namespace Mr.Krabs.Stage.Update_System {
 
                 result.NewVersion = newVersion > oldVersion;
 
-            } catch { }
+            } catch (Exception ex) {
+                Debug.WriteLine($"Update error {ex}");
+            }
 
             return result;
         }

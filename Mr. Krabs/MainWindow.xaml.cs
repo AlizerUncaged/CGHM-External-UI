@@ -56,12 +56,12 @@ namespace Mr.Krabs {
                 yChange = Math.Abs(point.Y - oldCursorPosition.Y);
 
                 if (xChange > confidence || yChange > confidence) {
-                    UI.Move_Randomly.PauseAnimations();
+                    UI.MoveRandomly.PauseAnimations();
                     Debug.WriteLine("Animations paused.");
 
                     this.DragMove();
 
-                    UI.Move_Randomly.StartAnimations();
+                    UI.MoveRandomly.StartAnimations();
                     Debug.WriteLine("Animations restarted.");
                 }
 
@@ -104,9 +104,9 @@ namespace Mr.Krabs {
             SStage.CrabGame.StatusChanged += CrabGame_StatusChanged;
             _ = SStage.CrabGame.StartWatching();
 
-            var update_status = await SStage.UpdateChecker.GetLink();
-            if (update_status.NewVersion) {
-                ShowUpdatePage(update_status.Data.Description, update_status.Data.Link);
+            var updateStatus = await SStage.UpdateChecker.GetLink();
+            if (updateStatus.NewVersion) {
+                ShowUpdatePage(updateStatus.Data.Description, updateStatus.Data.Link);
             }
 
             var required_dll = await Utilities.Identity.CheckRequiredDlls();
@@ -214,7 +214,7 @@ namespace Mr.Krabs {
 
                     if (BlobsAnimation == null)
                         BlobsAnimation =
-                            new UI.Move_Randomly(
+                            new UI.MoveRandomly(
                                 new UI.Resolution { MaxHeight = this.Height, MaxWidth = this.Width, MinWidth = 0, MinHeight = 0 },
                                 blobs.ToArray(),
                                 new UI.Interval { Min = 2000, Max = 4000 },
@@ -242,9 +242,9 @@ namespace Mr.Krabs {
             }));
         }
 
-        private UI.Move_Randomly BlobsAnimation;
+        private UI.MoveRandomly BlobsAnimation;
 
-        private List<UI.Move_Randomly> SkyAnimation = new List<UI.Move_Randomly>();
+        private List<UI.MoveRandomly> SkyAnimation = new List<UI.MoveRandomly>();
         // animate blurred blobs
         private void AnimateAquarium() {
             const int MaxMovement = 10;
@@ -258,8 +258,8 @@ namespace Mr.Krabs {
                 var maxBottom = comet.Margin.Top + MaxMovement;
                 var maxRight = comet.Margin.Left + MaxMovement;
 
-                UI.Move_Randomly skyMoveEllipses =
-                    new UI.Move_Randomly(
+                UI.MoveRandomly skyMoveEllipses =
+                    new UI.MoveRandomly(
                         new UI.Resolution { MaxHeight = maxBottom, MaxWidth = maxRight, MinWidth = maxLeft, MinHeight = maxTop },
                         new FrameworkElement[] { comet },
                         new UI.Interval { Min = 1000, Max = 2500 },

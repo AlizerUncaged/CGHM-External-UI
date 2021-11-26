@@ -275,7 +275,7 @@
     </WindowChrome.WindowChrome>
     <Grid x:Name="StageMaster" Background="{DynamicResource BackgroundNormal}">
         <Grid.Clip>
-            <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,350,500"/>
+            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,350,500"/>
         </Grid.Clip>
         
         <Grid x:Name="Aquarium">

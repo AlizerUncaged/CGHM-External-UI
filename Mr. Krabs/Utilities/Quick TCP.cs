@@ -10,16 +10,14 @@ namespace Mr.Krabs.Utilities {
     public static class QuickTCP {
         // returns null if no internet
         public static async Task<string> QuickReadURL(string url) {
-            return await Task.Run(() => {
-                string s = null;
-                try {
-                    using (WebClient client = new WebClient()) {
-                        s = client.DownloadString(url);
-                        Debug.WriteLine($"TCP in: {s}");
-                    }
-                } catch (Exception ex){ Debug.WriteLine($"Reading TCP Error: {ex}"); }
-                return s;
-            });
+            string s = null;
+            try {
+                using (WebClient client = new WebClient()) {
+                    s = await client.DownloadStringTaskAsync(url);
+                    Debug.WriteLine($"TCP in: {s}");
+                }
+            } catch (Exception ex) { Debug.WriteLine($"Reading TCP Error: {ex}"); }
+            return s;
         }
 
     }

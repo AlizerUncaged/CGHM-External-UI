@@ -9,7 +9,6 @@ using System.Windows.Interop;
 
 namespace Mr.Krabs.Utilities.UI_Extensions {
     public static class Transparent {
-
         public static void MakeTransparent(this Window window) {
             var transparencyConverter = new Transparency(window);
             transparencyConverter.MakeTransparent();

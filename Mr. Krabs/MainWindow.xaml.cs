@@ -85,7 +85,7 @@ namespace Mr.Krabs {
 
         #region Animations 'n Shit
         private async void Rendered(object sender, RoutedEventArgs e) {
-
+            this.MakeTransparent();
             Debug.WriteLine($"Took {uiRenderTime.ElapsedMilliseconds}ms to render {this.GetType().Name}.");
             uiRenderTime.Stop();
 

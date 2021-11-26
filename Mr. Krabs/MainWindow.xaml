@@ -7,6 +7,7 @@
         xmlns:scenes="clr-namespace:Mr.Krabs.UI.Scenes"
         mc:Ignorable="d"
         
+        Background="Transparent"
         TextOptions.TextFormattingMode="Display" 
         TextOptions.TextRenderingMode="Grayscale"
         RenderOptions.BitmapScalingMode="HighQuality"
@@ -270,9 +271,13 @@
         </EventTrigger>
     </Window.Triggers>
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="1" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
+        <WindowChrome GlassFrameThickness="0" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
     </WindowChrome.WindowChrome>
     <Grid x:Name="StageMaster" Background="{DynamicResource BackgroundNormal}">
+        <Grid.Clip>
+            <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,350,500"/>
+        </Grid.Clip>
+        
         <Grid x:Name="Aquarium">
             <Grid.Effect>
                 <BlurEffect Radius="200"/>

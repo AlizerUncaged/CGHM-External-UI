@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Mr.Krabs.Utilities.UI_Extensions;
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
     /// Interaction logic for Settings.xaml
@@ -75,7 +76,7 @@ namespace Mr.Krabs.UI.Scenes {
                 skyMoveEllipses.Start();
             }
 
-            Utilities.UI.RunAnimation(this, "Represent");
+            this.RunAnimation("Represent");
             if (_parent != null) {
                 AlwaysOnTopCB.IsChecked = _parent.Topmost;
             }

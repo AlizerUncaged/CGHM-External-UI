@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Mr.Krabs.Utilities.UI_Extensions;
+
 namespace Mr.Krabs {
     /// <summary>
     /// UI
@@ -32,8 +34,7 @@ namespace Mr.Krabs {
         private Stopwatch uiRenderTime = Stopwatch.StartNew();
         public MainWindow() {
             InitializeComponent();
-
-            this.WindowStyle = WindowStyle.SingleBorderWindow;
+            WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
         // mousedown
@@ -44,7 +45,7 @@ namespace Mr.Krabs {
         private const double confidence = 10;
         private Point oldCursorPosition;
         private void PreviewMove(object sender, MouseEventArgs e) {
-        
+
             if (e.LeftButton == MouseButtonState.Pressed) {
                 var point = e.GetPosition(this);
                 if (oldCursorPosition.X == 0 && oldCursorPosition.Y == 0) {
@@ -154,9 +155,9 @@ namespace Mr.Krabs {
 
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 // remove skies
-                Utilities.UI.RunAnimation(this, "RemoveSky");
+                this.RunAnimation("RemoveSky");
                 BlobsAnimation.Stop();
-                Utilities.UI.RunAnimation(this, "AquariumHiding");
+                this.RunAnimation("AquariumHiding");
 
                 // hacks ! Window !
                 var hacks = new UI.Scenes.Hacks(SStage.Pipe, SStage.FieldsAndHacks);
@@ -196,7 +197,7 @@ namespace Mr.Krabs {
                     SetActiveControl(waiting_page);
                     SStage.Pipe.Stop();
 
-                    Utilities.UI.RunAnimation(this, "RemoveSkyReverse");
+                    this.RunAnimation("RemoveSkyReverse");
                     foreach (var j in SkyAnimation) {
                         j.Start();
                     }
@@ -221,8 +222,8 @@ namespace Mr.Krabs {
 
                     BlobsAnimation.Start();
 
-                    Utilities.UI.RunAnimation(this, "AquariumHidingReverse");
-                    Utilities.UI.RunAnimation(this, "UnhideCarpet");
+                    this.RunAnimation("AquariumHidingReverse");
+                    this.RunAnimation("UnhideCarpet");
 
 
                 } else if (e == Stage.Process_Watcher.CrabGameStatus.IsAdmin) {

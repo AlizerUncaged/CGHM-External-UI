@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using Mr.Krabs.Utilities.UI_Extensions;
 namespace Mr.Krabs.UI.Scenes {
     /// <summary>
     /// Interaction logic for Settings.xaml
@@ -95,7 +96,7 @@ namespace Mr.Krabs.UI.Scenes {
 
                 Storyboard sb = this.FindResource("Represent") as Storyboard;
                 sb.Completed += (_pe, _nis) => {
-                    Utilities.UI.RunAnimation(this, "CrabTopiaShow");
+                    this.RunAnimation("CrabTopiaShow");
                 };
                 Timeline.SetDesiredFrameRate(sb, 60);
                 if (sb != null) { sb.Begin(); }

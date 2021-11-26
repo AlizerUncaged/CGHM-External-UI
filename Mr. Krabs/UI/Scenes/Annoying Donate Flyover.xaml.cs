@@ -91,7 +91,7 @@ namespace Mr.Krabs.UI.Scenes {
         // gets called when the last image is rendered
         private void LastImageRendered(object sender, RoutedEventArgs e) {
             // dispatcher to really ensure everything has been rendered
-            Dispatcher.BeginInvoke(new Action(async () => {
+            Dispatcher.BeginInvoke(new Action(() => {
 
                 Storyboard sb = this.FindResource("Represent") as Storyboard;
                 sb.Completed += (_pe, _nis) => {
